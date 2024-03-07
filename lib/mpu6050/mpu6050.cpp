@@ -2,12 +2,14 @@
   ******************************************************************************
   * @file    mpu6050.cpp
   * @author  Ali Batuhan KINDAN
-  * @date    20.12.2020
+  * @author  Adam Englebright
+  * @date    07.03.2024
   * @brief   This file constains MPU6050 driver implementation.
   *
   * MIT License
   *
   * Copyright (c) 2022 Ali Batuhan KINDAN
+  * Copyright (c) 2024 Adam Englebright
   * 
   * Permission is hereby granted, free of charge, to any person obtaining a copy
   * of this software and associated documentation files (the "Software"), to deal
@@ -28,6 +30,7 @@
   * SOFTWARE.
   */
 #include "mpu6050.h"
+#include <gpiod.hpp>
 
 namespace MPU6050_Driver {
 
@@ -37,34 +40,98 @@ namespace MPU6050_Driver {
     * @param  comInterface I2C interface pointer
     * @retval none
     */
-  MPU6050::MPU6050(I2C_Interface *comInterface)
+  MPU6050::MPU6050(I2C_Interface* comInterface, MPU6050Interface* mpuInterface)
   {
-    /* assign internal interface pointer if given is not null! */
+    /* assign internal interface pointers if given is not null! */
     if (comInterface)
-    {
       this->i2c = comInterface;
-    }
+    if (mpuInterface)
+      this->mpu6050cb = mpuInterface;
   }
 
   /**
     * @brief  This method wakes up the sensor and configures the accelerometer and
-    * gyroscope full scale renges with given parameters. It returns the result of
-    * the process.
+    * gyroscope full scale renges with given parameters. It also configures the
+    * DLPF, sample rate divider, interrput configuration, and also calibrates
+    * the accelerometers and gyros.
+    * It returns the result of the process.
     * @param  gyroScale Gyroscope scale value to be set
     * @param  accelScale Accelerometer scale value to be set
-    * @retval i2c_status_t Success rate
+    * @param  DLPFconf Digital Low Pass Filter configuration
+    * @param  SRdiv Sample rate divider
+    * @param  INTconf Interrupt configuration
+    * @param  INTenable Interrput types enabled
+    * @retval i2c_status_t Success status
     */
   i2c_status_t MPU6050::InitializeSensor(
       Gyro_FS_t gyroScale,
-      Accel_FS_t accelScale)
+      Accel_FS_t accelScale,
+      DLPF_t DLPFconf,
+      uint8_t SRdiv,
+      uint8_t INTconf,
+      uint8_t INTenable)
   {
+    accelFSRange = accelScale;
+    gyroFSRange = gyroScale;
+    
     i2c_status_t result = WakeUpSensor();
+
     if(result == I2C_STATUS_SUCCESS)
       result = SetGyroFullScale(gyroScale);
+
     if(result == I2C_STATUS_SUCCESS)
       result = SetAccelFullScale(accelScale);
 
+    if(result == I2C_STATUS_SUCCESS)
+      result = SetSensor_DLPF_Config(DLPFconf);
+
+    if(result == I2C_STATUS_SUCCESS)
+      result = SetSensor_InterruptPinConfig(INTconf);
+
+    if(result == I2C_STATUS_SUCCESS)
+      result = SetSensor_InterruptEnable(INTenable);
+
+    if(result == I2C_STATUS_SUCCESS)
+      result = Calibrate_Accel_Registers(0,0,0);
+
+    if(result == I2C_STATUS_SUCCESS)
+      result = Calibrate_Gyro_Registers(0,0,0);
+
     return result;
+  }
+
+  /** Begin dataAquisition() method in a separate thread in a running state. */
+  void MPU6050::begin(void)
+  {
+    dataAquisitionRunning = true;
+    dataAquisitionThread = std::thread(&MPU6050::dataAquisition, this);
+  }
+
+  /** Stop dataAquisition() method and close the thread running it. */
+  void MPU6050::end(void)
+  {
+    dataAquisitionRunning = false;
+    dataAquisitionThread.join();
+  }
+
+  /**
+   * @brief  This method will read all raw sensor data (accel, gyro, temp) into the rawData array.
+   * @param  None
+   * @retval i2c_status_t
+   */
+  i2c_status_t MPU6050::ReadAllRawData(void)
+  {
+    // This is a bit cheeky. We are writing to the array of raw data values, of int16_t type,
+    // as if it were an array of uint8_t values. Each 16 bit raw sensor measurement is
+    // stored in 2 registers with contiguous addresses, with the MSB in the lower addess.
+    // All the raw data mesurements (accel, temp, gyro) are stored in a contiguous array
+    // of 8 bit registers, starting at Sensor_Regs::ACCEL_X_OUT_H. There are 14 bytes
+    // of data total, 6 for accel data, 2 for temp data, and 6 for gyro data.
+    // This block read is reading all of this data into the rawData array on one
+    // operation. Since the MSB of each data point is in the lower address,
+    // rawData can be indexed as an array of int16_t data to directly access
+    // each measurement as 16 bit data without bit bashing.
+    return i2c->ReadRegisterBlock(MPU6050_ADDRESS, Sensor_Regs::ACCEL_X_OUT_H, 14, (uint8_t*) rawData);
   }
 
   /**
@@ -1035,5 +1102,63 @@ namespace MPU6050_Driver {
     {
       return i2c->WriteRegister(MPU6050_ADDRESS, Sensor_Regs::INT_PIN_CFG, intPinConfig);
     }
+
+  /**
+   * Enter a while loop dependent on the value of dataAquisitionRunning. In this loop,
+   * have blocking IO that will only continue when an interrupt is raised by the MPU6050
+   * on one of the GPIO pins. After continuing, read new data from the MPU6050 and
+   * package this data into an instance of the MPU6050Sample struct, then send this
+   * struct to the registered mpu6050cb callback for processing.
+   */
+  void MPU6050::dataAquisition(void)
+  {
+    // Set up GPIO pin for detecting edges from the MPU6050 interrupt pin.
+    // Set values as appropriate.
+    const std::filesystem::path chip_path("/dev/gpiochip0");
+    const gpiod::line::offset line_offset = 5;
+
+    // Set up edge event that will block until a rising edge is detected
+    // (or maybe falling edge, will need to check datasheet).
+    auto request =
+      gpiod::chip(chip_path)
+      .prepare_request()
+      .set_consumer("watch-line-value")
+      .add_line_settings(
+			 line_offset,
+			 gpiod::line_settings()
+			 .set_direction(gpiod::line::direction::INPUT)
+			 .set_edge_detection(gpiod::line::edge::RISING)
+			 )
+      .do_request();
+
+    // Create buffer for storing edge events.
+    gpiod::edge_event_buffer buffer(1);
+
+    // Create MPU6050Sample struct to store data for transfer to the registered callback.
+    MPU6050Sample sample;
+
+    // Start data aquisition loop
+    while (dataAquisitionRunning) {
+      // Read raw data from MPU6050
+      ReadAllRawData();
+
+      // Store data in smaple struct, in float format with proper units.
+      sample.ax = rawData[0] * GetAccel_MG_Constant(accelFSRange);
+      sample.ay = rawData[1] * GetAccel_MG_Constant(accelFSRange);
+      sample.az = rawData[2] * GetAccel_MG_Constant(accelFSRange);
+      
+      sample.temp = rawData[3] / 340.0f + 36.53f;  // Conversion taken from datasheet.
+
+      sample.gx = rawData[4] * GetGyro_DPS_Constant(gyroFSRange);
+      sample.gy = rawData[5] * GetGyro_DPS_Constant(gyroFSRange);
+      sample.gz = rawData[6] * GetGyro_DPS_Constant(gyroFSRange);
+
+      // Send data to the registered callback.
+      mpu6050cb->hasSample(sample);
+
+      // Block until edge is detected
+      request.read_edge_events(buffer);
+    }
+  }
 
 } // namespace MPU6050_Driver
