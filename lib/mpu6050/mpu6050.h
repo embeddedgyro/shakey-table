@@ -2,12 +2,14 @@
   ******************************************************************************
   * @file    mpu6050.h
   * @author  Ali Batuhan KINDAN
-  * @date    20.12.2020
+  * @author  Adam Englebright
+  * @date    07.03.2024
   * @brief   This file constains MPU6050 driver declarations.
   *
   * MIT License
   *
   * Copyright (c) 2022 Ali Batuhan KINDAN
+  * Copyright (c) 2024 Adam Englebright
   * 
   * Permission is hereby granted, free of charge, to any person obtaining a copy
   * of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +33,7 @@
 #define MPU6050_H
 
 #include "i2c_interface.h"
+#include <thread>
 
 namespace MPU6050_Driver {
 
@@ -157,7 +160,7 @@ namespace MPU6050_Driver {
     SensorConst BIT_INT_LEVEL = BIT_7;
   }
 
-  /* Gyroscope full scale ranges in degrees per second */
+  /** Gyroscope full scale ranges in degrees per second */
   enum class Gyro_FS_t
   {
     FS_250_DPS = 0,
@@ -166,7 +169,7 @@ namespace MPU6050_Driver {
     FS_2000_DPS = 3
   };
 
-  /* Accelerometer full scale ranges in G's */
+  /** Accelerometer full scale ranges in G's */
   enum class Accel_FS_t
   {
     FS_2G = 0,
@@ -175,7 +178,7 @@ namespace MPU6050_Driver {
     FS_16G = 3
   };
 
-  /* Digital low pass filter config bandwidth values in Hz*/
+  /** Digital low pass filter config bandwidth values in Hz*/
   enum class DLPF_t 
   {
     BW_260Hz = 0,
@@ -188,6 +191,58 @@ namespace MPU6050_Driver {
     RESERVED = 7
   };
 
+  /**
+   * @brief  Sample from the MPU6050
+   */
+  struct MPU6050Sample {
+    /**
+     * @brief  X Acceleration in m/s^2
+     */
+    float ax = 0;
+
+    /**
+     * @brief  Y Acceleration in m/s^2
+     */
+    float ay = 0;
+
+    /**
+     * @brief  Z Acceleration in m/s^2
+     */
+    float az = 0;
+
+    /**
+     * @brief  Temperature in celcius
+     */
+    float temp = 0;
+
+    /**
+     * @brief  X Rotation in deg/s
+     */
+    float gx = 0;
+
+    /**
+     * @brief  Y Rotation in deg/s
+     */
+    float gy = 0;
+
+    /**
+     * @brief  Z Rotation in deg/s
+     */
+    float gz = 0;
+  };
+
+  /**
+   * @brief Callback interface where the callback needs to be
+   * implemented by the host application.
+   */
+  class MPU6050Interface {
+  public:
+    /**
+     * @brief  Called after a sample has arrived.
+     */
+    virtual void hasSample(MPU6050Sample& sample) = 0;
+  };
+
   class MPU6050 
   {
   public:
@@ -195,22 +250,69 @@ namespace MPU6050_Driver {
     /**
     * @brief  Class constructor. In order to make the class communicate with sensor
     * user should pass a valid I2C_Interface class instance!
+    * Also pass a valid MPU6050Interface class instance to work on aquired data.
     * @param  comInterface I2C interface pointer
+    * @param  mpuInterface MPU6050 listener interface pointer.
     * @retval none
     */
-    MPU6050(I2C_Interface* comInterface);
+    MPU6050(I2C_Interface* comInterface, MPU6050Interface* mpuInterface);
 
     /**
     * @brief  This method wakes up the sensor and configures the accelerometer and
-    * gyroscope full scale renges with given parameters. It returns the result of
-    * the process.
+    * gyroscope full scale renges with given parameters. It also configures the
+    * DLPF, sample rate divider, interrput configuration, and also calibrates
+    * the accelerometers and gyros.
+    * It returns the result of the process.
     * @param  gyroScale Gyroscope scale value to be set
     * @param  accelScale Accelerometer scale value to be set
-    * @retval i2c_status_t Success rate
+    * @param  DLPFconf Digital Low Pass Filter configuration
+    * @param  SRdiv Sample rate divider
+    * @param  INTconf Interrupt configuration
+    * @param  INTenable Interrput types enabled
+    * @retval i2c_status_t Success status
     */
     i2c_status_t InitializeSensor(
         Gyro_FS_t gyroScale = Gyro_FS_t::FS_250_DPS,
-        Accel_FS_t accelScale = Accel_FS_t::FS_2G);
+        Accel_FS_t accelScale = Accel_FS_t::FS_2G,
+	DLPF_t DLPFconf = DLPF_t::BW_260Hz,
+	uint8_t SRdiv = 7,  // Sample Rate = Gyroscope Output Rate / (1 + SRdiv)
+	uint8_t INTconf = Regbits_INT_PIN_CFG::BIT_INT_RD_CLEAR,
+	uint8_t INTenable = Regbits_INT_ENABLE::BIT_DATA_RDY_EN);
+
+    /*
+     * @brief  This function sets the callback to be called when data becomes available.
+     * @pram   cb Callback interface.
+     * @retval None
+     *
+    void setCallback(MPU6050Interface* cb) {
+      mpu6050cb = cb;
+    }*/
+
+    /**
+     * @brief  This function will begin data aquisition in a separate thread.
+     * @param  None
+     * @retval None
+     */
+    void begin(void);
+
+    /**
+     * @brief  This method stops data aquisition.
+     * @param  None
+     * @retval None
+     */
+    void end(void);
+
+    /**
+     * @brief  Class destructor. Simple calls end() to stop data aquisition
+     */
+    ~MPU6050() { end(); }
+
+    /**
+     * @brief  This method will read all raw sensor data (accel, gyro, temp) into the rawData array.
+     * @param  None
+     * @retval i2c_status_t
+     */
+    i2c_status_t ReadAllRawData(void);
 
     /**
     * @brief  This method wakes the sensor up by cleraing the REG_PWR_MGMT_1
@@ -584,20 +686,56 @@ namespace MPU6050_Driver {
 
 
   private:
+    /** Pointer to registered I2C interface. */
     I2C_Interface* i2c = nullptr;
-    /* DPS constant to convert raw register value to the degree per seconds (angular velocity).
+
+    /** Pointer to registered MPU6050 interface. */
+    MPU6050Interface* mpu6050cb = nullptr;
+
+    /** Data aquisition thread. */
+    std::thread dataAquisitionThread;
+
+    /** Data aquisition flag. */
+    bool dataAquisitionRunning;
+    
+    /** DPS constant to convert raw register value to the degree per seconds (angular velocity).
     * The index of the values are adjusted to have corresponding values with the gyro_full_scale_range_t
     * enum. So, we can just get the DPS value by "dpsConstantArr[GYRO_SCALE_250]"" for GYRO_SCALE_250. */
     const float dpsConstantArr[4] = {250.0f / 32767.0f, 500.0f / 32767.0f, 1000.0f / 32767.0f, 2000.0f / 32767.0f};
 
-    /* MG constant to convert raw register value to gravity (9.81 m/s2). The index of the values are
+    /** MG constant to convert raw register value to gravity (9.81 m/s2). The index of the values are
     * adjusted to have corresponding values with the accel_full_scale_range_t enum. So, we can just get
     * the MG value by "mgConstantArr[ACCEL_SCALE_2G]"" for ACCEL_SCALE_2G. */
     const float mgCostantArr[4] = {2.0f / 32767.0f, 4.0f / 32767.0f, 8.0f / 32767.0f, 16.0f / 32767.0f};
 
-    /* Gyro offset register constant to compensate 1 DPS (degree per second) offset.
-  * Check sensor datasheet for more info about the offset procedure! */
+    /** Gyro offset register constant to compensate 1 DPS (degree per second) offset.
+     * Check sensor datasheet for more info about the offset procedure! */
     const float gyro_offset_1dps = 32.8f;
+
+    /** Keep track of what full scale range we are using for acceleration readings. */
+    Accel_FS_t accelFSRange;
+
+    /** Keep track of what full scale range we are using for gyro readings. */
+    Gyro_FS_t gyroFSRange;
+
+    /** Raw 16 bit accelerometer and gyro values, stored in an array.
+     * Index 0: accel X
+     * Index 1: accel Y
+     * Index 2: accel Z
+     * Index 3: temp
+     * Index 4: gyro X
+     * Index 5: gyro Y
+     * Index 6: gyro Z
+     */
+    int16_t rawData[7];
+
+    /**
+     * @brief  Data aquisition method that, in a loop, will block until an interrupt is generated by the MPU6050,
+     * then will read data from the MPU6050 and send this data to the registered mpu6050cb callback interface.
+     * @param  None
+     * @retval None
+     */
+    void dataAquisition(void);
   };
 
 } // namespace MPU6050_Driver

@@ -114,6 +114,64 @@ i2c_status_t SMBUS_I2C_IF::WriteRegister(uint8_t slaveAddress, uint8_t regAddres
 }
 
 /**
+ * @brief  This method will be used to read a block of bytes up to 32 bytes long,
+ * starting from the given register of the slave device with the given address.
+ * @param  slaveAddress Slave chip I2C bus address
+ * @param  regAddress Lowest address of the registers to be read from
+ * @param  length Number of bytes to be read
+ * @param  data Pointer to the array of bytes to be writen to
+ * @retval i2c_status_t
+ */
+i2c_status_t SMBUS_I2C_IF::ReadRegisterBlock(uint8_t slaveAddress, uint8_t regAddress, uint8_t length, uint8_t *data)
+{
+  int32_t errno; // Returned value from i2c_smbus_read_i2c_block_data() is a signed 32 bit integer.
+                 // Negative if error, else the number of bytes read.
+  
+  // Check length is 32 max
+  if (length > I2C_SMBUS_BLOCK_MAX) {
+    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): SMBus I2C block read cannot be greater than 32 bytes long." << std::endl;
+    return I2C_STATUS_ERROR;
+  }
+
+  errno = i2c_smbus_read_i2c_block_data(fd, regAddress, length, data);
+  if (errno < 0) { // Catch errors
+    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address " << regAddress << ". Error code " << errno << std::endl;
+    return I2C_STATUS_ERROR;
+  }
+
+  return I2C_STATUS_SUCCESS;
+}
+
+/**
+ * @brief  This method will be used to write a block of bytes up to 32 bytes long,
+ * starting from the given register of the slave device with the given address.
+ * @param  slaveAddress Slave chip I2C bus address
+ * @param  regAddress Lowest address of the registers to be writen to
+ * @param  length Number of bytes to be writen
+ * @param  data Pointer to the array of bytes to be read from
+ * @retval i2c_status_t
+ */
+i2c_status_t SMBUS_I2C_IF::WriteRegisterBlock(uint8_t slaveAddress, uint8_t regAddress, uint8_t length, uint8_t *data)
+{
+  int32_t errno; // Returned value from i2c_smbus_read_i2c_block_data() is a signed 32 bit integer.
+                 // Negative if error, else the number of bytes writen.
+  
+  // Check length is 32 max
+  if (length > I2C_SMBUS_BLOCK_MAX) {
+    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): SMBus I2C block write cannot be greater than 32 bytes long." << std::endl;
+    return I2C_STATUS_ERROR;
+  }
+
+  errno = i2c_smbus_write_i2c_block_data(fd, regAddress, length, data);
+  if (errno < 0) { // Catch errors
+    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not write block bytes to register address " << regAddress << ". Error code " << errno << std::endl;
+    return I2C_STATUS_ERROR;
+  }
+
+  return I2C_STATUS_SUCCESS;
+}
+
+/**
   * @brief  Class destructor.
   * @param  none
   * @retval none
