@@ -38,7 +38,7 @@
 #ifndef SMBUS_I2C_IF_H
 #define SMBUS_I2C_IF_H
 
-/* I2C interface for BCM2835 library. */
+/* I2C interface for kernel SMBus support. */
 class SMBUS_I2C_IF : public I2C_Interface
 {
 public:
@@ -68,6 +68,28 @@ public:
   * @retval i2c_status_t
   */
   i2c_status_t WriteRegister(uint8_t slaveAddress, uint8_t regAddress, uint8_t data) override;
+
+  /**
+   * @brief  This method will be used to read a block of bytes up to 32 bytes long,
+   * starting from the given register of the slave device with the given address.
+   * @param  slaveAddress Slave chip I2C bus address
+   * @param  regAddress Lowest address of the registers to be read from
+   * @param  length Number of bytes to be read
+   * @param  data Pointer to the array of bytes to be writen to
+   * @retval i2c_status_t
+   */
+  i2c_status_t ReadRegisterBlock(uint8_t slaveAddress, uint8_t regAddress, uint8_t length, uint8_t *data) override;
+
+  /**
+   * @brief  This method will be used to write a block of bytes up to 32 bytes long,
+   * starting from the given register of the slave device with the given address.
+   * @param  slaveAddress Slave chip I2C bus address
+   * @param  regAddress Lowest address of the registers to be writen to
+   * @param  length Number of bytes to be writen
+   * @param  data Pointer to the array of bytes to be read from
+   * @retval i2c_status_t
+   */
+  i2c_status_t WriteRegisterBlock(uint8_t slaveAddress, uint8_t regAddress, uint8_t length, uint8_t *data) override;
 
 /**
   * @brief  Class destructor.
