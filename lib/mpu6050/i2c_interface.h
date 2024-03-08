@@ -2,12 +2,14 @@
   ******************************************************************************
   * @file    i2c_interface.h
   * @author  Ali Batuhan KINDAN
+  * @author  Adam Englebright
   * @date    28.12.2020
   * @brief   This file constains I2C Interface class definition.
   *
   * MIT License
   *
   * Copyright (c) 2022 Ali Batuhan KINDAN
+  * Cpoyright (c) 2024 Adam Englebright
   * 
   * Permission is hereby granted, free of charge, to any person obtaining a copy
   * of this software and associated documentation files (the "Software"), to deal
