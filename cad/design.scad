@@ -11,6 +11,7 @@ wheel_rim_width = 15;
 n_spokes = 6;
 n_bolts = 26;
 bolt_rad = 6/2;
+mpu_bol_rad = 3.5/2;
 mpu_width = 15;
 wall_width = 5;
 mot_scale = 1.05;
@@ -70,9 +71,9 @@ for(pos=pi_pos){
 }
 translate([0,-depth/2+wall_width,height/3])rotate([-90,0,0])
 union(){
-    translate([mpu_width/2,0,0])pi_standoff(sheight=5);
+    translate([mpu_width/2,0,0])pi_standoff(sheight=5, d= mpu_bol_rad);
     translate([-mpu_width/2,0,0])
-    pi_standoff(sheight=5);
+    pi_standoff(sheight=5, d=mpu_bol_rad);
 }
 
 }
@@ -98,6 +99,7 @@ cylinder(h=wheel_thick+2,r=shaft_rad,center=true);
 translate([0,3*shaft_rad/2-shaft_cut,0])cube([2*shaft_rad,shaft_rad,wheel_thick+4],center=true);
 };
 }
+translate([0,0,0])
 union(){
 translate([0,0,height/2])cube([width-1.1*wall_width,depth-1.1*wall_width,wall_width*2], center=true);
 translate([0,0,(height+wall_width)/2])cube([width,depth,wall_width], center=true);
