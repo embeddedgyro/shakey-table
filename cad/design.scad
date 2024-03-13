@@ -38,6 +38,7 @@ module pi_standoff(d=2.5,sheight=10){
     translate([0,0,2])cylinder(h=1+sheight,r=d/2);
     }
     }
+
 union(){
 difference(){
 difference(){
@@ -97,3 +98,7 @@ cylinder(h=wheel_thick+2,r=shaft_rad,center=true);
 translate([0,3*shaft_rad/2-shaft_cut,0])cube([2*shaft_rad,shaft_rad,wheel_thick+4],center=true);
 };
 }
+union(){
+translate([0,0,height/2])cube([width-1.1*wall_width,depth-1.1*wall_width,wall_width*2], center=true);
+translate([0,0,(height+wall_width)/2])cube([width,depth,wall_width], center=true);
+};
