@@ -1,5 +1,6 @@
 /**
  * Copyright 2019 Bradley J. Snyder <snyder.bradleyj@gmail.com>
+ * Copyright 2024 Adam J. Englebright <adamenglebright@rocketmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +24,6 @@
 #ifndef _PID_H_
 #define _PID_H_
 
-class PIDImpl;
 class PID
 {
     public:
@@ -37,10 +37,16 @@ class PID
 
         // Returns the manipulated variable given a setpoint and current process value
         double calculate( double setpoint, double pv );
-        ~PID();
 
     private:
-        PIDImpl *pimpl;
+        double _dt;
+        double _max;
+        double _min;
+        double _Kp;
+        double _Kd;
+        double _Ki;
+        double _pre_error;
+        double _integral;
 };
 
 #endif

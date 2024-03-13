@@ -1,5 +1,6 @@
 /**
  * Copyright 2019 Bradley J. Snyder <snyder.bradleyj@gmail.com>
+ * Copyright 2024 Adam J. Englebright <adamenglebright@rocketmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,43 +30,10 @@
 
 using namespace std;
 
-class PIDImpl
-{
-    public:
-        PIDImpl( double dt, double max, double min, double Kp, double Kd, double Ki );
-        ~PIDImpl();
-        double calculate( double setpoint, double pv );
-
-    private:
-        double _dt;
-        double _max;
-        double _min;
-        double _Kp;
-        double _Kd;
-        double _Ki;
-        double _pre_error;
-        double _integral;
-};
-
-
-PID::PID( double dt, double max, double min, double Kp, double Kd, double Ki )
-{
-    pimpl = new PIDImpl(dt,max,min,Kp,Kd,Ki);
-}
-double PID::calculate( double setpoint, double pv )
-{
-    return pimpl->calculate(setpoint,pv);
-}
-PID::~PID() 
-{
-    delete pimpl;
-}
-
-
 /**
  * Implementation
  */
-PIDImpl::PIDImpl( double dt, double max, double min, double Kp, double Kd, double Ki ) :
+PID::PID( double dt, double max, double min, double Kp, double Kd, double Ki ) :
     _dt(dt),
     _max(max),
     _min(min),
@@ -77,7 +45,7 @@ PIDImpl::PIDImpl( double dt, double max, double min, double Kp, double Kd, doubl
 {
 }
 
-double PIDImpl::calculate( double setpoint, double pv )
+double PID::calculate( double setpoint, double pv )
 {
     
     // Calculate error
@@ -107,10 +75,6 @@ double PIDImpl::calculate( double setpoint, double pv )
     _pre_error = error;
 
     return output;
-}
-
-PIDImpl::~PIDImpl()
-{
 }
 
 #endif
