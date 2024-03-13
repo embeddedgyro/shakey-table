@@ -1,4 +1,10 @@
 /**
+ * @file    pid.cpp
+ * @author  Bradley J. Snyder
+ * @author  Adam J. Englebright
+ * @date    13.03.2024
+ * @brief   This file constains the PID controller implementation.
+ *
  * Copyright 2019 Bradley J. Snyder <snyder.bradleyj@gmail.com>
  * Copyright 2024 Adam J. Englebright <adamenglebright@rocketmail.com>
  *
@@ -24,16 +30,10 @@
 #ifndef _PID_SOURCE_
 #define _PID_SOURCE_
 
-#include <iostream>
-#include <cmath>
 #include "pid.h"
 
-using namespace std;
 
-/**
- * Implementation
- */
-PID::PID( double dt, double max, double min, double Kp, double Kd, double Ki ) :
+PID::PID(PID_Interface* pidInterface, double setpoint, double dt, double max, double min, double Kp, double Kd, double Ki) :
     _dt(dt),
     _max(max),
     _min(min),
@@ -41,15 +41,17 @@ PID::PID( double dt, double max, double min, double Kp, double Kd, double Ki ) :
     _Kd(Kd),
     _Ki(Ki),
     _pre_error(0),
-    _integral(0)
+    _integral(0),
+    _setpoint(setpoint),
+    _PIDcb(pidInterface)
 {
 }
 
-double PID::calculate( double setpoint, double pv )
+void PID::calculate(double pv)
 {
     
     // Calculate error
-    double error = setpoint - pv;
+    double error = _setpoint - pv;
 
     // Proportional term
     double Pout = _Kp * error;
@@ -74,7 +76,8 @@ double PID::calculate( double setpoint, double pv )
     // Save error to previous error
     _pre_error = error;
 
-    return output;
+    // Send output to registered callback
+    _PIDcb->hasOuput(output);
 }
 
 #endif
