@@ -73,7 +73,10 @@ namespace INA260_Driver {
     i2c_Status_t VoltageConvTime(Conv_Time convert_time = Conv_Time::TU140);
     
     i2c_Status_t OperatingMode(Op_Mode operate_mode = Op_Mode::PDTRIG);
+    
+    float ReadCurrent(i2c_Status_t* error)
 
+    float ReadVoltage(i2c_Status_t* error)
   }
 }
 
