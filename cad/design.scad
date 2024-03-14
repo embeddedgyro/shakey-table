@@ -99,7 +99,7 @@ cylinder(h=wheel_thick+2,r=shaft_rad,center=true);
 translate([0,3*shaft_rad/2-shaft_cut,0])cube([2*shaft_rad,shaft_rad,wheel_thick+4],center=true);
 };
 }
-translate([0,0,0])
+translate([0,0,100])
 union(){
 translate([0,0,height/2])cube([width-1.1*wall_width,depth-1.1*wall_width,wall_width*2], center=true);
 translate([0,0,(height+wall_width)/2])cube([width,depth,wall_width], center=true);
