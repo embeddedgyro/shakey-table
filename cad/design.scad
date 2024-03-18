@@ -26,7 +26,7 @@ mot_d = mot_scale*amot_d;
 mot_r=mot_d/2;
 amot_nib_d = 7;
 amot_nib_len=12;
-offset_dist = 1012;
+offset_dist = 10;
 mot_nib_len = mot_scale*amot_nib_len;
 mot_nib_d = mot_scale*amot_nib_d;
 mot_nib_r=mot_nib_d/2;
@@ -61,7 +61,8 @@ translate([0,-depth/2,-height/2])rotate([-90,0,0])
             tricut();
         mirror([1,0,0]){
             tricut();
-        }}
+        }
+     }
     }
 }
 translate([0,0,2])cube([width-2*wall_width,depth-2*wall_width,height+2],center=true);
