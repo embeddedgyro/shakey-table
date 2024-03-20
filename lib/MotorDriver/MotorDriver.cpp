@@ -54,6 +54,17 @@ MotorDriver::MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR, static const char *co
       //_pin_PWM.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
       //_pin_DIR.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
 
+      PeriodOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/period", std::ios::out | std::ios::trunc);
+      if (PeriodOutputFile.is_open()) {
+            PeriodOutputFile << period_PWM << std::endl;
+            PeriodOutputFile.close();
+      }
+      else {
+      std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
+      }
+      DutyCycleOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/duty_cycle", std::ios::out | std::ios::trunc);
+      EnableOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/enable", std::ios::out | std::ios::trunc);
+
 }
 
 void MotorDriver::setDutyCycle(float DutyCycle)
@@ -74,7 +85,20 @@ void MotorDriver::setDutyCycle(float DutyCycle)
       {
             //forward motion
             gpiod_line_set_value(DIR_line, 0);
-            outputFile.open("/sys/class/pwm/$CHIP/$PWM/period", std::ios::app);
+            if (DutyCycleOutputFile.is_open()){
+                  DutyCycleOutputFile << DutyCycle << std::endl;
+            }
+            else {
+            std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
+            }
+
+            if (EnableOutputFile.is_open()){
+                  EnableOutputFile << 1 << std::endl;
+            }
+            else {
+            std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
+            }
+
             //gpioPWM(_pin_PWM, DutyCycle);
             //gpioWrite(_pin_DIR, 0);
       }
@@ -82,6 +106,21 @@ void MotorDriver::setDutyCycle(float DutyCycle)
       {
             //backwards motion
             gpiod_line_set_value(DIR_line, 1);
+            
+            if (DutyCycleOutputFile.is_open()){
+                  DutyCycleOutputFile << -DutyCycle << std::endl;
+            }
+            else {
+            std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
+            }
+
+            if (EnableOutputFile.is_open()){
+                  EnableOutputFile << 1 << std::endl;
+            }
+            else {
+            std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
+            }
+
             //gpioPWM(_pin_PWM, -DutyCycle);
             //gpioWrite(_pin_DIR, 1);
 
@@ -92,4 +131,10 @@ void MotorDriver::setDutyCycle(float DutyCycle)
             //std::this_thread::sleep_for(std::chrono::milliseconds(19));
       
       }
+}
+
+MotorDriver::~MotorDriver(){
+      DutyCycleOutputFile.close();
+      EnableOutputFile << 0 << std::endl;
+      EnableOutputFile.close();
 }

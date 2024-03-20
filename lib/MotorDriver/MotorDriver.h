@@ -53,7 +53,9 @@ class MotorDriver
   protected:
   	uint8_t _pin_PWM;
     uint8_t _pin_DIR;
-    std::ofstream outputFile; // Declare an output file stream object
+    std::ofstream PeriodOutputFileFile; // Declare an output file stream object
+    std::ofstream DutyCycleOutputFileFile;
+    std::ofstream EnableOutputFileFile;
     uint32_t period_PWM = 66666 // Period of PWM in nanoseconds
 };
 
