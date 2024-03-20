@@ -97,7 +97,7 @@ public:
   * @param  status Pointer for operation status
   * @retval uint8_t Read register value
   */
-  virtual uint8_t ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status) = 0;
+  virtual uint8_t ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status = nullptr) = 0;
 
   /**
   * @brief  This method will be used for writing given data to the given register of the slave device 
