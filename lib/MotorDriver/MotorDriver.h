@@ -34,6 +34,7 @@
 #include <iostream>
 
 
+
 class MotorDriver
 {
   public:
@@ -47,12 +48,13 @@ class MotorDriver
   /** 
   * Function to set the duty cycle and direction of motor driver
   */
-  void setDutyCycle(int16_t DutyCycle, float period_PWM_ms);
+  void setDutyCycle(float DutyCycle);
     
   protected:
-    float period_PWM_ms = 0.1
   	uint8_t _pin_PWM;
     uint8_t _pin_DIR;
+    std::ofstream outputFile; // Declare an output file stream object
+    uint32_t period_PWM = 66666 // Period of PWM in nanoseconds
 };
 
 #endif

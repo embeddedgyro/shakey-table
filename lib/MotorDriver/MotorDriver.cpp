@@ -29,7 +29,8 @@
 #include <gpiod.hpp>
 #include <iostream>
 #include <fstream>
-#include "CytronMotorDriver.h"
+#include "MotorDriver.h"
+
 
 MotorDriver::MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR, static const char *const chip_path)
 {
@@ -49,9 +50,10 @@ MotorDriver::MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR, static const char *co
 
       //presetting pins to low
       gpiod_line_set_value(PWM_line, 0);
-      gpiod_line_set_value(DIR_line_line, 0);
+      gpiod_line_set_value(DIR_line, 0);
       //_pin_PWM.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
       //_pin_DIR.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
+
 }
 
 void MotorDriver::setDutyCycle(float DutyCycle)
@@ -72,6 +74,7 @@ void MotorDriver::setDutyCycle(float DutyCycle)
       {
             //forward motion
             gpiod_line_set_value(DIR_line, 0);
+            outputFile.open("/sys/class/pwm/$CHIP/$PWM/period", std::ios::app);
             //gpioPWM(_pin_PWM, DutyCycle);
             //gpioWrite(_pin_DIR, 0);
       }
