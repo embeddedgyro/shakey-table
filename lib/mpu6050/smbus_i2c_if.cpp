@@ -88,7 +88,7 @@ uint8_t SMBUS_I2C_IF::ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c
 		return 0;
 	}
 
-	*status = I2C_STATUS_SUCCESS;
+	status && (*status = I2C_STATUS_SUCCESS);
 	return (uint8_t)data;
 }
 
