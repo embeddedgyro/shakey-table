@@ -1,9 +1,8 @@
 /**
  * @file    MotorDriver.cpp
  * @author  Jambulingam Kothandapani
- * @author  Jambulingam Kothandapani
  * @date    19.03.2024
- * @brief   This file constains the Cytron Motor Driver control implementation.
+ * @brief   This file constains the Motor Driver control implementation.
  *
  * Copyright 2024 Jambulingam Kothandapani <jagandhanasekar@gmail.com>
  * 
@@ -31,50 +30,39 @@
 #include <fstream>
 #include "MotorDriver.h"
 
-MotorDriver::MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR)
+MotorDriver::MotorDriver(uint8_t pin_DIR)
 {
-      _pin_PWM = pin_PWM;
+      //_pin_PWM = pin_PWM;
       _pin_DIR = pin_DIR;
 
       //::gpiod::chip chip(chip);
       //::gpiod::chip chip("gpiochip0");
 
       //setting pins for Motor Driver control
-      auto request_PWM_out = ::gpiod::chip("/dev/gpiochip2")
+      //request_PWM = ::gpiod::chip("/dev/gpiochip2")
+	//		       .prepare_request()
+	//		       .set_consumer("set-line-direction")
+	//		       .add_line_settings(
+	//			       _pin_PWM,
+	//			       ::gpiod::line_settings().set_direction(::gpiod::line::direction::OUTPUT))
+	//		       .do_request();
+
+      ::gpiod::chip("/dev/gpiochip2")
 			       .prepare_request()
 			       .set_consumer("set-line-direction")
-			       .add_line_settings(
-				       _pin_PWM,
-				       ::gpiod::line_settings().set_direction(::gpiod::line::direction::OUTPUT))
-			       .do_request();
-
-      auto request_DIR_out = ::gpiod::chip("/dev/gpiochip2")
-			       .prepare_request()
-			       .set_consumer("set-line-direction")
-			       .add_line_settings(
-				       _pin_DIR,
-				       ::gpiod::line_settings().set_direction(::gpiod::line::direction::OUTPUT))
+			       .add_line_settings(_pin_DIR, ::gpiod::line_settings()
+                         .set_direction(::gpiod::line::direction::OUTPUT))
 			       .do_request();
 
 
-      //presetting pins to low
-      auto request_PWM_value = ::gpiod::chip("/dev/gpiochip2")
+      //presetting DIR pin to low
+      ::gpiod::chip("/dev/gpiochip2")
 			       .prepare_request()
 			       .set_consumer("set-line-value")
-			       .add_line_settings(
-				       _pin_PWM,
-				       ::gpiod::line_settings().set_output_value(::gpiod::line::value::INACTIVE))
-                         .do_request();
-
-      auto request_PWM_value = ::gpiod::chip("/dev/gpiochip2")
-			       .prepare_request()
-			       .set_consumer("set-line-value")
-			       .add_line_settings(
-				       _pin_DIR,
-				       ::gpiod::line_settings().set_output_value(::gpiod::line::value::INACTIVE))
-                         .do_request();
-      
-
+			       .add_line_settings(_pin_DIR, ::gpiod::line_settings()
+                         .set_output_value(::gpiod::line::value::INACTIVE))
+			       .do_request();
+      //request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
 
       //auto output_chip = gpiod_chip_open_by_number(2);
       //auto PWM_line = gpiod_chip_get_line(output_chip, _pin_PWM);
@@ -90,21 +78,48 @@ MotorDriver::MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR)
       //gpiod_line_set_value(DIR_line, 0);
       //_pin_PWM.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
       //_pin_DIR.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
+      
+      PWM2_Directory.open("/sys/class/pwm/pwmchip2/export", std::ios::out | std::ios::trunc);
+      if (PWM2_Directory.is_open()) 
+      {
+            PWM2_Directory << 2 << std::endl;
+      }
+      else 
+      {
+            std::cout << "Failed to create pwm2 directory." << std::endl; // Display an error message if file opening failed
+      }
 
       PeriodOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/period", std::ios::out | std::ios::trunc);
-      if (PeriodOutputFile.is_open()) {
+      if (PeriodOutputFile.is_open()) 
+      {
             PeriodOutputFile << period_PWM << std::endl;
-            PeriodOutputFile.close();
+      }
+      else 
+      {
+            std::cout << "Failed to open period file." << std::endl; // Display an error message if file opening failed
+      }
+
+      DutyCycleOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/duty_cycle", std::ios::out | std::ios::trunc);
+      if ( DutyCycleOutputFile.is_open())
+      {
+            DutyCycleOutputFile << 0 << std::endl;
+      }
+      else 
+      {
+            std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
+      }
+
+      EnableOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/enable", std::ios::out | std::ios::trunc);
+      if (EnableOutputFile.is_open()){
+            EnableOutputFile << 1 << std::endl;
       }
       else {
-      std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
+            std::cout << "Failed to open enable file." << std::endl; // Display an error message if file opening failed
       }
-      DutyCycleOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/duty_cycle", std::ios::out | std::ios::trunc);
-      EnableOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/enable", std::ios::out | std::ios::trunc);
 
 }
 
-void MotorDriver::setDutyCycle(float DutyCycle)
+void MotorDriver::setDutyCycle(double DutyCycle)
 {
       // Make sure the DutyCycle is within the limit.
       if (DutyCycle > 1.0)
@@ -118,29 +133,30 @@ void MotorDriver::setDutyCycle(float DutyCycle)
 
       // Set the DutyCycle and direction.
 
+      uint32_t Duty_nanosec = DutyCycle*period_PWM;
+
+
       if (DutyCycle >= 0)
       {
             //forward motion
-            auto request_PWM_value = ::gpiod::chip("/dev/gpiochip2")
-			       .prepare_request()
-			       .set_consumer("set-line-value")
-			       .add_line_settings(
-				       _pin_DIR,
-				       ::gpiod::line_settings().set_output_value(::gpiod::line::value::INACTIVE))
-                         .do_request();
+            if (prev_DIR == 1)
+            {
+                  ::gpiod::chip("/dev/gpiochip2")
+			             .prepare_request()
+			             .set_consumer("set-line-value")
+			             .add_line_settings(_pin_DIR, ::gpiod::line_settings()
+                               .set_output_value(::gpiod::line::value::INACTIVE))
+			             .do_request();
+                  //request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
+
+                  prev_DIR = 0;
+            }
       
             if (DutyCycleOutputFile.is_open()){
-                  DutyCycleOutputFile << DutyCycle << std::endl;
+                  DutyCycleOutputFile <<  Duty_nanosec << std::endl;
             }
             else {
-            std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
-            }
-
-            if (EnableOutputFile.is_open()){
-                  EnableOutputFile << 1 << std::endl;
-            }
-            else {
-            std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
+            std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
 
             //gpioPWM(_pin_PWM, DutyCycle);
@@ -149,29 +165,26 @@ void MotorDriver::setDutyCycle(float DutyCycle)
       else
       {
             //backwards motion
-            auto request_PWM_value = ::gpiod::chip("/dev/gpiochip2")
-			       .prepare_request()
-			       .set_consumer("set-line-value")
-			       .add_line_settings(
-				       _pin_DIR,
-				       ::gpiod::line_settings().set_output_value(::gpiod::line::value::ACTIVE))
-                         .do_request();
-      
+            if (prev_DIR == 0)
+            {
+                  ::gpiod::chip("/dev/gpiochip2")
+                               .prepare_request()
+                               .set_consumer("set-line-value")
+                               .add_line_settings(_pin_DIR, ::gpiod::line_settings()
+                               .set_output_value(::gpiod::line::value::ACTIVE))
+                               .do_request();
+                  //request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
+
+                  prev_DIR = 1;
+            }
             
             if (DutyCycleOutputFile.is_open()){
-                  DutyCycleOutputFile << -DutyCycle << std::endl;
+                  DutyCycleOutputFile << Duty_nanosec << std::endl;
             }
             else {
-            std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
+            std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
-
-            if (EnableOutputFile.is_open()){
-                  EnableOutputFile << 1 << std::endl;
-            }
-            else {
-            std::cout << "Failed to open the file." << std::endl; // Display an error message if file opening failed
-            }
-
+            
             //gpioPWM(_pin_PWM, -DutyCycle);
             //gpioWrite(_pin_DIR, 1);
 
@@ -185,7 +198,9 @@ void MotorDriver::setDutyCycle(float DutyCycle)
 }
 
 MotorDriver::~MotorDriver(){
+      PeriodOutputFile.close();
       DutyCycleOutputFile.close();
       EnableOutputFile << 0 << std::endl;
       EnableOutputFile.close();
+      PWM2_Directory.close();
 }

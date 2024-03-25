@@ -1,9 +1,8 @@
 /**
  * @file    MotorDriver.h
  * @author  Gennady Magin
- * @author  Gennady Magin
  * @date    19.03.2024
- * @brief   This file constains the Cytron Motor Driver control implementation.
+ * @brief   This file constains the Motor Driver control implementation.
  *
  * Copyright 2024 Gennady Magin <magingena2001@gmail.com>
  * 
@@ -42,19 +41,23 @@ class MotorDriver
 	* @param _pin_PWM Pi GPIO pin for PWM control
 	* @param _value Pi GPIO pin for direction control
 	*/
-  MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR);
+  MotorDriver(uint8_t pin_DIR);
     
   /** 
   * Function to set the duty cycle and direction of motor driver
   */
-  void setDutyCycle(float DutyCycle);
+  void setDutyCycle(double DutyCycle);
     
   protected:
-  	uint8_t _pin_PWM = 18;
-    uint8_t _pin_DIR = 19;
+  	//uint8_t _pin_PWM = 18;
+    gpiod::line::offset _pin_DIR = 19;
+    std::basic_ofstream<char> PWM2_Directory;
     std::basic_ofstream<char> PeriodOutputFile; // Declare an output file stream object
     std::basic_ofstream<char> DutyCycleOutputFile;
     std::basic_ofstream<char> EnableOutputFile;
-    uint32_t period_PWM = 66666; // Period of PWM in nanoseconds
+    //gpiod::line_request request_PWM;
+    //gpiod::line_request request_DIR;
+    uint32_t period_PWM = 50000; // Period of PWM in nanoseconds
+    bool prev_DIR = 0;
 };
 #endif
