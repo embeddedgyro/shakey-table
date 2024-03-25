@@ -45,89 +45,100 @@ module tricut(){
     polygon([[offset_dist/2,offset_dist],[width/2-offset_dist,offset_dist],[offset_dist/2,tri_height-2*offset_dist]]);
     }
 //base
-difference(){
-union(){
-difference(){
-difference(){
-union(){
-cube([width,depth,height],center=true);
-translate([0,-depth/2,-height/2])rotate([-90,0,0])
-    linear_extrude(depth)
-    difference(){
-    hull(){
-        polygon([[width/2,0],[-width/2,0],[0,tri_height/2]]);
-        translate([0,tri_height-bottom_rad])circle(r=bottom_rad);}
-        union(){
-            tricut();
-        mirror([1,0,0]){
-            tricut();
-        }
-     }
-    }
-}
-translate([0,0,2])cube([width-2*wall_width,depth-2*wall_width,height+2],center=true);
-}
-translate([0,wall_width-depth/2+mot_len,0])rotate([90,0,0])
-union(){
-cylinder(h=mot_len,r=mot_r);
-translate([0,0,mot_len-1])
-    union(){
-        cylinder(h=mot_nib_len+1,r=mot_nib_r);
-        translate([mot_bol_of,0,0])cylinder(h=mot_nib_len+1,r=mot_bol_r);
-        translate([-mot_bol_of,0,0])cylinder(h=mot_nib_len+1,r=mot_bol_r);
-    }
-}
-}
-translate([-5,0,0])
-rotate([0,0,180])
-translate([3.5-85/2,3.5-56/2,-height/2])
-for(pos=pi_pos){
-   translate([pos.x,pos.y,0])pi_standoff();
-}
-translate([0,-depth/2+wall_width,height/3])rotate([-90,0,0])
-union(){
-    translate([mpu_width/2,0,0])pi_standoff(sheight=5, d= mpu_bol_rad);
-    translate([-mpu_width/2,0,0])
-    pi_standoff(sheight=5, d=mpu_bol_rad);
-}
-
-}
-translate([0,0,wall_width/2])
-union(){
-
-union(){
-translate([0,0,height/2])cube([width-2*wall_width,depth-2*wall_width,wall_width*2], center=true);
-translate([0,0,(height+wall_width)/2])cube([width,depth,wall_width], center=true);
-};
-translate([0,(depth-wall_width)/2,-wall_width/4z])
-union(){
-translate([0,-wall_width/4,0])cube([width-wall_width,wall_width/2,height],center=true);
-cube([width-2*wall_width,wall_width,height],center=true);
-}}}
-//wheel
-//translate([0,-3-depth/2-wheel_thick/2,0])rotate([90,0,0])
-//difference(){
 //difference(){
 //union(){
 //difference(){
-//    cylinder(h=wheel_thick, r = wheel_rad,center=true);
-//    cylinder(h=wheel_thick+2, r= wheel_rad - wheel_rim_width,center=true);
-//    
-//}
-//for (i=[0:n_spokes/2]){
-//    rotate([0,0,i*(360/n_spokes)])cube([spoke_thick,2*(wheel_rad-wheel_rim_width),wheel_thick],center=true);
-//}
-//}
-//for(i=[0:n_bolts]){
-//    rotate([0,0,i*(360/n_bolts)])translate([wheel_rad-wheel_rim_width/2,0,0])cylinder(center=true,h=wheel_thick+2,r=bolt_rad);
-//}
-//}
 //difference(){
-//cylinder(h=wheel_thick+2,r=shaft_rad,center=true);
-//translate([0,3*shaft_rad/2-shaft_cut,0])cube([2*shaft_rad,shaft_rad,wheel_thick+4],center=true);
-//};
+//union(){
+//cube([width,depth,height],center=true);
+//translate([0,-depth/2,-height/2])rotate([-90,0,0])
+//    linear_extrude(depth)
+//    difference(){
+//    hull(){
+//        polygon([[width/2,0],[-width/2,0],[0,tri_height/2]]);
+//        translate([0,tri_height-bottom_rad])circle(r=bottom_rad);}
+//        union(){
+//            tricut();
+//        mirror([1,0,0]){
+//            tricut();
+//        }
+//     }
+//    }
+//}
+//translate([0,0,2])cube([width-2*wall_width,depth-2*wall_width,height+2],center=true);
+//}
+//translate([0,wall_width-depth/2+mot_len,0])rotate([90,0,0])
+//union(){
+//cylinder(h=mot_len,r=mot_r);
+//translate([0,0,mot_len-1])
+//    union(){
+//        cylinder(h=mot_nib_len+1,r=mot_nib_r);
+//        translate([mot_bol_of,0,0])cylinder(h=mot_nib_len+1,r=mot_bol_r);
+//        translate([-mot_bol_of,0,0])cylinder(h=mot_nib_len+1,r=mot_bol_r);
+//    }
+//}
+//}
+//translate([-5,0,0])
+//rotate([0,0,180])
+//translate([3.5-85/2,3.5-56/2,-height/2])
+//for(pos=pi_pos){
+//   translate([pos.x,pos.y,0])pi_standoff();
+//}
+//translate([0,-depth/2+wall_width,height/3])rotate([-90,0,0])
+//union(){
+//    translate([mpu_width/2,0,0])pi_standoff(sheight=5, d= mpu_bol_rad);
+//    translate([-mpu_width/2,0,0])
+//    pi_standoff(sheight=5, d=mpu_bol_rad);
 //}
 //
+//}
+//translate([0,0,wall_width/2])
+//union(){
+//
+//union(){
+//translate([0,0,height/2])cube([width-2*wall_width,depth-2*wall_width,wall_width*2], center=true);
+//translate([0,0,(height+wall_width)/2])cube([width,depth,wall_width], center=true);
+//};
+//translate([0,(depth-wall_width)/2,-wall_width/4z])
+//union(){
+//translate([0,-wall_width/4,0])cube([width-wall_width,wall_width/2,height],center=true);
+//cube([width-2*wall_width,wall_width,height],center=true);
+//}}}
+//wheel
+module react_wheel(){
+difference(){
+difference(){
+union(){
+difference(){
+    cylinder(h=wheel_thick, r = wheel_rad,center=true);
+    cylinder(h=wheel_thick+2, r= wheel_rad - wheel_rim_width,center=true);
+    
+}
+for (i=[0:n_spokes/2]){
+    rotate([0,0,i*(360/n_spokes)])cube([spoke_thick,2*(wheel_rad-wheel_rim_width),wheel_thick],center=true);
+}
+}
+for(i=[0:n_bolts]){
+    rotate([0,0,i*(360/n_bolts)])translate([wheel_rad-wheel_rim_width/2,0,0])cylinder(center=true,h=wheel_thick+2,r=bolt_rad);
+}
+}
+difference(){
+cylinder(h=wheel_thick+2,r=shaft_rad,center=true);
+translate([0,3*shaft_rad/2-shaft_cut,0])cube([2*shaft_rad,shaft_rad,wheel_thick+4],center=true);
+};
+}
+}
+//translate([0,-3-depth/2-wheel_thick/2,0])rotate([90,0,0])
+union(){
+scale([1,1,3])
+translate([0,0,wheel_thick/2])
+intersection(){
+    react_wheel();
+    cylinder(r=shaft_rad*3,h=40,center=true);
+}
+react_wheel();
+}
+
 
 //lid
 //union(){
