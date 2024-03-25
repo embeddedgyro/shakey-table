@@ -31,8 +31,7 @@
 #include <fstream>
 #include "MotorDriver.h"
 
-
-MotorDriver::MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR, static const char *const chip_path)
+MotorDriver::MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR)
 {
       _pin_PWM = pin_PWM;
       _pin_DIR = pin_DIR;
@@ -41,16 +40,54 @@ MotorDriver::MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR, static const char *co
       //::gpiod::chip chip("gpiochip0");
 
       //setting pins for Motor Driver control
-      auto output_chip = gpiod_chip_open_by_number(0);
-      auto PWM_line = gpiod_chip_get_line(output_chip, _pin_PWM);
-      gpiod_line_request_output(PWM_line, "PWM", GPIOD_LINE_ACTIVE_STATE_HIGH);
-      auto DIR_line = gpiod_chip_get_line(output_chip, _pin_DIR);
+      auto request_PWM_out = ::gpiod::chip("/dev/gpiochip2")
+			       .prepare_request()
+			       .set_consumer("set-line-direction")
+			       .add_line_settings(
+				       _pin_PWM,
+				       ::gpiod::line_settings().set_direction(::gpiod::line::direction::OUTPUT))
+			       .do_request();
+
+      auto request_DIR_out = ::gpiod::chip("/dev/gpiochip2")
+			       .prepare_request()
+			       .set_consumer("set-line-direction")
+			       .add_line_settings(
+				       _pin_DIR,
+				       ::gpiod::line_settings().set_direction(::gpiod::line::direction::OUTPUT))
+			       .do_request();
+
+
+      //presetting pins to low
+      auto request_PWM_value = ::gpiod::chip("/dev/gpiochip2")
+			       .prepare_request()
+			       .set_consumer("set-line-value")
+			       .add_line_settings(
+				       _pin_PWM,
+				       ::gpiod::line_settings().set_output_value(::gpiod::line::value::INACTIVE))
+                         .do_request();
+
+      auto request_PWM_value = ::gpiod::chip("/dev/gpiochip2")
+			       .prepare_request()
+			       .set_consumer("set-line-value")
+			       .add_line_settings(
+				       _pin_DIR,
+				       ::gpiod::line_settings().set_output_value(::gpiod::line::value::INACTIVE))
+                         .do_request();
+      
+
+
+      //auto output_chip = gpiod_chip_open_by_number(2);
+      //auto PWM_line = gpiod_chip_get_line(output_chip, _pin_PWM);
+      //gpiod_line_request_output(PWM_line, "PWM", GPIOD_LINE_ACTIVE_STATE_HIGH);
+      //auto DIR_line = gpiod_chip_get_line(output_chip, _pin_DIR);
       //auto _pin_PWM = chip.get_line(pin_PWM);
       //auto _pin_DIR = chip.get_line(pin_DIR);
 
-      //presetting pins to low
-      gpiod_line_set_value(PWM_line, 0);
-      gpiod_line_set_value(DIR_line, 0);
+      //:gpiod::line_settings().set_output_value(::gpiod::line::value::INACTIVE)
+      //::gpiod::line::value set_output_value(::gpiod::line::value::INACTIVE);
+      //::gpiod::line::value set_output_value(::gpiod::line::value::INACTIVE);
+      //gpiod_line_set_value(PWM_line, 0);
+      //gpiod_line_set_value(DIR_line, 0);
       //_pin_PWM.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
       //_pin_DIR.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
 
@@ -84,7 +121,14 @@ void MotorDriver::setDutyCycle(float DutyCycle)
       if (DutyCycle >= 0)
       {
             //forward motion
-            gpiod_line_set_value(DIR_line, 0);
+            auto request_PWM_value = ::gpiod::chip("/dev/gpiochip2")
+			       .prepare_request()
+			       .set_consumer("set-line-value")
+			       .add_line_settings(
+				       _pin_DIR,
+				       ::gpiod::line_settings().set_output_value(::gpiod::line::value::INACTIVE))
+                         .do_request();
+      
             if (DutyCycleOutputFile.is_open()){
                   DutyCycleOutputFile << DutyCycle << std::endl;
             }
@@ -105,7 +149,14 @@ void MotorDriver::setDutyCycle(float DutyCycle)
       else
       {
             //backwards motion
-            gpiod_line_set_value(DIR_line, 1);
+            auto request_PWM_value = ::gpiod::chip("/dev/gpiochip2")
+			       .prepare_request()
+			       .set_consumer("set-line-value")
+			       .add_line_settings(
+				       _pin_DIR,
+				       ::gpiod::line_settings().set_output_value(::gpiod::line::value::ACTIVE))
+                         .do_request();
+      
             
             if (DutyCycleOutputFile.is_open()){
                   DutyCycleOutputFile << -DutyCycle << std::endl;
