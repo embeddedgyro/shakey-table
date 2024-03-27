@@ -26,11 +26,19 @@
  */
 
 #include <gpiod.hpp>
+#include <gpiodcxx/line-request.hpp>
 #include <iostream>
 #include <fstream>
 #include "MotorDriver.h"
 
 MotorDriver::MotorDriver(uint8_t pin_DIR)
+:
+request_DIR(::gpiod::chip(chip_path)
+			       .prepare_request()
+			       .set_consumer("set-line-direction")
+			       .add_line_settings(_pin_DIR, ::gpiod::line_settings()
+                         .set_direction(::gpiod::line::direction::OUTPUT))
+			       .do_request())
 {
       //_pin_PWM = pin_PWM;
       _pin_DIR = pin_DIR;
@@ -39,7 +47,7 @@ MotorDriver::MotorDriver(uint8_t pin_DIR)
       //::gpiod::chip chip("gpiochip0");
 
       //setting pins for Motor Driver control
-      //request_PWM = ::gpiod::chip("/dev/gpiochip2")
+      //auto request_PWM = ::gpiod::chip("/dev/gpiochip2")
 	//		       .prepare_request()
 	//		       .set_consumer("set-line-direction")
 	//		       .add_line_settings(
@@ -47,7 +55,7 @@ MotorDriver::MotorDriver(uint8_t pin_DIR)
 	//			       ::gpiod::line_settings().set_direction(::gpiod::line::direction::OUTPUT))
 	//		       .do_request();
 
-      ::gpiod::chip("/dev/gpiochip2")
+      request_DIR = ::gpiod::chip(chip_path)
 			       .prepare_request()
 			       .set_consumer("set-line-direction")
 			       .add_line_settings(_pin_DIR, ::gpiod::line_settings()
@@ -56,13 +64,7 @@ MotorDriver::MotorDriver(uint8_t pin_DIR)
 
 
       //presetting DIR pin to low
-      ::gpiod::chip("/dev/gpiochip2")
-			       .prepare_request()
-			       .set_consumer("set-line-value")
-			       .add_line_settings(_pin_DIR, ::gpiod::line_settings()
-                         .set_output_value(::gpiod::line::value::INACTIVE))
-			       .do_request();
-      //request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
+      request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
 
       //auto output_chip = gpiod_chip_open_by_number(2);
       //auto PWM_line = gpiod_chip_get_line(output_chip, _pin_PWM);
@@ -141,22 +143,17 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             //forward motion
             if (prev_DIR == 1)
             {
-                  ::gpiod::chip("/dev/gpiochip2")
-			             .prepare_request()
-			             .set_consumer("set-line-value")
-			             .add_line_settings(_pin_DIR, ::gpiod::line_settings()
-                               .set_output_value(::gpiod::line::value::INACTIVE))
-			             .do_request();
-                  //request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
-
+                  request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
                   prev_DIR = 0;
             }
       
-            if (DutyCycleOutputFile.is_open()){
+            if (DutyCycleOutputFile.is_open())
+            {
                   DutyCycleOutputFile <<  Duty_nanosec << std::endl;
             }
-            else {
-            std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
+            else 
+            {
+                  std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
 
             //gpioPWM(_pin_PWM, DutyCycle);
@@ -167,22 +164,17 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             //backwards motion
             if (prev_DIR == 0)
             {
-                  ::gpiod::chip("/dev/gpiochip2")
-                               .prepare_request()
-                               .set_consumer("set-line-value")
-                               .add_line_settings(_pin_DIR, ::gpiod::line_settings()
-                               .set_output_value(::gpiod::line::value::ACTIVE))
-                               .do_request();
-                  //request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
-
+                  request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
                   prev_DIR = 1;
             }
             
-            if (DutyCycleOutputFile.is_open()){
+            if (DutyCycleOutputFile.is_open())
+            {
                   DutyCycleOutputFile << Duty_nanosec << std::endl;
             }
-            else {
-            std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
+            else 
+            {
+                  std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
             
             //gpioPWM(_pin_PWM, -DutyCycle);

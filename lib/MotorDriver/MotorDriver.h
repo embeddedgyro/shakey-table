@@ -29,6 +29,7 @@
 #define MOTOR_DRIVER_H
 
 #include <gpiod.hpp>
+#include <gpiodcxx/line-request.hpp>
 #include <fstream>
 #include <iostream>
 
@@ -42,6 +43,7 @@ class MotorDriver
 	* @param _value Pi GPIO pin for direction control
 	*/
   MotorDriver(uint8_t pin_DIR);
+  ~MotorDriver();
     
   /** 
   * Function to set the duty cycle and direction of motor driver
@@ -50,14 +52,16 @@ class MotorDriver
     
   protected:
   	//uint8_t _pin_PWM = 18;
-    gpiod::line::offset _pin_DIR = 19;
+    gpiod::line::offset _pin_DIR = 0;
     std::basic_ofstream<char> PWM2_Directory;
     std::basic_ofstream<char> PeriodOutputFile; // Declare an output file stream object
     std::basic_ofstream<char> DutyCycleOutputFile;
     std::basic_ofstream<char> EnableOutputFile;
     //gpiod::line_request request_PWM;
-    //gpiod::line_request request_DIR;
+    gpiod::line_request request_DIR;
+    const std::filesystem::path chip_path = "/dev/gpiochip0";
     uint32_t period_PWM = 50000; // Period of PWM in nanoseconds
     bool prev_DIR = 0;
+
 };
 #endif
