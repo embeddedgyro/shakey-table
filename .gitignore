@@ -38,3 +38,7 @@
 
 #*#
 .vscode
+
+# Exclude build dir files
+
+build/*
