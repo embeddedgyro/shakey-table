@@ -1,11 +1,12 @@
-cmake_minimum_required(VERSION 3.28.3)
+cmake_minimum_required(VERSION 3.10)
 
-project(antiquake)
+# Project name and version
+project(ShakeyTable VERSION 1.0)
 
-add_executable(${PROJECT_NAME} main.cpp)
-add_subdirectory(lib/pid)
+# Specify the C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-target_link_libraries(pidcontrol
-)
-
-target_link_directories(${PROJECT_NAME} PUBLIC lib/pid/)
+# Include subdirectories
+add_subdirectory(lib)
+add_subdirectory(src)

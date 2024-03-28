@@ -1,8 +1,4 @@
-project(pidlib)
+# Create a library pid from the specified sources
+add_library(pid pid.cpp)
 
-add_library(${PROJECT_NAME} pid.cpp)
-add_library(pid_control ALIAS ${PROJECT_NAME})
-target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR})
-
-
-
+target_include_directories(pid PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
