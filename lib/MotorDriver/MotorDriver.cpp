@@ -39,22 +39,11 @@ request_DIR(::gpiod::chip(chip_path)
 			       .add_line_settings(_pin_DIR, ::gpiod::line_settings()
                          .set_direction(::gpiod::line::direction::OUTPUT))
 			       .do_request())
+
 {
-      //_pin_PWM = pin_PWM;
       _pin_DIR = pin_DIR;
 
-      //::gpiod::chip chip(chip);
-      //::gpiod::chip chip("gpiochip0");
-
-      //setting pins for Motor Driver control
-      //auto request_PWM = ::gpiod::chip("/dev/gpiochip2")
-	//		       .prepare_request()
-	//		       .set_consumer("set-line-direction")
-	//		       .add_line_settings(
-	//			       _pin_PWM,
-	//			       ::gpiod::line_settings().set_direction(::gpiod::line::direction::OUTPUT))
-	//		       .do_request();
-
+      // Presetting DIR pin to output
       request_DIR = ::gpiod::chip(chip_path)
 			       .prepare_request()
 			       .set_consumer("set-line-direction")
@@ -63,24 +52,11 @@ request_DIR(::gpiod::chip(chip_path)
 			       .do_request();
 
 
-      //presetting DIR pin to low
+      // Presetting DIR pin to low
       request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
 
-      //auto output_chip = gpiod_chip_open_by_number(2);
-      //auto PWM_line = gpiod_chip_get_line(output_chip, _pin_PWM);
-      //gpiod_line_request_output(PWM_line, "PWM", GPIOD_LINE_ACTIVE_STATE_HIGH);
-      //auto DIR_line = gpiod_chip_get_line(output_chip, _pin_DIR);
-      //auto _pin_PWM = chip.get_line(pin_PWM);
-      //auto _pin_DIR = chip.get_line(pin_DIR);
-
-      //:gpiod::line_settings().set_output_value(::gpiod::line::value::INACTIVE)
-      //::gpiod::line::value set_output_value(::gpiod::line::value::INACTIVE);
-      //::gpiod::line::value set_output_value(::gpiod::line::value::INACTIVE);
-      //gpiod_line_set_value(PWM_line, 0);
-      //gpiod_line_set_value(DIR_line, 0);
-      //_pin_PWM.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
-      //_pin_DIR.request({"example", gpiod::line_request::DIRECTION_OUTPUT, 0},0);
-      
+      // Create pwm2 directory and open files for controlling PWM
+      // Initialise PWM by enabling it and presetting duty cycle to zero
       PWM2_Directory.open("/sys/class/pwm/pwmchip2/export", std::ios::out | std::ios::trunc);
       if (PWM2_Directory.is_open()) 
       {
@@ -115,7 +91,8 @@ request_DIR(::gpiod::chip(chip_path)
       if (EnableOutputFile.is_open()){
             EnableOutputFile << 1 << std::endl;
       }
-      else {
+      else 
+      {
             std::cout << "Failed to open enable file." << std::endl; // Display an error message if file opening failed
       }
 
@@ -133,11 +110,10 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             DutyCycle = -1.0;
       }
 
-      // Set the DutyCycle and direction.
-
+      // Convert duty cycle into appropriate form
       uint32_t Duty_nanosec = DutyCycle*period_PWM;
 
-
+      // Set duty cycle and direction.
       if (DutyCycle >= 0)
       {
             //forward motion
@@ -155,9 +131,6 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             {
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
-
-            //gpioPWM(_pin_PWM, DutyCycle);
-            //gpioWrite(_pin_DIR, 0);
       }
       else
       {
@@ -176,20 +149,12 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             {
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
-            
-            //gpioPWM(_pin_PWM, -DutyCycle);
-            //gpioWrite(_pin_DIR, 1);
-
-
-            
-            //std::this_thread::sleep_for(std::chrono::milliseconds(1));
-            
-            //std::this_thread::sleep_for(std::chrono::milliseconds(19));
-      
       }
 }
 
-MotorDriver::~MotorDriver(){
+MotorDriver::~MotorDriver()
+{
+      // Disable PWM output and close all PWM control files
       PeriodOutputFile.close();
       DutyCycleOutputFile.close();
       EnableOutputFile << 0 << std::endl;
