@@ -8,4 +8,5 @@ target_link_libraries(MyExecutable PUBLIC ina260 mpu6050 pid)
 target_include_directories(
   MyExecutable
   PUBLIC "${PROJECT_SOURCE_DIR}/lib/ina260" "${PROJECT_SOURCE_DIR}/lib/mpu6050"
-         "${PROJECT_SOURCE_DIR}/lib/pid")
+         "${PROJECT_SOURCE_DIR}/lib/pid"
+         "${PROJECT_SOURCE_DIR}/lib/MotorDriver")
