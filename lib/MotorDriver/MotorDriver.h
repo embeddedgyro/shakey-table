@@ -1,9 +1,8 @@
 /**
  * @file    MotorDriver.h
  * @author  Gennady Magin
- * @author  Gennady Magin
  * @date    19.03.2024
- * @brief   This file constains the Cytron Motor Driver control implementation.
+ * @brief   This file constains the Motor Driver control implementation.
  *
  * Copyright 2024 Gennady Magin <magingena2001@gmail.com>
  * 
@@ -30,29 +29,49 @@
 #define MOTOR_DRIVER_H
 
 #include <gpiod.hpp>
+#include <gpiodcxx/line-request.hpp>
 #include <fstream>
 #include <iostream>
 
-
+/**
+  * The main MotorDriver class
+  * Sets and controlls the DIR and PWM pins of the MotorDriver
+  * Sets the direction and power delivery to the motor
+	*/
 class MotorDriver
 {
   public:
   /**
-  * Constructor function for the class MotorDriver
-	* @param _pin_PWM Pi GPIO pin for PWM control
-	* @param _value Pi GPIO pin for direction control
+  * Constructor function for the MotorDriver class
+  * Creates a directory for PWM, opens files for PWM control and enables it
+  * Sets DIR pin
+	* @param _pin_DIR Pi GPIO pin for direction control
 	*/
-  MotorDriver(uint8_t pin_PWM, uint8_t pin_DIR);
+  MotorDriver(uint8_t pin_DIR);
+
+
+  /**
+  * Distructor function for the MotorDriver class
+  * Disables PWM and closes files for controlling it
+	*/
+  ~MotorDriver();
     
   /** 
-  * Function to set the duty cycle and direction of motor driver
+  * Function to set the duty cycle and direction of the motor driver
+  * @param DutyCycle index value between -1 and 1 for setting direction and power delivery to the motor
   */
-  void setDutyCycle(int16_t DutyCycle, float period_PWM_ms);
+  void setDutyCycle(double DutyCycle);
     
   protected:
-    float period_PWM_ms = 0.1
-  	uint8_t _pin_PWM;
-    uint8_t _pin_DIR;
-};
+    gpiod::line::offset _pin_DIR = 0; // Declare a DIR output pin
+    std::basic_ofstream<char> PWM2_Directory; // Declare a pwm directory file stream object
+    std::basic_ofstream<char> PeriodOutputFile; // Declare an output file stream object
+    std::basic_ofstream<char> DutyCycleOutputFile; // Declare a duty cycle file stream object
+    std::basic_ofstream<char> EnableOutputFile; // Declare an enable file stream object
+    gpiod::line_request request_DIR; // Declare a variable for DIR pin control
+    const std::filesystem::path chip_path = "/dev/gpiochip0"; // Declare a chip path for manipulating pins
+    uint32_t period_PWM = 50000; // Declare period of PWM in nanoseconds
+    bool prev_DIR = 0; // Declare a varuable for checking previous motor direction
 
+};
 #endif
