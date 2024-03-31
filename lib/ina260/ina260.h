@@ -42,7 +42,7 @@ enum class Op_Mode {
   PDCONT = 4,
   CURCONT = 5,
   VOLCONT = 6,
-  CURVOLTRIG = 7
+  //CURVOLTRIG = 7
 };
 struct INA260Sample {
   float current = 0;
@@ -56,26 +56,26 @@ public:
   /**
    * @brief Called after a sample has arrived.
    */
-  virual void hasSample(INA260Sample &sample) = 0;
+  virtual void hasSample(INA260Sample &sample) = 0;
 };
 class INA260 {
 public:
   INA260(I2C_Interface *comInterface, INA260Interface *inaInterface);
 
-  i2c_status_t InitializeSensor(Alert_conf init_setting = Alert_conf::CNVR);
+  i2c_status_t InitializeSensor(Alert_Conf init_setting = Alert_Conf::CNVR);
 
-  i2c_Status_t AveragingMode(Ave_Mode ave_setting = Ave_Mode::AV1);
+  i2c_status_t AveragingMode(Ave_Mode ave_setting = Ave_Mode::AV1);
 
-  i2c_Status_t CurrentConvTime(Conv_Time convert_time = Conv_Time::TU140);
+  i2c_status_t CurrentConvTime(Conv_Time convert_time = Conv_Time::TU140);
 
-  i2c_Status_t VoltageConvTime(Conv_Time convert_time = Conv_Time::TU140);
+  i2c_status_t VoltageConvTime(Conv_Time convert_time = Conv_Time::TU140);
 
-  i2c_Status_t OperatingMode(Op_Mode operate_mode = Op_Mode::PDTRIG);
+  i2c_status_t OperatingMode(Op_Mode operate_mode = Op_Mode::PDTRIG);
 
-  float ReadCurrent(i2c_Status_t *error)
+  float ReadCurrent(i2c_status_t *error);
 
-      float ReadVoltage(i2c_Status_t *error)
-}
+  float ReadVoltage(i2c_status_t *error);
+};
 } // namespace INA260_Driver
 
 #endif
