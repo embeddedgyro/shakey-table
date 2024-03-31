@@ -101,7 +101,7 @@ public:
 
   float ReadCurrent(i2c_status_t *error = nullptr);
 
-  float ReadVoltage(i2c_status_t *error = nullptr);
+  float ReadVoltage(void);
 
 private:
   /** Pointer to registered I2C interface. */

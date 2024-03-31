@@ -68,10 +68,11 @@ void INA260::dataAquisition(void) {
     request.read_edge_events(buffer);
   }
 }
-float INA260::ReadVoltage(i2c_status_t *error) {
-  int16_t raw_voltage =
-      i2c->ReadRegister(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG, error);
-  if (*error == I2C_STATUS_SUCCESS) {
-  }
+float INA260::ReadVoltage(void) {
+  uint8_t voltage_data[2];
+  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG.2,
+                         (uint8_t *)voltage_data);
+  return 0.00;
+}
 }
 } // namespace INA260_Driver
