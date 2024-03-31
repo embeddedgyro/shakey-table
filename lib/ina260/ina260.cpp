@@ -101,4 +101,12 @@ float INA260::ReadPower(void) {
   }
   return ReadingBases::POWER * int_power;
 }
+
+i2c_status_t INA260::AlertSet(Alert_Conf alert_mode) {
+  uint8_t alert_data[2];
+  alert_data[1] = (uint8_t)alert_mode;
+  alert_data[0] = 0x00;
+  return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, 2,
+                                 (uint8_t *)alert_data);
+}
 } // namespace INA260_Driver
