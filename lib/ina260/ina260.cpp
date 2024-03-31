@@ -50,10 +50,10 @@ void INA260::dataAquisition(void) {
       gpiod::chip(chip_path)
           .prepare_request()
           .set_consumer("watch-line-value")
-          .add_line_setting(line_offset,
-                            gpiod::line_settings()
-                                .set_direction(gpiod::line ::direction::INPUT)
-                                .set_edge_detection(gpiod::line::edge ::RISING))
+          .add_line_settings(
+              line_offset, gpiod::line_settings()
+                               .set_direction(gpiod::line ::direction::INPUT)
+                               .set_edge_detection(gpiod::line::edge ::RISING))
           .do_request();
   gpiod::edge_event_buffer buffer(1);
 
