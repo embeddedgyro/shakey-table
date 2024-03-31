@@ -60,7 +60,7 @@ void INA260::dataAquisition(void) {
   INA260Sample sample;
 
   while (dataAquisitionRunning) {
-    sample.current = ReadCurrent(nullptr);
+    sample.current = ReadCurrent();
     sample.voltage = ReadVoltage();
 
     ina260cb->hasSample(sample);
