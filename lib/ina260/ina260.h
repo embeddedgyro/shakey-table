@@ -18,6 +18,11 @@ SensorConst ALERT_LIM = 0x07;
 SensorConst MAN_ID = 0xfe;
 SensorConst DIE_ID = 0xff;
 }; // namespace Sensor_Regs
+namespace ReadingBases {
+float CURRENT = 0.00125;
+float VOLTAGE = 0.00125;
+float POWER = 0.01;
+}; // namespace ReadingBases
 enum class Alert_Conf {
   OCL = 0b1000000000000000,
   UCL = 0b0100000000000000,
@@ -99,7 +104,7 @@ public:
 
   i2c_status_t AlertSet(Alert_Conf alert_mode = Alert_Conf::CNVR);
 
-  float ReadCurrent(i2c_status_t *error = nullptr);
+  float ReadCurrent(void);
 
   float ReadVoltage(void);
 
