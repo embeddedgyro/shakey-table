@@ -38,8 +38,9 @@ class PID_Interface
     public:
 	/**
 	 * @breif Method to be called when a new PID output is generated.
+	 * @param pidOutput Output of the PID controller passed to the callback.
 	 */
-	virtual void hasOuput(double pidOutput) = 0;
+	virtual void hasOutput(double pidOutput) = 0;
 };
 
 /**
