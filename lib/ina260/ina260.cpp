@@ -61,7 +61,7 @@ void INA260::dataAquisition(void) {
 
   while (dataAquisitionRunning) {
     sample.current = ReadCurrent(nullptr);
-    sample.voltage = ReadVoltage(nullptr);
+    sample.voltage = ReadVoltage();
 
     ina260cb->hasSample(sample);
 
@@ -70,9 +70,8 @@ void INA260::dataAquisition(void) {
 }
 float INA260::ReadVoltage(void) {
   uint8_t voltage_data[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG.2,
+  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG, 2,
                          (uint8_t *)voltage_data);
   return 0.00;
-}
 }
 } // namespace INA260_Driver
