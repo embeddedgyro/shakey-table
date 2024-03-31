@@ -49,13 +49,13 @@ extern "C" {
   * @param  slaveAddress adress of the device that will be communicated
   * @retval i2c_status_t
   */
-i2c_status_t SMBUS_I2C_IF::Init_I2C(uint8_t slaveAddress)
+i2c_status_t SMBUS_I2C_IF::Init_I2C(uint8_t slaveAddress, std::string i2cFile)
 {
 	/* Initalize I2C controller using device file and corresponding
 	 * file descriptor. */
-	fd = open("/dev/i2c-0", O_RDWR); // Open divice file and get file descriptor
+	fd = open(i2cFile.c_str(), O_RDWR); // Open divice file and get file descriptor
 	if (fd < 0) { // Catch errors
-		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Unable to open /dev/i2c-0. Error code " << fd << std::endl;
+		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Unable to open " << i2cFile << ". Error code " << fd << std::endl;
 		exit(fd);
 	}
 

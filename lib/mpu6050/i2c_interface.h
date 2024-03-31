@@ -30,6 +30,7 @@
   * SOFTWARE.
   */
 #include <cstdint>
+#include <string>
 #include <stdint.h>
 
 #ifndef I2C_INTERFACE_H
@@ -85,9 +86,10 @@ public:
   /**
   * @brief  I2C peripheral initialization method.
   * @param  slaveAddress adress of the device that will be communicated
+  * @param  i2cFile 12c device file name/path
   * @retval i2c_status_t
   */
-  virtual i2c_status_t Init_I2C(uint8_t slaveAddress) {return I2C_STATUS_NONE;};
+  virtual i2c_status_t Init_I2C(uint8_t slaveAddress, std::string i2cFile) {return I2C_STATUS_NONE;};
 
   /**
   * @brief  This method will be used for reading the data of the given register from
