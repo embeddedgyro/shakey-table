@@ -88,7 +88,17 @@ float INA260::ReadCurrent(void) {
   if (int_current & 0x8000) {
     int_current = int_current - 0x10000;
   }
-  return ReadingBases::VOLTAGE * int_current;
+  return ReadingBases::CURRENT * int_current;
 }
 
+float INA260::ReadPower(void) {
+  uint8_t Power_data[2];
+  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::POWER_REG, 2,
+                         (uint8_t *)Power_data);
+  signed int int_power = Power_data[1] | (Power_data[0] << 8);
+  if (int_power & 0x8000) {
+    int_power = int_power - 0x10000;
+  }
+  return ReadingBases::POWER * int_power;
+}
 } // namespace INA260_Driver

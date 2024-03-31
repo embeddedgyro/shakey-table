@@ -108,6 +108,8 @@ public:
 
   float ReadVoltage(void);
 
+  float ReadPower(void);
+
 private:
   /** Pointer to registered I2C interface. */
   I2C_Interface *i2c = nullptr;
