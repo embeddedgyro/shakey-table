@@ -57,7 +57,7 @@ public:
   * @param  status Pointer for operation status
   * @retval uint8_t Read register value
   */
-  uint8_t ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status) override;
+  uint8_t ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status = nullptr) override;
 
 /**
   * @brief  This method will be used for writing gven data to the given register of the slave device 
