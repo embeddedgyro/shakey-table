@@ -47,7 +47,7 @@ public:
   * @param  slaveAddress adress of the device that will be communicated
   * @retval i2c_status_t
   */
-  i2c_status_t Init_I2C(uint8_t slaveAddress) override;
+  virtual i2c_status_t Init_I2C(uint8_t slaveAddress, std::string i2cFile) override;
 
 /**
   * @brief  This method will be used for reading the data of the given register from
