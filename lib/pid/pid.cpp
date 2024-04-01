@@ -77,7 +77,7 @@ void PID::calculate(double pv)
     _pre_error = error;
 
     // Send output to registered callback
-    _PIDcb->hasOuput(output);
+    _PIDcb->hasOutput(output);
 }
 
 #endif
