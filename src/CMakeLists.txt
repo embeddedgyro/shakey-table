@@ -2,7 +2,7 @@
 add_executable(${PROJECT_NAME} main.cpp)
 
 # Link the libraries
-target_link_libraries(${PROJECT_NAME} PUBLIC ina260 mpu6050 pid MotorDriver)
+target_link_libraries(${PROJECT_NAME} PUBLIC ina260 mpu6050 pid MotorDriver -lgpiodcxx)
 
 # Specify include directories
 target_include_directories(
