@@ -7,6 +7,7 @@ namespace INA260_Driver {
 
 #define INA260_ADDRESS 0b1000000
 #define SensorConst static constexpr uint8_t
+#define ReadingBasesConst static constexpr float
 
 namespace Sensor_Regs {
 SensorConst CONF_REG = 0x00;
@@ -19,9 +20,9 @@ SensorConst MAN_ID = 0xfe;
 SensorConst DIE_ID = 0xff;
 }; // namespace Sensor_Regs
 namespace ReadingBases {
-float CURRENT = 0.00125;
-float VOLTAGE = 0.00125;
-float POWER = 0.01;
+ReadingBasesConst CURRENT = 0.00125;
+ReadingBasesConst VOLTAGE = 0.00125;
+ReadingBasesConst POWER = 0.01;
 }; // namespace ReadingBases
 enum class Alert_Conf {
   OCL = 0b10000000,
