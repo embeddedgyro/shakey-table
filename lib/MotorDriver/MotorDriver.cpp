@@ -114,7 +114,7 @@ void MotorDriver::setDutyCycle(double DutyCycle)
       uint32_t Duty_nanosec = DutyCycle*period_PWM;
 
       // Set duty cycle and direction.
-      if (DutyCycle >= 0)
+      if (DutyCycle >= 0 && DutyCycle <= 1)
       {
             //forward motion
             if (prev_DIR == 1)
@@ -132,7 +132,7 @@ void MotorDriver::setDutyCycle(double DutyCycle)
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
       }
-      else
+      else if (DutyCycle <= 0 && DutyCycle >= -1)
       {
             //backwards motion
             if (prev_DIR == 0)
@@ -150,6 +150,10 @@ void MotorDriver::setDutyCycle(double DutyCycle)
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
       }
+      else
+      {
+            std::cout << "Duty Cycle out of limit" << std::endl; // Display an error message if file Duty Cycle is out of limits 
+      }
 }
 
 MotorDriver::~MotorDriver()
@@ -160,4 +164,20 @@ MotorDriver::~MotorDriver()
       EnableOutputFile << 0 << std::endl;
       EnableOutputFile.close();
       PWM2_Directory.close();
+      if (PeriodOutputFile.is_open())
+            {
+                  std::cout << "Failed to close period file." << std::endl; // Display an error message if file closing failed
+            }
+      if (DutyCycleOutputFile.is_open())
+            {
+                  std::cout << "Failed to close duty_cycle file." << std::endl; // Display an error message if file closing failed
+            }
+      if (EnableOutputFile.is_open())
+            {
+                  std::cout << "Failed to close enable file." << std::endl; // Display an error message if file closing failed
+            }
+      if (PWM2_Directory.is_open())
+            {
+                  std::cout << "Failed to close pwm2 directory." << std::endl; // Display an error message if file closing failed
+            }
 }
