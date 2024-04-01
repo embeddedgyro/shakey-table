@@ -135,7 +135,7 @@ i2c_status_t INA260::VoltageConvTime(Conv_Time convert_time) {
   uint8_t conf_reg[2];
   i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
                          (uint8_t *)conf_reg);
-  uint8_t lsbmask = ~0b11000000;
+  uint8_t lsbmask = static_cast<uint8_t>(~static_cast<uint8_t>(0b11000000));
   uint8_t msbmask = ~0b00000001;
   conf_reg[1] = conf_reg[1] & lsbmask;
   conf_reg[0] = conf_reg[0] & msbmask;
