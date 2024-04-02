@@ -61,6 +61,12 @@ class MotorDriver
   * @param DutyCycle index value between -1 and 1 for setting direction and power delivery to the motor
   */
   void setDutyCycle(double DutyCycle);
+
+  /**
+   * Function to change duty cycle by a delta.
+   * @param DCdelta amount to change the duty cycle by
+   */
+  void setDutyCycleDelta(double DCdelta);
     
   protected:
     gpiod::line::offset _pin_DIR = 0; // Declare a DIR output pin
@@ -69,9 +75,14 @@ class MotorDriver
     std::basic_ofstream<char> DutyCycleOutputFile; // Declare a duty cycle file stream object
     std::basic_ofstream<char> EnableOutputFile; // Declare an enable file stream object
     gpiod::line_request request_DIR; // Declare a variable for DIR pin control
-    const std::filesystem::path chip_path = "/dev/gpiochip0"; // Declare a chip path for manipulating pins
+    const std::filesystem::path chip_path = "/dev/gpiochip2"; // Declare a chip path for manipulating pins
     uint32_t period_PWM = 50000; // Declare period of PWM in nanoseconds
     bool prev_DIR = 0; // Declare a varuable for checking previous motor direction
+
+  /**
+   * @brief Current duty cycle
+   */
+  double currDC = 0;
 
 };
 #endif

@@ -110,6 +110,9 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             DutyCycle = -1.0;
       }
 
+      // Record current duty cycle
+      currDC = DutyCycle;
+
       // Convert duty cycle into appropriate form
       uint32_t Duty_nanosec = DutyCycle*period_PWM;
 
@@ -155,6 +158,9 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             std::cout << "Duty Cycle out of limit" << std::endl; // Display an error message if file Duty Cycle is out of limits 
       }
 }
+
+
+void MotorDriver::setDutyCycleDelta(double DCdelta) { setDutyCycle(currDC + DCdelta); }
 
 MotorDriver::~MotorDriver()
 {
