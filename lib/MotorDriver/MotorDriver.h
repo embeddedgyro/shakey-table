@@ -34,30 +34,30 @@
 #include <iostream>
 
 /**
-  * The main MotorDriver class
-  * Sets and controlls the DIR and PWM pins of the MotorDriver
-  * Sets the direction and power delivery to the motor
+  * @brief The main MotorDriver class,
+  *   Sets and controlls the DIR and PWM pins of the MotorDriver,
+  *   Sets the direction and power delivery to the motor
 	*/
 class MotorDriver
 {
   public:
   /**
-  * Constructor function for the MotorDriver class
-  * Creates a directory for PWM, opens files for PWM control and enables it
-  * Sets DIR pin
+  * @briefConstructor function for the MotorDriver class,
+  *   Creates a directory for PWM, opens files for PWM control and enables it,
+  *   Sets DIR pin
 	* @param _pin_DIR Pi GPIO pin for direction control
 	*/
   MotorDriver(uint8_t pin_DIR);
 
 
   /**
-  * Distructor function for the MotorDriver class
-  * Disables PWM and closes files for controlling it
+  * @brief Distructor function for the MotorDriver class,
+  *   Disables PWM and closes files for controlling it
 	*/
   ~MotorDriver();
     
   /** 
-  * Function to set the duty cycle and direction of the motor driver
+  * @brief Function to set the duty cycle and direction of the motor driver
   * @param DutyCycle index value between -1 and 1 for setting direction and power delivery to the motor
   */
   void setDutyCycle(double DutyCycle);

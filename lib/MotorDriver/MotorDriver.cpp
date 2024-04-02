@@ -135,7 +135,7 @@ void MotorDriver::setDutyCycle(double DutyCycle)
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
             }
       }
-      else if (DutyCycle <= 0 && DutyCycle >= -1)
+      else if (DutyCycle < 0 && DutyCycle >= -1)
       {
             //backwards motion
             if (prev_DIR == 0)
