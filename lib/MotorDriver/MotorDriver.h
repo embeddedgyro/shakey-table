@@ -45,15 +45,16 @@ class MotorDriver
   * Constructor function for the MotorDriver class
   * Creates a directory for PWM, opens files for PWM control and enables it
   * Sets DIR pin
-	* @param _pin_DIR Pi GPIO pin for direction control
-	*/
-  MotorDriver(gpiod::line::offset pin_DIR);
+  * @param _pin_DIR Pi GPIO pin for direction control
+  */
+  MotorDriver(const std::filesystem::path chip_path, gpiod::line::offset pin_DIR);
+
 
 
   /**
   * Distructor function for the MotorDriver class
   * Disables PWM and closes files for controlling it
-	*/
+  */
   ~MotorDriver();
     
   /** 
@@ -72,7 +73,7 @@ class MotorDriver
     /**
     * @brief DIR output pin
     */
-    gpiod::line::offset _pin_DIR = 18;
+    gpiod::line::offset _pin_DIR;
     /**
     * @brief PWM directory file stream object
     */
@@ -93,10 +94,6 @@ class MotorDriver
     * @brief Variable for DIR pin control
     */
     gpiod::line_request request_DIR; 
-    /**
-    * @brief Chip path for manipulating pins
-    */
-    const std::filesystem::path chip_path = "/dev/gpiochip2";
     /**
     * @brief Period of PWM in nanoseconds
     */

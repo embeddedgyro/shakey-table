@@ -29,14 +29,12 @@
 #include <gpiodcxx/line-request.hpp>
 #include <iostream>
 #include <fstream>
+#include <iostream>
 #include "MotorDriver.h"
 
-MotorDriver::MotorDriver(gpiod::line::offset pin_DIR)
+MotorDriver::MotorDriver(const std::filesystem::path chip_path, gpiod::line::offset pin_DIR)
 :
-
 _pin_DIR(pin_DIR),
-
-// Presetting DIR pin to output
 request_DIR(::gpiod::chip(chip_path)
 			       .prepare_request()
 			       .set_consumer("set-line-direction")
@@ -45,6 +43,8 @@ request_DIR(::gpiod::chip(chip_path)
 			       .do_request())
 
 {
+      std::cout << "Direction pin variable set in MotorDriver constructor." << std::endl;
+
       // Presetting DIR pin to low
       request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
 
