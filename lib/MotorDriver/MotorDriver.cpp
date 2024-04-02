@@ -65,6 +65,7 @@ request_DIR(::gpiod::chip(chip_path)
       else 
       {
             std::cout << "Failed to create pwm2 directory." << std::endl; // Display an error message if file opening failed
+            throw std::invalid_argument( "Failed to create pwm2 directory." );
       }
 
       PeriodOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/period", std::ios::out | std::ios::trunc);
@@ -75,6 +76,7 @@ request_DIR(::gpiod::chip(chip_path)
       else 
       {
             std::cout << "Failed to open period file." << std::endl; // Display an error message if file opening failed
+            throw std::invalid_argument( "Failed to open period file." );
       }
 
       DutyCycleOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/duty_cycle", std::ios::out | std::ios::trunc);
@@ -85,6 +87,7 @@ request_DIR(::gpiod::chip(chip_path)
       else 
       {
             std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
+            throw std::invalid_argument( "Failed to open duty_cycle file." );
       }
 
       EnableOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/enable", std::ios::out | std::ios::trunc);
@@ -94,6 +97,7 @@ request_DIR(::gpiod::chip(chip_path)
       else 
       {
             std::cout << "Failed to open enable file." << std::endl; // Display an error message if file opening failed
+            throw std::invalid_argument( "Failed to open enable file." );
       }
 
 }
@@ -133,6 +137,7 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             else 
             {
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
+                  throw std::invalid_argument( "Failed to open duty_cycle file." );
             }
       }
       else if (DutyCycle < 0 && DutyCycle >= -1)
@@ -151,11 +156,13 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             else 
             {
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
+                  throw std::invalid_argument( "Failed to open duty_cycle file." );
             }
       }
       else
       {
-            std::cout << "Duty Cycle out of limit" << std::endl; // Display an error message if file Duty Cycle is out of limits 
+            std::cout << "Duty Cycle out of limit." << std::endl; // Display an error message if file Duty Cycle is out of limits
+            throw std::invalid_argument( "Duty Cycle out of limit." ); 
       }
 }
 
@@ -173,17 +180,21 @@ MotorDriver::~MotorDriver()
       if (PeriodOutputFile.is_open())
             {
                   std::cout << "Failed to close period file." << std::endl; // Display an error message if file closing failed
+                  throw std::invalid_argument( "Failed to close period file." );
             }
       if (DutyCycleOutputFile.is_open())
             {
                   std::cout << "Failed to close duty_cycle file." << std::endl; // Display an error message if file closing failed
+                  throw std::invalid_argument( "Failed to close duty_cycle file." );
             }
       if (EnableOutputFile.is_open())
             {
                   std::cout << "Failed to close enable file." << std::endl; // Display an error message if file closing failed
+                  throw std::invalid_argument( "Failed to close enable file." );
             }
       if (PWM2_Directory.is_open())
             {
                   std::cout << "Failed to close pwm2 directory." << std::endl; // Display an error message if file closing failed
+                  throw std::invalid_argument( "Failed to close pwm2 directory." );
             }
 }
