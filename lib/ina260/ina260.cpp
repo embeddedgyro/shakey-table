@@ -140,7 +140,7 @@ i2c_status_t INA260::VoltageConvTime(Conv_Time convert_time) {
   conf_reg[1] = conf_reg[1] & lsbmask;
   conf_reg[0] = conf_reg[0] & msbmask;
   uint8_t lsbtime = (uint8_t)convert_time % 4;
-  uint8_t msbtime = (uint8_t)convert_time << 2;
+  uint8_t msbtime = (uint8_t)convert_time >> 2;
   conf_reg[1] = conf_reg[1] | (lsbtime << 6);
   conf_reg[0] = conf_reg[0] | msbtime;
   return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
