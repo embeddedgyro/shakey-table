@@ -31,8 +31,12 @@
 #include <fstream>
 #include "MotorDriver.h"
 
-MotorDriver::MotorDriver(uint8_t pin_DIR)
+MotorDriver::MotorDriver(gpiod::line::offset pin_DIR)
 :
+
+_pin_DIR(pin_DIR),
+
+// Presetting DIR pin to output
 request_DIR(::gpiod::chip(chip_path)
 			       .prepare_request()
 			       .set_consumer("set-line-direction")
@@ -41,17 +45,6 @@ request_DIR(::gpiod::chip(chip_path)
 			       .do_request())
 
 {
-      _pin_DIR = pin_DIR;
-
-      // Presetting DIR pin to output
-      request_DIR = ::gpiod::chip(chip_path)
-			       .prepare_request()
-			       .set_consumer("set-line-direction")
-			       .add_line_settings(_pin_DIR, ::gpiod::line_settings()
-                         .set_direction(::gpiod::line::direction::OUTPUT))
-			       .do_request();
-
-
       // Presetting DIR pin to low
       request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
 

@@ -47,7 +47,7 @@ class MotorDriver
   * Sets DIR pin
 	* @param _pin_DIR Pi GPIO pin for direction control
 	*/
-  MotorDriver(uint8_t pin_DIR);
+  MotorDriver(gpiod::line::offset pin_DIR);
 
 
   /**
@@ -69,20 +69,45 @@ class MotorDriver
   void setDutyCycleDelta(double DCdelta);
     
   protected:
-    gpiod::line::offset _pin_DIR = 0; // Declare a DIR output pin
-    std::basic_ofstream<char> PWM2_Directory; // Declare a pwm directory file stream object
-    std::basic_ofstream<char> PeriodOutputFile; // Declare an output file stream object
-    std::basic_ofstream<char> DutyCycleOutputFile; // Declare a duty cycle file stream object
-    std::basic_ofstream<char> EnableOutputFile; // Declare an enable file stream object
-    gpiod::line_request request_DIR; // Declare a variable for DIR pin control
-    const std::filesystem::path chip_path = "/dev/gpiochip2"; // Declare a chip path for manipulating pins
-    uint32_t period_PWM = 50000; // Declare period of PWM in nanoseconds
-    bool prev_DIR = 0; // Declare a varuable for checking previous motor direction
-
-  /**
-   * @brief Current duty cycle
-   */
-  double currDC = 0;
-
+    /**
+    * @brief DIR output pin
+    */
+    gpiod::line::offset _pin_DIR = 18;
+    /**
+    * @brief PWM directory file stream object
+    */
+    std::basic_ofstream<char> PWM2_Directory;
+    /**
+    * @brief Output file stream object
+    */
+    std::basic_ofstream<char> PeriodOutputFile;
+    /**
+    * @brief Duty Cycle file stream object
+    */
+    std::basic_ofstream<char> DutyCycleOutputFile;
+    /**
+    * @brief Enable file stream object
+    */
+    std::basic_ofstream<char> EnableOutputFile;
+    /**
+    * @brief Variable for DIR pin control
+    */
+    gpiod::line_request request_DIR; 
+    /**
+    * @brief Chip path for manipulating pins
+    */
+    const std::filesystem::path chip_path = "/dev/gpiochip2";
+    /**
+    * @brief Period of PWM in nanoseconds
+    */
+    uint32_t period_PWM = 50000;
+    /**
+    * @brief Previous motor direction
+    */
+    bool prev_DIR = 0;  
+    /**
+    * @brief Current duty cycle
+    */
+    double currDC = 0;
 };
 #endif
