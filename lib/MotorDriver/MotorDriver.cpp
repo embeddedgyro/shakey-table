@@ -43,17 +43,17 @@ request_DIR(::gpiod::chip(chip_path)
 			       .do_request())
 
 {
-      std::cout << "Direction pin variable set in MotorDriver constructor." << std::endl;
+      std::cout << "MotorDriver constructor entered." << std::endl;
 
       // Presetting DIR pin to low
       request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
 
       // Create pwm2 directory and open files for controlling PWM
       // Initialise PWM by enabling it and presetting duty cycle to zero
-      PWM2_Directory.open("/sys/class/pwm/pwmchip2/export", std::ios::out | std::ios::trunc);
-      if (PWM2_Directory.is_open()) 
+      PWM2_Export.open("/sys/class/pwm/pwmchip2/export", std::ios::out | std::ios::trunc);
+      if (PWM2_Export.is_open()) 
       {
-            PWM2_Directory << 2 << std::endl;
+            PWM2_Export << 2 << std::endl;
       }
       else 
       {
@@ -61,8 +61,26 @@ request_DIR(::gpiod::chip(chip_path)
             throw std::invalid_argument( "Failed to create pwm2 directory." );
       }
 
+      // Open PWM unexport file to close pwm2 directory when finished.
+      PWM2_Unexport.open("/sys/class/pwm/pwmchip2/unexport", std::ios::out | std::ios::trunc);
+      if (!PWM2_Unexport.is_open()) 
+      {
+            std::cout << "Failed to open pwm unexport file." << std::endl; // Display an error message if file opening failed
+            throw std::invalid_argument( "Failed to open pwm unexport file." );
+      }
+
+
       PeriodOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/period", std::ios::out | std::ios::trunc);
-      if (PeriodOutputFile.is_open()) 
+
+      /* For some reason the "period" file cannot be opened immediately after writing "2" to the "export" file.
+       * The "period" file does exist immediately after the "export" write, which can be confirmed using
+       * std::filesystem::exists(), but is not openable. Maybe the kernel is still accessing them?
+       * So, we loop round trying to open the file until it can be opened.
+       */
+      while (!PeriodOutputFile.is_open())
+	    PeriodOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/period", std::ios::out | std::ios::trunc);
+      
+      if (PeriodOutputFile.is_open()) // Bit redundant now. Maybe add timeout for above loop, so this is still relevant?
       {
             PeriodOutputFile << period_PWM << std::endl;
       }
@@ -169,7 +187,9 @@ MotorDriver::~MotorDriver()
       DutyCycleOutputFile.close();
       EnableOutputFile << 0 << std::endl;
       EnableOutputFile.close();
-      PWM2_Directory.close();
+      PWM2_Export.close();
+      PWM2_Unexport << 2 << std::endl;
+      PWM2_Unexport.close();
       if (PeriodOutputFile.is_open())
             {
                   std::cout << "Failed to close period file." << std::endl; // Display an error message if file closing failed
@@ -185,7 +205,7 @@ MotorDriver::~MotorDriver()
                   std::cout << "Failed to close enable file." << std::endl; // Display an error message if file closing failed
                   throw std::invalid_argument( "Failed to close enable file." );
             }
-      if (PWM2_Directory.is_open())
+      if (PWM2_Export.is_open())
             {
                   std::cout << "Failed to close pwm2 directory." << std::endl; // Display an error message if file closing failed
                   throw std::invalid_argument( "Failed to close pwm2 directory." );

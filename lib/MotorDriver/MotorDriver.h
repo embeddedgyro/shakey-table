@@ -67,43 +67,47 @@ public:
    * @param DCdelta amount to change the duty cycle by
    */
   void setDutyCycleDelta(double DCdelta);
-
-protected:
-  /**
-   * @brief DIR output pin
-   */
-  gpiod::line::offset _pin_DIR;
-  /**
-   * @brief PWM directory file stream object
-   */
-  std::basic_ofstream<char> PWM2_Directory;
-  /**
-   * @brief Output file stream object
-   */
-  std::basic_ofstream<char> PeriodOutputFile;
-  /**
-   * @brief Duty Cycle file stream object
-   */
-  std::basic_ofstream<char> DutyCycleOutputFile;
-  /**
-   * @brief Enable file stream object
-   */
-  std::basic_ofstream<char> EnableOutputFile;
-  /**
-   * @brief Variable for DIR pin control
-   */
-  gpiod::line_request request_DIR;
-  /**
-   * @brief Period of PWM in nanoseconds
-   */
-  uint32_t period_PWM = 50000;
-  /**
-   * @brief Previous motor direction
-   */
-  bool prev_DIR = 0;
-  /**
-   * @brief Current duty cycle
-   */
-  double currDC = 0;
+    
+  protected:
+    /**
+    * @brief DIR output pin
+    */
+    gpiod::line::offset _pin_DIR;
+    /**
+    * @brief PWM export file stream object
+    */
+    std::basic_ofstream<char> PWM2_Export;
+    /**
+    * @brief PWM unexport file stream object
+    */
+    std::basic_ofstream<char> PWM2_Unexport;
+    /**
+    * @brief Output file stream object
+    */
+    std::basic_ofstream<char> PeriodOutputFile;
+    /**
+    * @brief Duty Cycle file stream object
+    */
+    std::basic_ofstream<char> DutyCycleOutputFile;
+    /**
+    * @brief Enable file stream object
+    */
+    std::basic_ofstream<char> EnableOutputFile;
+    /**
+    * @brief Variable for DIR pin control
+    */
+    gpiod::line_request request_DIR; 
+    /**
+    * @brief Period of PWM in nanoseconds
+    */
+    uint32_t period_PWM = 50000;
+    /**
+    * @brief Previous motor direction
+    */
+    bool prev_DIR = 0;  
+    /**
+    * @brief Current duty cycle
+    */
+    double currDC = 0;
 };
 #endif
