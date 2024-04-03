@@ -75,28 +75,35 @@ namespace MPU6050_Driver {
     gyroFSRange = gyroScale;
     
     i2c_status_t result = WakeUpSensor();
-
+    std::cout<< "Woken" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
       result = SetGyroFullScale(gyroScale);
 
+    std::cout<< "full gyro" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
       result = SetAccelFullScale(accelScale);
 
+    std::cout<< "full accel" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
       result = SetSensor_DLPF_Config(DLPFconf);
 
+    std::cout<< "dlpf conf" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
       result = SetSensor_InterruptPinConfig(INTconf);
 
+    std::cout<< "int conf" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
       result = SetSensor_InterruptEnable(INTenable);
 
+    std::cout<< "int en" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
       result = Calibrate_Accel_Registers(0,0,0);
 
+    std::cout<< "cal accel" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
       result = Calibrate_Gyro_Registers(0,0,0);
 
+    std::cout<< "cal gyro" << std::endl;
     return result;
   }
 
