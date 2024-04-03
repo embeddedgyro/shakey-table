@@ -10,7 +10,6 @@ void testSetAccelXOffset() {
     i2c_status_t result = mpu6050.SetAccel_X_Offset(100);
 
     // Verify the result
-    //assert(result == I2C_STATUS_SUCCESS);
     if (result != I2C_STATUS_SUCCESS) {
         throw std::runtime_error("SetAccelXOffset test failed!");
 }
@@ -25,17 +24,12 @@ void testGetAccelXOffset() {
     int16_t offset = mpu6050.GetAccel_X_Offset(&error);
 
     // Verify the result
-    //assert(error == I2C_STATUS_SUCCESS);
-    //assert(offset == 100); // Assuming the offset value returned is 100
     if (error != I2C_STATUS_SUCCESS || offset != 100) {
         throw std::runtime_error("GetAccelXOffset test failed!");
     }
 }
 
-// Add more test cases for other methods as needed...
-
 int main() {
-
 
     I2C_Interface i2cInterface();
     MPU6050 mpu6050(&i2cInterface);
@@ -51,19 +45,20 @@ int main() {
     );
 
     if (initStatus != I2C_STATUS_SUCCESS) {
+        //Capturing initialization failure
         throw std::runtime_error(" Initialization failure!");
         return 1;
     }
     try{
-    testSetAccelXOffset();
-    testGetAccelXOffset();
-
-    // Add more test function calls here...
+    //Execute test case
+        testSetAccelXOffset();
+        testGetAccelXOffset();
     std::cout << "All tests passed!" << std::endl;
     }
     catch (const std::exception& e) {
+        //Capturing test case failure
         std::cerr << "Test failed: " << e.what() << std::endl;
-        return 1; // Return non-zero exit code to indicate test failure
+        return 1; // Returning non-zero exit code to indicate test failure
     }
     return 0;
 }
