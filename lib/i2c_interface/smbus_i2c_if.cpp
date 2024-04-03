@@ -83,7 +83,7 @@ uint8_t SMBUS_I2C_IF::ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c
 	              // Negative for error, else positive with 8 bit value for byte data (i.e. 0-255).
 	data = i2c_smbus_read_byte_data(fd, regAddress); // Read a byte
 	if (data < 0) { // Catch errors
-		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Could not read a byte at register address " << regAddress << ". Error code " << data << std::endl;
+	  std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Could not read a byte at register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << data << std::endl;
 		*status = I2C_STATUS_ERROR;
 		return 0;
 	}
@@ -106,7 +106,7 @@ i2c_status_t SMBUS_I2C_IF::WriteRegister(uint8_t slaveAddress, uint8_t regAddres
 	               // Negative for error, else zero.
 	errno = i2c_smbus_write_byte_data(fd, regAddress, data); // Write a byte
 	if (errno < 0) { // Catch errors
-		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Could not write a byte to register address " << regAddress << ". Error code " << errno << std::endl;
+	  std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Could not write a byte to register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
 		return I2C_STATUS_ERROR;
 	}
 
@@ -135,7 +135,7 @@ i2c_status_t SMBUS_I2C_IF::ReadRegisterBlock(uint8_t slaveAddress, uint8_t regAd
 
   errno = i2c_smbus_read_i2c_block_data(fd, regAddress, length, data);
   if (errno < 0) { // Catch errors
-    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address " << regAddress << ". Error code " << errno << std::endl;
+    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
     return I2C_STATUS_ERROR;
   }
 
@@ -158,13 +158,13 @@ i2c_status_t SMBUS_I2C_IF::WriteRegisterBlock(uint8_t slaveAddress, uint8_t regA
   
   // Check length is 32 max
   if (length > I2C_SMBUS_BLOCK_MAX) {
-    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): SMBus I2C block write cannot be greater than 32 bytes long." << std::endl;
+    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): SMBus I2C block write cannot be greater than 32 bytes long." << std::endl;
     return I2C_STATUS_ERROR;
   }
 
   errno = i2c_smbus_write_i2c_block_data(fd, regAddress, length, data);
   if (errno < 0) { // Catch errors
-    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not write block bytes to register address " << regAddress << ". Error code " << errno << std::endl;
+    std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): Could not write block bytes to register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
     return I2C_STATUS_ERROR;
   }
 
