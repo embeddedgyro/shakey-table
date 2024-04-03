@@ -50,26 +50,38 @@ namespace MPU6050_Driver {
   }
 
   /**
-    * @brief  This method wakes up the sensor and configures the accelerometer and
-    * gyroscope full scale renges with given parameters. It also configures the
-    * DLPF, sample rate divider, interrput configuration, and also calibrates
-    * the accelerometers and gyros.
-    * It returns the result of the process.
-    * @param  gyroScale Gyroscope scale value to be set
-    * @param  accelScale Accelerometer scale value to be set
-    * @param  DLPFconf Digital Low Pass Filter configuration
-    * @param  SRdiv Sample rate divider
-    * @param  INTconf Interrupt configuration
-    * @param  INTenable Interrput types enabled
-    * @retval i2c_status_t Success status
-    */
+   * @brief  This method wakes up the sensor and configures the accelerometer and
+   * gyroscope full scale renges with given parameters. It also configures the
+   * DLPF, sample rate divider, interrput configuration, and also calibrates
+   * the accelerometers and gyros.
+   * It returns the result of the process.
+   * @param  gyroScale Gyroscope scale value to be set
+   * @param  accelScale Accelerometer scale value to be set
+   * @param  DLPFconf Digital Low Pass Filter configuration
+   * @param  SRdiv Sample rate divider
+   * @param  INTconf Interrupt configuration
+   * @param  INTenable Interrput types enabled
+   * @param  accelCalX Target acceleration in the X axis for calibration (units g)
+   * @param  accelCalY Target acceleration in the Y axis for calibration (units g)
+   * @param  accelCalZ Target acceleration in the Z axis for calibration (units g)
+   * @param  accelCalX Target angular velocity in the X axis for calibration (units deg/s)
+   * @param  accelCalY Target angular velocity in the Y axis for calibration (units deg/s)
+   * @param  accelCalZ Target angular velocity in the Z axis for calibration (units deg/s)
+   * @retval i2c_status_t Success status
+   */
   i2c_status_t MPU6050::InitializeSensor(
       Gyro_FS_t gyroScale,
       Accel_FS_t accelScale,
       DLPF_t DLPFconf,
       uint8_t SRdiv,
       uint8_t INTconf,
-      uint8_t INTenable)
+      uint8_t INTenable,
+      float accelCalX,
+      float accelCalY,
+      float accelCalZ,
+      float gyroCalX,
+      float gyroCalY,
+      float gyroCalZ)
   {
     accelFSRange = accelScale;
     gyroFSRange = gyroScale;
@@ -97,11 +109,11 @@ namespace MPU6050_Driver {
 
     std::cout<< "int en" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
-      result = Calibrate_Accel_Registers(0,0,0);
+      result = Calibrate_Accel_Registers(accelCalX, accelCalY, accelCalZ);
 
     std::cout<< "cal accel" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
-      result = Calibrate_Gyro_Registers(0,0,0);
+      result = Calibrate_Gyro_Registers(gyroCalX, gyroCalY, gyroCalZ);
 
     std::cout<< "cal gyro" << std::endl;
     return result;

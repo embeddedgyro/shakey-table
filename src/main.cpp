@@ -295,7 +295,7 @@ int main() {
   INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback);
 
   // Setup settings on MPU and INA over i2c.
-  MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
+  MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable, 0, 1); // Given the MPU's orientation, there should be 1g in the Y axis at initalisaton
   INA260.InitializeSensor(INA_AlertMode, INA_VoltConvTime, INA_CurrConvTime, INA_AveragingMode, INA_OperatingMode);
 
   // Start data aquisition and processing from the MPU and INA.
