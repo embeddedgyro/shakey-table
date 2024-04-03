@@ -43,11 +43,14 @@ public:
   /**
    * Constructor function for the MotorDriver class
    * Creates a directory for PWM, opens files for PWM control and enables it
-   * Sets DIR pin
+   * Sets DIR pi
+   * @param chip_path File path of the gpiochip device file to be used
    * @param _pin_DIR Pi GPIO pin for direction control
+   * @param period_ns PWM period in nanoseconds
    */
   MotorDriver(const std::filesystem::path chip_path,
-              gpiod::line::offset pin_DIR);
+              gpiod::line::offset pin_DIR,
+	      uint32_t period_ns);
 
   /**
    * Distructor function for the MotorDriver class
@@ -100,7 +103,7 @@ public:
     /**
     * @brief Period of PWM in nanoseconds
     */
-    uint32_t period_PWM = 50000;
+    uint32_t period_PWM;
     /**
     * @brief Previous motor direction
     */

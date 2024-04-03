@@ -30,10 +30,12 @@
 #include <iostream>
 #include <fstream>
 #include <iostream>
+#include <cmath>
 #include "MotorDriver.h"
 
-MotorDriver::MotorDriver(const std::filesystem::path chip_path, gpiod::line::offset pin_DIR)
+MotorDriver::MotorDriver(const std::filesystem::path chip_path, gpiod::line::offset pin_DIR, uint32_t period_ns)
 :
+period_PWM(period_ns),
 _pin_DIR(pin_DIR),
 request_DIR(::gpiod::chip(chip_path)
 			       .prepare_request()
@@ -129,7 +131,7 @@ void MotorDriver::setDutyCycle(double DutyCycle)
       currDC = DutyCycle;
 
       // Convert duty cycle into appropriate form
-      uint32_t Duty_nanosec = DutyCycle*period_PWM;
+      uint32_t Duty_nanosec = (uint32_t)(std::abs(DutyCycle) * period_PWM);
 
       // Set duty cycle and direction.
       if (DutyCycle >= 0 && DutyCycle <= 1)
@@ -139,11 +141,13 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             {
                   request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
                   prev_DIR = 0;
+		  std::cout << "Changing direction. Dir pin should be HIGH." << std::endl;
             }
       
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile <<  Duty_nanosec << std::endl;
+		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'forward' direction." << std::endl;
             }
             else 
             {
@@ -156,13 +160,15 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             //backwards motion
             if (prev_DIR == 0)
             {
-                  request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
+                  request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
                   prev_DIR = 1;
+		  std::cout << "Changing direction. Dir pin should be LOW." << std::endl;
             }
             
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile << Duty_nanosec << std::endl;
+		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'backward' direction." << std::endl;
             }
             else 
             {
