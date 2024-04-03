@@ -1114,8 +1114,8 @@ namespace MPU6050_Driver {
   {
     // Set up GPIO pin for detecting edges from the MPU6050 interrupt pin.
     // Set values as appropriate.
-    const std::filesystem::path chip_path("/dev/gpiochip0");
-    const gpiod::line::offset line_offset = 5;
+    const std::filesystem::path chip_path("/dev/gpiochip4");
+    const gpiod::line::offset line_offset = 27;
 
     // Set up edge event that will block until a rising edge is detected
     // (or maybe falling edge, will need to check datasheet).

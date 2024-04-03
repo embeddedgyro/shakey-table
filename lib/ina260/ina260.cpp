@@ -44,8 +44,8 @@ void INA260::end(void) {
 }
 
 void INA260::dataAquisition(void) {
-  const std::filesystem::path chip_path("/dev/gpiochip0");
-  const gpiod::line::offset line_offset = 5;
+  const std::filesystem::path chip_path("/dev/gpiochip4");
+  const gpiod::line::offset line_offset = 17;
 
   auto request =
       gpiod::chip(chip_path)
