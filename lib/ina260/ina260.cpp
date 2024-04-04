@@ -101,9 +101,9 @@ i2c_status_t INA260::AlertSet(Alert_Conf alert_mode) {
 i2c_status_t INA260::CurrentConvTime(Conv_Time convert_time) {
   uint16_t conv_time_reg =
       i2c->ReadRegisterWord(INA260_ADDRESS, Sensor_Regs::CONF_REG);
-  uint8_t mask = ~0b0000000000111000;
+  uint16_t mask = ~0b0000000000111000;
   conv_time_reg = conv_time_reg & mask;
-  conv_time_reg = conv_time_reg | ((int)convert_time << 3);
+  conv_time_reg = conv_time_reg | ((uint16_t)convert_time << 3);
   return i2c->WriteRegisterWord(INA260_ADDRESS, Sensor_Regs::CONF_REG,
                                 conv_time_reg);
 }
@@ -124,6 +124,7 @@ i2c_status_t INA260::OperatingMode(Op_Mode operate_mode) {
   uint16_t mask = ~0b0000000000000111;
   conf_reg_data = conf_reg_data & mask;
   conf_reg_data = conf_reg_data | ((uint16_t)operate_mode);
+  std::cout << "Data sent to config register: " << std::hex << conf_reg_data << std::endl;
   return i2c->WriteRegisterWord(INA260_ADDRESS, Sensor_Regs::CONF_REG,
                                 conf_reg_data);
 }
@@ -133,7 +134,7 @@ i2c_status_t INA260::AveragingMode(Ave_Mode ave_setting) {
       i2c->ReadRegisterWord(INA260_ADDRESS, Sensor_Regs::CONF_REG);
   uint16_t mask = ~0b0000111000000000;
   conf_reg_data = conf_reg_data & mask;
-  conf_reg_data = conf_reg_data | ((uint8_t)ave_setting << 9);
+  conf_reg_data = conf_reg_data | ((uint16_t)ave_setting << 9);
   return i2c->WriteRegisterWord(INA260_ADDRESS, Sensor_Regs::CONF_REG,
                                 conf_reg_data);
 }
