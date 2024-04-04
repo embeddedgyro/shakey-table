@@ -69,11 +69,14 @@ public:
     if (axGrav > 0)
       angularPos = -angularPos;
 
+    float angularPosDeg = angularPos * 180.0 / 3.14159265358979323846;
+
     // Print data.
     std::cout << "Accel X = " << sample.ax << " g, Gyro X = " << sample.gx << " deg/s" << std::endl;
     std::cout << "Accel Y = " << sample.ay << " g, Gyro Y = " << sample.gy << " deg/s" << std::endl;
     std::cout << "Accel Z = " << sample.az << " g, Gyro Z = " << sample.gz << " deg/s" << std::endl;
     std::cout << "Calculated angular postion = " << angularPos << " rad" << std::endl << std::endl;
+    std::cout << "Calculated angular postion = " << angularPosDeg << " deg" << std::endl << std::endl;
   }
 
 private:
@@ -100,7 +103,7 @@ int main() {
   MPU6050_Driver::Gyro_FS_t MPU_GyroScale = MPU6050_Driver::Gyro_FS_t::FS_250_DPS;
   MPU6050_Driver::Accel_FS_t MPU_AccelScale = MPU6050_Driver::Accel_FS_t::FS_2G;
   MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_184Hz;
-  uint8_t MPU_SRdiv = 255;
+  uint8_t MPU_SRdiv = 25;
   uint8_t MPU_INTconf = MPU6050_Driver::Regbits_INT_PIN_CFG::BIT_INT_RD_CLEAR;
   uint8_t MPU_INTenable = MPU6050_Driver::Regbits_INT_ENABLE::BIT_DATA_RDY_EN;
 
