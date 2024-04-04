@@ -99,6 +99,30 @@ uint8_t SMBUS_I2C_IF::ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c
 }
 
 /**
+ * @brief  This method will be used for reading the data of the given register
+ * from the slave with given address. For registers that store a word of data.
+ * @param  slaveAddress Slave chip I2C bus address
+ * @param  regAddress Register address to be read
+ * @param  status Pointer for operation status
+ * @retval uint16_t Read register value
+ */
+uint16_t SMBUS_I2C_IF::ReadRegisterWord(uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status) {
+	int32_t data; // Data returned from i2c_smbus_read_word_data() is a signed 32 bit integer.
+	              // Negative for error, else positive with 16 bit value for byte data (i.e. 0-65535).
+	data = i2c_smbus_read_word_data(fd, regAddress); // Read a byte
+	if (data < 0) { // Catch errors
+		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterWord(): Could not read a word at register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << data << std::endl;
+		*status = I2C_STATUS_ERROR;
+		return 0;
+	} else {
+		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterWord(): Read a word at register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << (uint16_t)data << std::endl;
+	}
+
+	status && (*status = I2C_STATUS_SUCCESS);
+	return (uint16_t)data;
+}
+
+/**
   * @brief  This method will be used for writing gven data to the given register of the slave device 
   * with the given address.
   * @param  slaveAddress Slave chip I2C bus address (not used in this RTEP5 implementation, but not removed to avoid needing a large rewrite of the library)
@@ -116,6 +140,29 @@ i2c_status_t SMBUS_I2C_IF::WriteRegister(uint8_t slaveAddress, uint8_t regAddres
 		return I2C_STATUS_ERROR;
 	} else {
 		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << unsigned(data) << std::endl;
+	}
+
+	return I2C_STATUS_SUCCESS;
+}
+
+/**
+ * @brief  This method will be used for writing given data to the given register
+ * of the slave device with the given address. For registers that store a word
+ * of data.
+ * @param  slaveAddress Slave chip I2C bus address
+ * @param  regAddress Register address that the data to be written
+ * @param  data Data to be written
+ * @retval i2c_status_t
+ */
+i2c_status_t SMBUS_I2C_IF::WriteRegisterWord(uint8_t slaveAddress, uint8_t regAddress, uint16_t data) {
+	int32_t errno; // Returned value from i2c_smbus_write_word_data() is a signed 32 bit integer.
+	               // Negative for error, else zero.
+	errno = i2c_smbus_write_word_data(fd, regAddress, data); // Write a byte
+	if (errno < 0) { // Catch errors
+		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterWord(): Could not write a word to register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
+		return I2C_STATUS_ERROR;
+	} else {
+		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterWord(): Wrote a word to register address " << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << unsigned(data) << std::endl;
 	}
 
 	return I2C_STATUS_SUCCESS;

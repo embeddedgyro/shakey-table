@@ -102,6 +102,16 @@ public:
   virtual uint8_t ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status = nullptr) = 0;
 
   /**
+  * @brief  This method will be used for reading the data of the given register from
+  * the slave with given address. For registers that store a word of data.
+  * @param  slaveAddress Slave chip I2C bus address
+  * @param  regAddress Register address to be read
+  * @param  status Pointer for operation status
+  * @retval uint16_t Read register value
+  */
+  virtual uint16_t ReadRegisterWord(uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status = nullptr) = 0;
+  
+  /**
   * @brief  This method will be used for writing given data to the given register of the slave device 
   * with the given address.
   * @param  slaveAddress Slave chip I2C bus address
@@ -110,6 +120,16 @@ public:
   * @retval i2c_status_t
   */
   virtual i2c_status_t WriteRegister(uint8_t slaveAddress, uint8_t regAddress, uint8_t data) = 0;
+
+  /**
+  * @brief  This method will be used for writing given data to the given register of the slave device 
+  * with the given address. For registers that store a word of data.
+  * @param  slaveAddress Slave chip I2C bus address
+  * @param  regAddress Register address that the data to be written
+  * @param  data Data to be written
+  * @retval i2c_status_t
+  */
+  virtual i2c_status_t WriteRegisterWord(uint8_t slaveAddress, uint8_t regAddress, uint16_t data) = 0;
 
   /**
   * @brief  This method will be used for reading a bit value of the given register

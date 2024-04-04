@@ -103,17 +103,21 @@ namespace MPU6050_Driver {
     if(result == I2C_STATUS_SUCCESS)
       result = SetSensor_InterruptPinConfig(INTconf);
 
+    std::cout << "SRdiv set" << std::endl;
+    if (result == I2C_STATUS_SUCCESS)
+      result = SetGyro_SampleRateDivider(SRdiv);
+
     std::cout<< "int conf" << std::endl;
     if(result == I2C_STATUS_SUCCESS)
       result = SetSensor_InterruptEnable(INTenable);
 
     std::cout<< "int en" << std::endl;
-    if(result == I2C_STATUS_SUCCESS)
-      result = Calibrate_Accel_Registers(accelCalX, accelCalY, accelCalZ);
+    //    if(result == I2C_STATUS_SUCCESS)
+    //result = Calibrate_Accel_Registers(accelCalX, accelCalY, accelCalZ);
 
     std::cout<< "cal accel" << std::endl;
-    if(result == I2C_STATUS_SUCCESS)
-      result = Calibrate_Gyro_Registers(gyroCalX, gyroCalY, gyroCalZ);
+    //    if(result == I2C_STATUS_SUCCESS)
+    //result = Calibrate_Gyro_Registers(gyroCalX, gyroCalY, gyroCalZ);
 
     std::cout<< "cal gyro" << std::endl;
     return result;
@@ -150,7 +154,17 @@ namespace MPU6050_Driver {
     // operation. Since the MSB of each data point is in the lower address,
     // rawData can be indexed as an array of int16_t data to directly access
     // each measurement as 16 bit data without bit bashing.
-    return i2c->ReadRegisterBlock(MPU6050_ADDRESS, Sensor_Regs::ACCEL_X_OUT_H, 14, (uint8_t*) rawData);
+    //    return i2c->ReadRegisterBlock(MPU6050_ADDRESS, Sensor_Regs::ACCEL_X_OUT_H, 14, (uint8_t*) rawData);
+
+    i2c_status_t err;
+    rawData[0] = GetAccel_X_Raw(&err);
+    rawData[1] = GetAccel_Y_Raw(&err);
+    rawData[2] = GetAccel_Z_Raw(&err);
+    rawData[3] = GetTemperature_Celcius(&err);
+    rawData[4] = GetGyro_X_Raw(&err);
+    rawData[5] = GetGyro_Y_Raw(&err);
+    rawData[6] = GetGyro_Z_Raw(&err);
+    return err;
   }
 
   /**

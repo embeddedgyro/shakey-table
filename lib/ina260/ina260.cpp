@@ -54,7 +54,7 @@ void INA260::dataAquisition(void) {
           .add_line_settings(
               line_offset, gpiod::line_settings()
                                .set_direction(gpiod::line ::direction::INPUT)
-                               .set_edge_detection(gpiod::line::edge ::RISING))
+                               .set_edge_detection(gpiod::line::edge ::FALLING))
           .do_request();
   gpiod::edge_event_buffer buffer(1);
 
@@ -113,22 +113,18 @@ float INA260::ReadPower(void) {
 }
 
 i2c_status_t INA260::AlertSet(Alert_Conf alert_mode) {
-  uint8_t alert_data[2];
-  alert_data[1] = (uint8_t)alert_mode;
-  alert_data[0] = 0x00;
-  return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, 2,
+  uint16_t alert_data;
+  alert_data = (uint8_t)alert_mode >> 8;
+  return i2c->WriteRegisterWord(INA260_ADDRESS, Sensor_Regs::MASKEN_REG,
                                  (uint8_t *)alert_data);
 }
 
 i2c_status_t INA260::CurrentConvTime(Conv_Time convert_time) {
-  uint8_t conf_reg[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                         (uint8_t *)conf_reg);
-  uint8_t mask = ~0b00111000;
-  conf_reg[1] = conf_reg[1] & mask;
-  conf_reg[1] = conf_reg[1] | ((int)convert_time << 3);
-  return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                                 (uint8_t *)conf_reg);
+  uint16_t conv_time_reg = i2c->ReadRegisterWord(INA260_ADDRESS, Sensor_Regs::CONF_REG
+  uint8_t mask = ~0b0000000000111000;
+  conv_time_reg = conv_time_reg & mask;
+  conv_time_reg = conv_time_reg | ((int)convert_time << 3);
+  return i2c->WriteRegisterWord(INA260_ADDRESS, Sensor_Regs::CONF_REG, conv_time_reg);
 }
 
 i2c_status_t INA260::VoltageConvTime(Conv_Time convert_time) {
