@@ -5,7 +5,7 @@
  * @brief   This file constains the Motor Driver control implementation.
  *
  * Copyright 2024 Gennady Magin <magingena2001@gmail.com>
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -13,8 +13,8 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -28,38 +28,41 @@
 #ifndef MOTOR_DRIVER_H
 #define MOTOR_DRIVER_H
 
+#include <fstream>
 #include <gpiod.hpp>
 #include <gpiodcxx/line-request.hpp>
-#include <fstream>
 #include <iostream>
 
 /**
-  * @brief The main MotorDriver class,
-  *   Sets and controlls the DIR and PWM pins of the MotorDriver,
-  *   Sets the direction and power delivery to the motor
-	*/
-class MotorDriver
-{
-  public:
+ * @brief The main MotorDriver class,
+ *   Sets and controlls the DIR and PWM pins of the MotorDriver,
+ *   Sets the direction and power delivery to the motor
+ */
+class MotorDriver {
+public:
   /**
-  * @brief Constructor function for the MotorDriver class,
-  *   Creates a directory for PWM, opens files for PWM control and enables it,
-  *   Sets DIR pin
-	* @param _pin_DIR Pi GPIO pin for direction control
-	*/
-  MotorDriver(uint8_t pin_DIR);
-
+   * Constructor function for the MotorDriver class
+   * Creates a directory for PWM, opens files for PWM control and enables it
+   * Sets DIR pi
+   * @param chip_path File path of the gpiochip device file to be used
+   * @param _pin_DIR Pi GPIO pin for direction control
+   * @param period_ns PWM period in nanoseconds
+   */
+  MotorDriver(const std::filesystem::path chip_path,
+              gpiod::line::offset pin_DIR,
+	      uint32_t period_ns);
 
   /**
-  * @brief Distructor function for the MotorDriver class,
-  *   Disables PWM and closes files for controlling it
-	*/
+   * Distructor function for the MotorDriver class
+   * Disables PWM and closes files for controlling it
+   */
   ~MotorDriver();
-    
-  /** 
-  * @brief Function to set the duty cycle and direction of the motor driver
-  * @param DutyCycle index value between -1 and 1 for setting direction and power delivery to the motor
-  */
+
+  /**
+   * @brief Function to set the duty cycle and direction of the motor driver
+   * @param DutyCycle index value between -1 and 1 for setting direction and
+   * power delivery to the motor
+   */
   void setDutyCycle(double DutyCycle);
 
   /**
@@ -72,11 +75,15 @@ class MotorDriver
     /**
     * @brief DIR output pin
     */
-    gpiod::line::offset _pin_DIR = 0;
+    gpiod::line::offset _pin_DIR;
     /**
-    * @brief PWM directory file stream object
+    * @brief PWM export file stream object
     */
-    std::basic_ofstream<char> PWM2_Directory;
+    std::basic_ofstream<char> PWM2_Export;
+    /**
+    * @brief PWM unexport file stream object
+    */
+    std::basic_ofstream<char> PWM2_Unexport;
     /**
     * @brief Output file stream object
     */
@@ -94,13 +101,9 @@ class MotorDriver
     */
     gpiod::line_request request_DIR; 
     /**
-    * @brief Chip path for manipulating pins
-    */
-    const std::filesystem::path chip_path = "/dev/gpiochip2";
-    /**
     * @brief Period of PWM in nanoseconds
     */
-    uint32_t period_PWM = 50000;
+    uint32_t period_PWM;
     /**
     * @brief Previous motor direction
     */
@@ -109,6 +112,5 @@ class MotorDriver
     * @brief Current duty cycle
     */
     double currDC = 0;
-
 };
 #endif

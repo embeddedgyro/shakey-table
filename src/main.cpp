@@ -12,6 +12,7 @@
 #include <limits>
 #include <thread>
 #include <chrono>
+#include <iostream>
 #include "../lib/pid/pid.h"
 #include "../lib/mpu6050/mpu6050.h"
 #include "../lib/i2c_interface/smbus_i2c_if.h"
@@ -209,20 +210,28 @@ int main() {
   switch (INA_CurrConvTime) {
   case INA260_Driver::Conv_Time::TU140:
     INA_SamplePeriod = 140e-6;
+    break;
   case INA260_Driver::Conv_Time::TU204:
     INA_SamplePeriod = 204e-6;
+    break;
   case INA260_Driver::Conv_Time::TU332:
     INA_SamplePeriod = 332e-6;
+    break;
   case INA260_Driver::Conv_Time::TU588:
     INA_SamplePeriod = 588e-6;
+    break;
   case INA260_Driver::Conv_Time::TU1100:
     INA_SamplePeriod = 1100e-6;
+    break;
   case INA260_Driver::Conv_Time::TU2116:
     INA_SamplePeriod = 2116e-6;
+    break;
   case INA260_Driver::Conv_Time::TU4156:
     INA_SamplePeriod = 4156e-6;
+    break;
   case INA260_Driver::Conv_Time::TU8224:
     INA_SamplePeriod = 8224e-6;
+    break;
   }
 
   // Radius from axis of ratation to MPU chip (need to actually measure this):
@@ -234,8 +243,15 @@ int main() {
   uint8_t MPU_Address = MPU6050_ADDRESS;
   uint8_t INA_Address = INA260_ADDRESS;
 
+  // Gpiod device file path:
+  std::filesystem::path chip_path("/dev/gpiochip4");
+
+  std::cout << "Set up variables." << std::endl;
+
   // Initialise motor driver object. Assuming line offset 16 for direction pin is correct for now.
-  MotorDriver MD20(16);
+  MotorDriver MD20(chip_path, 16);
+
+  std::cout << "Set up motor driver object." << std::endl;
 
   // Initialise inner PID controller with callback using motor driver object.
   // Initially with the PID output being the DC directly, so set min to 0 and max to 1.

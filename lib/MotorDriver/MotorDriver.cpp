@@ -29,10 +29,14 @@
 #include <gpiodcxx/line-request.hpp>
 #include <iostream>
 #include <fstream>
+#include <iostream>
+#include <cmath>
 #include "MotorDriver.h"
 
-MotorDriver::MotorDriver(uint8_t pin_DIR)
+MotorDriver::MotorDriver(const std::filesystem::path chip_path, gpiod::line::offset pin_DIR, uint32_t period_ns)
 :
+period_PWM(period_ns),
+_pin_DIR(pin_DIR),
 request_DIR(::gpiod::chip(chip_path)
 			       .prepare_request()
 			       .set_consumer("set-line-direction")
@@ -41,26 +45,17 @@ request_DIR(::gpiod::chip(chip_path)
 			       .do_request())
 
 {
-      _pin_DIR = pin_DIR;
-
-      // Presetting DIR pin to output
-      request_DIR = ::gpiod::chip(chip_path)
-			       .prepare_request()
-			       .set_consumer("set-line-direction")
-			       .add_line_settings(_pin_DIR, ::gpiod::line_settings()
-                         .set_direction(::gpiod::line::direction::OUTPUT))
-			       .do_request();
-
+      std::cout << "MotorDriver constructor entered." << std::endl;
 
       // Presetting DIR pin to low
       request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
 
       // Create pwm2 directory and open files for controlling PWM
       // Initialise PWM by enabling it and presetting duty cycle to zero
-      PWM2_Directory.open("/sys/class/pwm/pwmchip2/export", std::ios::out | std::ios::trunc);
-      if (PWM2_Directory.is_open()) 
+      PWM2_Export.open("/sys/class/pwm/pwmchip2/export", std::ios::out | std::ios::trunc);
+      if (PWM2_Export.is_open()) 
       {
-            PWM2_Directory << 2 << std::endl;
+            PWM2_Export << 2 << std::endl;
       }
       else 
       {
@@ -68,8 +63,26 @@ request_DIR(::gpiod::chip(chip_path)
             throw std::invalid_argument( "Failed to create pwm2 directory." );
       }
 
+      // Open PWM unexport file to close pwm2 directory when finished.
+      PWM2_Unexport.open("/sys/class/pwm/pwmchip2/unexport", std::ios::out | std::ios::trunc);
+      if (!PWM2_Unexport.is_open()) 
+      {
+            std::cout << "Failed to open pwm unexport file." << std::endl; // Display an error message if file opening failed
+            throw std::invalid_argument( "Failed to open pwm unexport file." );
+      }
+
+
       PeriodOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/period", std::ios::out | std::ios::trunc);
-      if (PeriodOutputFile.is_open()) 
+
+      /* For some reason the "period" file cannot be opened immediately after writing "2" to the "export" file.
+       * The "period" file does exist immediately after the "export" write, which can be confirmed using
+       * std::filesystem::exists(), but is not openable. Maybe the kernel is still accessing them?
+       * So, we loop round trying to open the file until it can be opened.
+       */
+      while (!PeriodOutputFile.is_open())
+	    PeriodOutputFile.open("/sys/class/pwm/pwmchip2/pwm2/period", std::ios::out | std::ios::trunc);
+      
+      if (PeriodOutputFile.is_open()) // Bit redundant now. Maybe add timeout for above loop, so this is still relevant?
       {
             PeriodOutputFile << period_PWM << std::endl;
       }
@@ -118,7 +131,7 @@ void MotorDriver::setDutyCycle(double DutyCycle)
       currDC = DutyCycle;
 
       // Convert duty cycle into appropriate form
-      uint32_t Duty_nanosec = DutyCycle*period_PWM;
+      uint32_t Duty_nanosec = (uint32_t)(std::abs(DutyCycle) * period_PWM);
 
       // Set duty cycle and direction.
       if (DutyCycle >= 0 && DutyCycle <= 1)
@@ -128,11 +141,13 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             {
                   request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
                   prev_DIR = 0;
+		  std::cout << "Changing direction. Dir pin should be HIGH." << std::endl;
             }
       
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile <<  Duty_nanosec << std::endl;
+		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'forward' direction." << std::endl;
             }
             else 
             {
@@ -145,13 +160,15 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             //backwards motion
             if (prev_DIR == 0)
             {
-                  request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
+                  request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
                   prev_DIR = 1;
+		  std::cout << "Changing direction. Dir pin should be LOW." << std::endl;
             }
             
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile << Duty_nanosec << std::endl;
+		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'backward' direction." << std::endl;
             }
             else 
             {
@@ -176,7 +193,9 @@ MotorDriver::~MotorDriver()
       DutyCycleOutputFile.close();
       EnableOutputFile << 0 << std::endl;
       EnableOutputFile.close();
-      PWM2_Directory.close();
+      PWM2_Export.close();
+      PWM2_Unexport << 2 << std::endl;
+      PWM2_Unexport.close();
       if (PeriodOutputFile.is_open())
             {
                   std::cout << "Failed to close period file." << std::endl; // Display an error message if file closing failed
@@ -192,7 +211,7 @@ MotorDriver::~MotorDriver()
                   std::cout << "Failed to close enable file." << std::endl; // Display an error message if file closing failed
                   throw std::invalid_argument( "Failed to close enable file." );
             }
-      if (PWM2_Directory.is_open())
+      if (PWM2_Export.is_open())
             {
                   std::cout << "Failed to close pwm2 directory." << std::endl; // Display an error message if file closing failed
                   throw std::invalid_argument( "Failed to close pwm2 directory." );

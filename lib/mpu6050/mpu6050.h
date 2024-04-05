@@ -32,7 +32,7 @@
 #ifndef MPU6050_H
 #define MPU6050_H
 
-#include "i2c_interface.h"
+#include "../i2c_interface/i2c_interface.h"
 #include <thread>
 
 namespace MPU6050_Driver {

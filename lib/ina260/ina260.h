@@ -1,6 +1,6 @@
 #ifndef INA260_H
 #define INA260_H
-#include "i2c_interface.h"
+#include "../i2c_interface/i2c_interface.h"
 #include <thread>
 
 namespace INA260_Driver {
