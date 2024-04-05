@@ -89,7 +89,7 @@ uint8_t SMBUS_I2C_IF::ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c
 	if (data < 0) { // Catch errors
 		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Could not read a byte at register address "
 			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << data << std::endl;
-		*status = I2C_STATUS_ERROR;
+		status && (*status = I2C_STATUS_ERROR);
 		return 0;
 	} else {
 		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address "
@@ -116,7 +116,7 @@ uint16_t SMBUS_I2C_IF::ReadRegisterWordLittleEndian(uint8_t slaveAddress, uint8_
 	if (data < 0) { // Catch errors
 		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterWord(): Could not read a word at register address "
 			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << data << std::endl;
-		*status = I2C_STATUS_ERROR;
+		status && (*status = I2C_STATUS_ERROR);
 		return 0;
 	} else {
 		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterWord(): Read a word at register address "
