@@ -9,6 +9,7 @@
  */
 
 #include <cmath>
+#include <fstream>
 #include <limits>
 #include <thread>
 #include <chrono>
@@ -27,13 +28,19 @@
 class INA260_Feedback : public INA260_Driver::INA260Interface
 {
 public:
+  INA260_Feedback(std::string file) : log_file(file, std::ios::trunc) {}
+  
   /**
    * @brief INA260 callback implementation, passing the measured current (torque) to the provided PID controller object.
    * @param sample Current measured by the INA260 passed to the callback.
    */
   virtual void hasSample(INA260_Driver::INA260Sample& sample) override {
     std::cout << "Current: " << sample.current << " A\n\n";
+    log_file << sample.current << std::endl;
   }
+
+private:
+  std::ofstream log_file;
 };
 
 
@@ -42,7 +49,7 @@ int main() {
   // INA260 settings:
   INA260_Driver::Alert_Conf INA_AlertMode = INA260_Driver::Alert_Conf::CNVR;
   INA260_Driver::Conv_Time INA_VoltConvTime = INA260_Driver::Conv_Time::TU140;
-  INA260_Driver::Conv_Time INA_CurrConvTime = INA260_Driver::Conv_Time::TU8224;
+  INA260_Driver::Conv_Time INA_CurrConvTime = INA260_Driver::Conv_Time::TU4156;
   INA260_Driver::Ave_Mode INA_AveragingMode = INA260_Driver::Ave_Mode::AV1;
   INA260_Driver::Op_Mode INA_OperatingMode = INA260_Driver::Op_Mode::CURCONT;
 
@@ -51,7 +58,7 @@ int main() {
   uint8_t INA_Address = INA260_ADDRESS;
 
   // Initialise INA260 object with callback for printing data, and I2C callback for communication.
-  INA260_Feedback INA260Callback;
+  INA260_Feedback INA260Callback("current_data");
   SMBUS_I2C_IF INA260_I2C_Callback;
   INA260_I2C_Callback.Init_I2C(INA_Address, INA_i2cFile);
   INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback);
