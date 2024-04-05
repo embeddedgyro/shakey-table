@@ -71,23 +71,26 @@ void INA260::dataAquisition(void) {
 }
 
 float INA260::ReadVoltage(void) {
-  uint16_t voltage_data =
-      i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG);
-  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG);
+  i2c_status_t status;
+  int16_t voltage_data =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG, &status);
+  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, &status);
   return ReadingBases::VOLTAGE * voltage_data;
 }
 
 float INA260::ReadCurrent(void) {
-  uint16_t current_data =
-      i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG);
-  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG);
+  i2c_status_t status;
+  int16_t current_data =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CURRENT_REG, &status);
+  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, &status);
   return ReadingBases::CURRENT * current_data;
 }
 
 float INA260::ReadPower(void) {
-  uint16_t power_data =
-      i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG);
-  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG);
+  i2c_status_t status;
+  int16_t power_data =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::POWER_REG, &status);
+  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, &status);
   return ReadingBases::POWER * power_data;
 }
 
@@ -99,8 +102,9 @@ i2c_status_t INA260::AlertSet(Alert_Conf alert_mode) {
 }
 
 i2c_status_t INA260::CurrentConvTime(Conv_Time convert_time) {
+  i2c_status_t status;
   uint16_t conv_time_reg =
-      i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG);
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG, &status);
   uint16_t mask = ~0b0000000000111000;
   conv_time_reg = conv_time_reg & mask;
   conv_time_reg = conv_time_reg | ((uint16_t)convert_time << 3);
@@ -109,8 +113,9 @@ i2c_status_t INA260::CurrentConvTime(Conv_Time convert_time) {
 }
 
 i2c_status_t INA260::VoltageConvTime(Conv_Time convert_time) {
+  i2c_status_t status;
   uint16_t conv_time_reg =
-      i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG);
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG, &status);
   uint16_t mask = ~0b0000000111000000;
   conv_time_reg = conv_time_reg & mask;
   conv_time_reg = conv_time_reg | ((uint16_t)convert_time << 6);
@@ -119,8 +124,9 @@ i2c_status_t INA260::VoltageConvTime(Conv_Time convert_time) {
 }
 
 i2c_status_t INA260::OperatingMode(Op_Mode operate_mode) {
+  i2c_status_t status;
   uint16_t conf_reg_data =
-      i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG);
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG, &status);
   uint16_t mask = ~0b0000000000000111;
   conf_reg_data = conf_reg_data & mask;
   conf_reg_data = conf_reg_data | ((uint16_t)operate_mode);
@@ -130,8 +136,9 @@ i2c_status_t INA260::OperatingMode(Op_Mode operate_mode) {
 }
 
 i2c_status_t INA260::AveragingMode(Ave_Mode ave_setting) {
+  i2c_status_t status;
   uint16_t conf_reg_data =
-      i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG);
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG, &status);
   uint16_t mask = ~0b0000111000000000;
   conf_reg_data = conf_reg_data & mask;
   conf_reg_data = conf_reg_data | ((uint16_t)ave_setting << 9);
