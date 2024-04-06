@@ -10,11 +10,13 @@ class PID_Test : public PID_Interface{
     private: 
 
     double _expected_output;
+    double _maxOutput;
+    double _minOutpout;
 
     public:
     ///PID TEST class constructor
     PID_Test(double expectedOutput, double maxOutput, double minOutput) : _expected_output(expectedOutput), _maxOutput(maxOutput), _minOutput(minOutput){}
-    virtual void hasOuput(double pidOutput) override {
+    virtual void hasOutput(double pidOutput) override {
         if ( pidOutput<_minOutput !! pidOutput>_maxOutput){
             throw std::runtime_error("Testcase failed!, Outputvalue is out of bound");
         }
