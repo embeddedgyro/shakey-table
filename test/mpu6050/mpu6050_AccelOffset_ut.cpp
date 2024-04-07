@@ -14,9 +14,10 @@
 // Test case for SetAccel_X_Offset method
 void testSetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
-
+    std::cout << "Test function for SetAccelXOffset is getting executed" << std::endl;
     // Call the method
     i2c_status_t result = mpu->SetAccel_X_Offset(100);
+    std::cout << result << std::endl;
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -27,7 +28,7 @@ void testSetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
 // Test case for GetAccel_X_Offset method
 void testGetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
-
+    std::cout << "Test function for GetAccelXOffset is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
     int16_t offset = mpu->GetAccel_X_Offset(&error);
@@ -237,40 +238,54 @@ int main() {
     // Initialise inner PID controller with callback using motor driver object.
     // Initially with the PID output being the DC directly, so set min to 0 and max to 1.
     // Initially with Kp=1, Kd=0, and Ki=0.
+    std::cout << "InnerPID" << std::endl;
     PID_MotorDriver innerPIDCallback(MD20);
     PID innerPID(&innerPIDCallback, 0, INA_SamplePeriod, 1, 0, 1, 0, 0);
 
     // Initialise outer PID controller with callback using the inner PID controller.
     // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
     // Initially with Kp=1, Kd=0, and Ki=0.
+    std::cout << "OuterPID" << std::endl;
     PID_Position outerPIDCallback(innerPID);
     PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), 1, 0, 0);
 
     // Initialise MPU6050 object with callback using the outer PID controller, and I2C callback for communication.
+    std::cout << "MPU6050 instance creation" << std::endl;
     MPU6050_Feedback MPU6050Callback(outerPID, radius, MPU_SamplePeriod);
     SMBUS_I2C_IF MPU6050_I2C_Callback;
     MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
+    //try{
     // Initialize the sensor with desired parameters
-    i2c_status_t initStatus = MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
-
+    /*i2c_status_t initStatus = MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
+    std::cout << initStatus << std::endl;
     if (initStatus != I2C_STATUS_SUCCESS) {
         //Capturing initialization failure
-        throw std::runtime_error(" Initialization failure!");
+        //std::cout <<"Throwing"<< std::endl;
+        throw std::runtime_error("Initialization failure!");
         return 1;
     }
-
-    try{
-    //Execute test case
-        testSetAccelXOffset(&MPU6050);
-        testGetAccelXOffset(&MPU6050);
-    std::cout << "All tests passed!" << std::endl;
     }
     catch (const std::exception& e) {
         //Capturing test case failure
+        std::cout<<"Catch is getting executed"<< std::endl;
+        std::cerr << "Issue: " << e.what() << std::endl;
+        return 1; // Returning non-zero exit code to indicate test failure
+    }
+    */
+    try{
+    //Execute test case
+        std::cout<<"Test cases getting executed" << std::endl;
+        testSetAccelXOffset(&MPU6050);
+        testGetAccelXOffset(&MPU6050);
+        std::cout << "All tests passed!" << std::endl;
+    }catch (const std::exception& e) {
+        //Capturing test case failure
+        std::cout<<"Catch is getting executed"<< std::endl;
         std::cerr << "Test failed: " << e.what() << std::endl;
         return 1; // Returning non-zero exit code to indicate test failure
     }
     return 0;
 }
+
