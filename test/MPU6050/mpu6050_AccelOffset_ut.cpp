@@ -5,18 +5,18 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include "../lib/pid/pid.h"
-#include "../lib/mpu6050/mpu6050.h"
-#include "../lib/i2c_interface/smbus_i2c_if.h"
-#include "../lib/ina260/ina260.h"
-#include "../lib/MotorDriver/MotorDriver.h"
+#include "../../lib/pid/pid.h"
+#include "../../lib/mpu6050/mpu6050.h"
+#include "../../lib/i2c_interface/smbus_i2c_if.h"
+#include "../../lib/ina260/ina260.h"
+#include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetAccel_X_Offset method
-void testSetAccelXOffset(const MPU6050& mpu) {
+void testSetAccelXOffset(auto MPU6050) {
     //MPU6050 mpu6050;
 
     // Call the method
-    i2c_status_t result = mpu.SetAccel_X_Offset(100);
+    i2c_status_t result = MPU6050.SetAccel_X_Offset(100);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -25,12 +25,12 @@ void testSetAccelXOffset(const MPU6050& mpu) {
 }
 
 // Test case for GetAccel_X_Offset method
-void testGetAccelXOffset(const MPU6050& mpu) {
+void testGetAccelXOffset(auto MPU6050) {
     //MPU6050 mpu6050;
 
     // Call the method
     i2c_status_t error;
-    int16_t offset = mpu.GetAccel_X_Offset(&error);
+    int16_t offset = MPU6050.GetAccel_X_Offset(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || offset != 100) {
@@ -229,9 +229,10 @@ int main() {
     std::cout << "Set up variables." << std::endl;
 
     // Initialise motor driver object. Assuming line offset 16 for direction pin is correct for now.
-    MotorDriver MD20(chip_path, 16);
+    MotorDriver MD20(chip_path, 16, 200);
 
     std::cout << "Set up motor driver object." << std::endl;
+    float INA_SamplePeriod = 204e-6;
 
     // Initialise inner PID controller with callback using motor driver object.
     // Initially with the PID output being the DC directly, so set min to 0 and max to 1.
@@ -262,8 +263,8 @@ int main() {
 
     try{
     //Execute test case
-        testSetAccelXOffset(mpu6050);
-        testGetAccelXOffset(mpu6050);
+        testSetAccelXOffset(&MPU6050);
+        testGetAccelXOffset(&MPU6050);
     std::cout << "All tests passed!" << std::endl;
     }
     catch (const std::exception& e) {
