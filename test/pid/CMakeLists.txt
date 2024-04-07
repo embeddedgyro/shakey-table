@@ -6,5 +6,5 @@ target_link_libraries(pidUnitTest PUBLIC pid)
 
 # Specify include directories
 target_include_directories(
-  ${PROJECT_NAME}
+  pidUnitTest 
   PUBLIC "${PROJECT_SOURCE_DIR}/lib/pid")

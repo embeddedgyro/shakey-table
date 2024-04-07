@@ -6,7 +6,7 @@ target_link_libraries(mpu6050_AccelOffset_ut PUBLIC ina260 mpu6050 pid MotorDriv
 
 # Specify include directories
 target_include_directories(
-  ${PROJECT_NAME}
+  mpu6050_AccelOffset_ut
   PUBLIC "${PROJECT_SOURCE_DIR}/lib/ina260" 
          "${PROJECT_SOURCE_DIR}/lib/mpu6050"
          "${PROJECT_SOURCE_DIR}/lib/pid"
