@@ -2,7 +2,7 @@
 add_executable(pidUnitTest pidUnitTest.cpp)
 
 # Link the libraries
-target_link_libraries((pidUnitTest PUBLIC pid)
+target_link_libraries(pidUnitTest PUBLIC pid)
 
 # Specify include directories
 target_include_directories(
