@@ -9,6 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Include subdirectories
 add_subdirectory(lib)
 add_subdirectory(src)
+add_subdirectory(test)
 
 # Generate Doxyfile and associated target
 find_package(Doxygen)
