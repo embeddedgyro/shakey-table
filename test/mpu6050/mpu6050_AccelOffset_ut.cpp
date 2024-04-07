@@ -12,11 +12,11 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetAccel_X_Offset method
-void testSetAccelXOffset(auto MPU6050) {
+void testSetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
 
     // Call the method
-    i2c_status_t result = MPU6050.SetAccel_X_Offset(100);
+    i2c_status_t result = mpu->SetAccel_X_Offset(100);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -25,12 +25,12 @@ void testSetAccelXOffset(auto MPU6050) {
 }
 
 // Test case for GetAccel_X_Offset method
-void testGetAccelXOffset(auto MPU6050) {
+void testGetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
 
     // Call the method
     i2c_status_t error;
-    int16_t offset = MPU6050.GetAccel_X_Offset(&error);
+    int16_t offset = mpu->GetAccel_X_Offset(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || offset != 100) {
