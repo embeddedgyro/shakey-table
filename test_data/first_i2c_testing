@@ -1,0 +1,574 @@
+pi@rpi5-2:~/Documents/shakey-table/build $ ./src/ShakeyTable 
+Set up variables.
+MotorDriver constructor entered.
+Set up motor driver object.
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Opened /dev/i2c-1. File descriptor 9
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Set up I2C bus with h slave address. Status code 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Opened /dev/i2c-0. File descriptor 10
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Set up I2C bus with @ slave address. Status code 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 107 of device at address 104. Data: 64
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 107 of device at address 104. Data: 0
+Woken
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 27 of device at address 104. Data: 0
+full gyro
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 28 of device at address 104. Data: 0
+full accel
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 26 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 26 of device at address 104. Data: 0
+dlpf conf
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 55 of device at address 104. Data: 16
+int conf
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 56 of device at address 104. Data: 1
+int en
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 28 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 6 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 7 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 8 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 9 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 10 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address 11 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 229
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 24
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 228
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 240
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 228
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 84
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 228
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 164
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 227
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 164
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 227
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 100
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 227
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 216
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 228
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 64
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 228
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 16
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 228
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 32
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 228
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 152
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 227
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 152
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 226
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 244
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 226
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 12
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 225
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 136
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 225
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 56
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 225
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 104
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 225
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 32
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 225
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 32
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 224
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 148
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 224
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 88
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 224
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 92
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 224
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 12
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 223
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 4
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 222
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 240
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 220
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 240
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 220
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 16
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 219
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 40
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 218
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 52
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 218
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 204
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 217
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 160
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 217
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 92
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 217
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 92
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 217
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 192
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 217
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 76
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 217
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 80
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 218
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 56
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 219
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 176
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 219
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 176
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 209
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 88
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 59 of device at address 104. Data: 199
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address 60 of device at address 104. Data: 84
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Could not read a byte at register address 59 of device at address 104. Error code -121
+cal accel
+cal gyro
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): Wrote block bytes to register address 6 of device at address 64. Error code 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 0 of device at address 64. Error code 2
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): Wrote block bytes to register address 0 of device at address 64. Error code 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 0 of device at address 64. Error code 2
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): Wrote block bytes to register address 0 of device at address 64. Error code 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 0 of device at address 64. Error code 2
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): Wrote block bytes to register address 0 of device at address 64. Error code 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 0 of device at address 64. Error code 2
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): Wrote block bytes to register address 0 of device at address 64. Error code 0
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 1 of device at address 64. Error code 2
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 6 of device at address 64. Error code 2
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 2 of device at address 64. Error code 2
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 6 of device at address 64. Error code 2
+Set duty cycle to 62 in the 'forward' direction.
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address 59 of device at address 104. Error code 14
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address 59 of device at address 104. Error code -110
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address 59 of device at address 104. Error code -110
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address 59 of device at address 104. Error code -110
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address 59 of device at address 104. Error code -110
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address 59 of device at address 104. Error code -110
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address 59 of device at address 104. Error code -110
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address 59 of device at address 104. Error code -110
+ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Could not read block bytes from register address 59 of device at address 104. Error code -110
+^C

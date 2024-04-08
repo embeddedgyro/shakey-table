@@ -269,6 +269,12 @@ namespace MPU6050_Driver {
     * @param  SRdiv Sample rate divider
     * @param  INTconf Interrupt configuration
     * @param  INTenable Interrput types enabled
+    * @param  accelCalX Target acceleration in the X axis for calibration (units g)
+    * @param  accelCalY Target acceleration in the Y axis for calibration (units g)
+    * @param  accelCalZ Target acceleration in the Z axis for calibration (units g)
+    * @param  accelCalX Target angular velocity in the X axis for calibration (units deg/s)
+    * @param  accelCalY Target angular velocity in the Y axis for calibration (units deg/s)
+    * @param  accelCalZ Target angular velocity in the Z axis for calibration (units deg/s)
     * @retval i2c_status_t Success status
     */
     i2c_status_t InitializeSensor(
@@ -277,7 +283,13 @@ namespace MPU6050_Driver {
 	DLPF_t DLPFconf = DLPF_t::BW_260Hz,
 	uint8_t SRdiv = 7,  // Sample Rate = Gyroscope Output Rate / (1 + SRdiv)
 	uint8_t INTconf = Regbits_INT_PIN_CFG::BIT_INT_RD_CLEAR,
-	uint8_t INTenable = Regbits_INT_ENABLE::BIT_DATA_RDY_EN);
+	uint8_t INTenable = Regbits_INT_ENABLE::BIT_DATA_RDY_EN,
+	float accelCalX = 0,
+	float accelCalY = 0,
+	float accelCalZ = 1,
+	float gyroCalX = 0,
+	float gyroCalY = 0,
+	float gyroCalZ = 0);
 
     /*
      * @brief  This function sets the callback to be called when data becomes available.

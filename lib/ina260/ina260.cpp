@@ -54,7 +54,7 @@ void INA260::dataAquisition(void) {
           .add_line_settings(
               line_offset, gpiod::line_settings()
                                .set_direction(gpiod::line ::direction::INPUT)
-                               .set_edge_detection(gpiod::line::edge ::RISING))
+                               .set_edge_detection(gpiod::line::edge ::FALLING))
           .do_request();
   gpiod::edge_event_buffer buffer(1);
 
@@ -71,102 +71,79 @@ void INA260::dataAquisition(void) {
 }
 
 float INA260::ReadVoltage(void) {
-  uint8_t voltage_data[2];
-  uint8_t maskenundata[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG, 2,
-                         (uint8_t *)voltage_data);
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, 2,
-                         (uint8_t *)maskenundata);
-  signed int int_voltage = voltage_data[1] | (voltage_data[0] << 8);
-  if (int_voltage & 0x8000) {
-    int_voltage = int_voltage - 0x10000;
-  }
-  return ReadingBases::VOLTAGE * int_voltage;
+  i2c_status_t status;
+  int16_t voltage_data =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::VOLTAGE_REG, &status);
+  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, &status);
+  return ReadingBases::VOLTAGE * voltage_data;
 }
 
 float INA260::ReadCurrent(void) {
-  uint8_t current_data[2];
-  uint8_t maskenundata[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::CURRENT_REG, 2,
-                         (uint8_t *)current_data);
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, 2,
-                         (uint8_t *)maskenundata);
-  signed int int_current = current_data[1] | (current_data[0] << 8);
-  if (int_current & 0x8000) {
-    int_current = int_current - 0x10000;
-  }
-  return ReadingBases::CURRENT * int_current;
+  i2c_status_t status;
+  int16_t current_data =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CURRENT_REG, &status);
+  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, &status);
+  return ReadingBases::CURRENT * current_data;
 }
 
 float INA260::ReadPower(void) {
-  uint8_t Power_data[2];
-  uint8_t maskenundata[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::POWER_REG, 2,
-                         (uint8_t *)Power_data);
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, 2,
-                         (uint8_t *)maskenundata);
-  signed int int_power = Power_data[1] | (Power_data[0] << 8);
-  if (int_power & 0x8000) {
-    int_power = int_power - 0x10000;
-  }
-  return ReadingBases::POWER * int_power;
+  i2c_status_t status;
+  int16_t power_data =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::POWER_REG, &status);
+  i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, &status);
+  return ReadingBases::POWER * power_data;
 }
 
 i2c_status_t INA260::AlertSet(Alert_Conf alert_mode) {
-  uint8_t alert_data[2];
-  alert_data[1] = (uint8_t)alert_mode;
-  alert_data[0] = 0x00;
-  return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::MASKEN_REG, 2,
-                                 (uint8_t *)alert_data);
+  uint16_t alert_data;
+  alert_data = (uint16_t)alert_mode << 8;
+  return i2c->WriteRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::MASKEN_REG,
+                                alert_data);
 }
 
 i2c_status_t INA260::CurrentConvTime(Conv_Time convert_time) {
-  uint8_t conf_reg[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                         (uint8_t *)conf_reg);
-  uint8_t mask = ~0b00111000;
-  conf_reg[1] = conf_reg[1] & mask;
-  conf_reg[1] = conf_reg[1] | ((int)convert_time << 3);
-  return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                                 (uint8_t *)conf_reg);
+  i2c_status_t status;
+  uint16_t conv_time_reg =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG, &status);
+  uint16_t mask = ~0b0000000000111000;
+  conv_time_reg = conv_time_reg & mask;
+  conv_time_reg = conv_time_reg | ((uint16_t)convert_time << 3);
+  return i2c->WriteRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG,
+                                conv_time_reg);
 }
 
 i2c_status_t INA260::VoltageConvTime(Conv_Time convert_time) {
-  uint8_t conf_reg[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                         (uint8_t *)conf_reg);
-  uint8_t lsbmask = static_cast<uint8_t>(~static_cast<uint8_t>(0b11000000));
-  uint8_t msbmask = ~0b00000001;
-  conf_reg[1] = conf_reg[1] & lsbmask;
-  conf_reg[0] = conf_reg[0] & msbmask;
-  uint8_t lsbtime = (uint8_t)convert_time % 4;
-  uint8_t msbtime = (uint8_t)convert_time >> 2;
-  conf_reg[1] = conf_reg[1] | (lsbtime << 6);
-  conf_reg[0] = conf_reg[0] | msbtime;
-  return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                                 (uint8_t *)conf_reg);
+  i2c_status_t status;
+  uint16_t conv_time_reg =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG, &status);
+  uint16_t mask = ~0b0000000111000000;
+  conv_time_reg = conv_time_reg & mask;
+  conv_time_reg = conv_time_reg | ((uint16_t)convert_time << 6);
+  return i2c->WriteRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG,
+                                conv_time_reg);
 }
 
 i2c_status_t INA260::OperatingMode(Op_Mode operate_mode) {
-  uint8_t conf_reg[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                         (uint8_t *)conf_reg);
-  uint8_t mask = ~0b00000111;
-  conf_reg[1] = conf_reg[1] & mask;
-  conf_reg[1] = conf_reg[1] | ((uint8_t)operate_mode);
-  return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                                 (uint8_t *)conf_reg);
+  i2c_status_t status;
+  uint16_t conf_reg_data =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG, &status);
+  uint16_t mask = ~0b0000000000000111;
+  conf_reg_data = conf_reg_data & mask;
+  conf_reg_data = conf_reg_data | ((uint16_t)operate_mode);
+  std::cout << "Data sent to config register: " << std::hex << conf_reg_data << std::endl;
+  return i2c->WriteRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG,
+                                conf_reg_data);
 }
 
 i2c_status_t INA260::AveragingMode(Ave_Mode ave_setting) {
-  uint8_t conf_reg[2];
-  i2c->ReadRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                         (uint8_t *)conf_reg);
-  uint8_t mask = ~0b00001110;
-  conf_reg[0] = conf_reg[0] & mask;
-  conf_reg[0] = conf_reg[0] | ((uint8_t)ave_setting << 1);
-  return i2c->WriteRegisterBlock(INA260_ADDRESS, Sensor_Regs::CONF_REG, 2,
-                                 (uint8_t *)conf_reg);
+  i2c_status_t status;
+  uint16_t conf_reg_data =
+    i2c->ReadRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG, &status);
+  uint16_t mask = ~0b0000111000000000;
+  conf_reg_data = conf_reg_data & mask;
+  conf_reg_data = conf_reg_data | ((uint16_t)ave_setting << 9);
+  return i2c->WriteRegisterWordBigEndian(INA260_ADDRESS, Sensor_Regs::CONF_REG,
+                                conf_reg_data);
 }
 
 } // namespace INA260_Driver
