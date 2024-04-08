@@ -256,13 +256,13 @@ int main() {
     MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
-    //try{
-    // Initialize the sensor with desired parameters
-    /*i2c_status_t initStatus = MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
+    try{
+    //Initialize the sensor with desired parameters
+    i2c_status_t initStatus = MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
     std::cout << initStatus << std::endl;
     if (initStatus != I2C_STATUS_SUCCESS) {
         //Capturing initialization failure
-        //std::cout <<"Throwing"<< std::endl;
+        std::cout <<"Throwing"<< std::endl;
         throw std::runtime_error("Initialization failure!");
         return 1;
     }
@@ -273,7 +273,7 @@ int main() {
         std::cerr << "Issue: " << e.what() << std::endl;
         return 1; // Returning non-zero exit code to indicate test failure
     }
-    */
+    
     try{
     //Execute test case
         std::cout<<"Test cases getting executed" << std::endl;
