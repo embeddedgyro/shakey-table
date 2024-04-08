@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_subdirectory(lib)
 add_subdirectory(src)
 add_subdirectory(test)
+enable_testing()
+add_test(NAME MyTest COMMAND Test)
 
 # Generate Doxyfile and associated target
 find_package(Doxygen)

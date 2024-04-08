@@ -1,13 +1,12 @@
-# Add the executable
-add_executable(mpu6050_AccelOffset_ut mpu6050_AccelOffset_ut.cpp)
+find_package (Boost COMPONENTS system filesystem unit_test_framework REQUIRED)
+include_directories (${PROJECT_SOURCE_DIR}/src
+			${Boost_INCLUDE_DIRES}
+			)
+add_definitions (-DBOOST_TEST_DYN_LINK)
+add_executable (Test test.cpp)
+target_link_libraries(Test PUBLIC ina260 mpu6050 pid MotorDriver -lgpiodcxx
+			${Boost_FILESYSTEM_LIBRARY}
+			${Boost_SYSTEM_LIBRARY}
+			${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
-# Link the libraries
-target_link_libraries(mpu6050_AccelOffset_ut PUBLIC ina260 mpu6050 pid MotorDriver -lgpiodcxx)
-
-# Specify include directories
-target_include_directories(
-  mpu6050_AccelOffset_ut
-  PUBLIC "${PROJECT_SOURCE_DIR}/lib/ina260" 
-         "${PROJECT_SOURCE_DIR}/lib/mpu6050"
-         "${PROJECT_SOURCE_DIR}/lib/pid"
-         "${PROJECT_SOURCE_DIR}/lib/MotorDriver")
+add_test (NAME MyTest COMMAND Test)			
