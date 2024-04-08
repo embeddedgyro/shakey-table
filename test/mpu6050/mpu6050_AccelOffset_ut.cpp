@@ -259,7 +259,11 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
     try{
+<<<<<<< HEAD
     // Initialize the sensor with desired parameters
+=======
+    //Initialize the sensor with desired parameters
+>>>>>>> fc799f0e702dff7f1d360bf4de3079cf74ebfb98
     i2c_status_t initStatus = MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
     std::cout << initStatus << std::endl;
     if (initStatus != I2C_STATUS_SUCCESS) {
