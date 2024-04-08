@@ -238,21 +238,42 @@ int main() {
   float radius = 0.15;
 
   // I2C device files and addresses for MPU and INA:
-  std::string MPU_i2cFile = "/dev/i2c-0";
-  std::string INA_i2cFile = "/dev/i2c-1";
+  std::string MPU_i2cFile = "/dev/i2c-1";
+  std::string INA_i2cFile = "/dev/i2c-0";
   uint8_t MPU_Address = MPU6050_ADDRESS;
   uint8_t INA_Address = INA260_ADDRESS;
 
   // Gpiod device file path:
   std::filesystem::path chip_path("/dev/gpiochip4");
 
+  // Motor driver direction GPIO pin:
+  gpiod::line::offset MD_DirPin = 5;
+
   std::cout << "Set up variables." << std::endl;
 
   // Initialise motor driver object. Assuming line offset 16 for direction pin is correct for now.
+<<<<<<< HEAD
   MotorDriver MD20(chip_path, 16, 200);
+=======
+  MotorDriver MD20(chip_path, MD_DirPin, 50000);
+>>>>>>> testing
 
   std::cout << "Set up motor driver object." << std::endl;
 
+  /*  while (true) {
+    MD20.setDutyCycle(1);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    MD20.setDutyCycle(0.5);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    MD20.setDutyCycle(0);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    MD20.setDutyCycle(-0.5);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    MD20.setDutyCycle(-1);
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    }*/
+
+  
   // Initialise inner PID controller with callback using motor driver object.
   // Initially with the PID output being the DC directly, so set min to 0 and max to 1.
   // Initially with Kp=1, Kd=0, and Ki=0.
@@ -278,7 +299,7 @@ int main() {
   INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback);
 
   // Setup settings on MPU and INA over i2c.
-  MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
+  MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable, 0, 1); // Given the MPU's orientation, there should be 1g in the Y axis at initalisaton
   INA260.InitializeSensor(INA_AlertMode, INA_VoltConvTime, INA_CurrConvTime, INA_AveragingMode, INA_OperatingMode);
 
   // Start data aquisition and processing from the MPU and INA.
