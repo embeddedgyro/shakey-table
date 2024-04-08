@@ -23,7 +23,7 @@ The following Debian packages (Raspberry Pi OS is built on Debian and has access
 * `cmake`
 * `g++`
 
-The following packages are recomended:
+The following packages are recommended:
 * `git` for cloning the repository, although you can simply download the code from the GitHub website if you wish.
 * `doxygen` for creating nice documentation from the comments in the code.
 * `texlive-full` for compiling a PDF document from the LaTeX code created by Doxygen (which also creates a website that you can view in your browser,
@@ -41,7 +41,7 @@ and `--enable-bindings-cxx` (**necessary**, since this is a C++ program). Note t
 * As of the latest kernel for the Pi 5 on 2024-04-03 (6.6.21-v8-16k+), this patch is required for PWM to work through the sysfs interface:
 [https://github.com/raspberrypi/linux/pull/6026](https://github.com/raspberrypi/linux/pull/6026). Install using `sudo rpi-update pulls/6026`.
 See [https://forums.raspberrypi.com/viewtopic.php?t=359251](https://forums.raspberrypi.com/viewtopic.php?t=359251),
-particularly the [post by neuralassembly](https://forums.raspberrypi.com/viewtopic.php?p=2202349#p2202349) and onwards.
+particularly the [post by neuralassembly](https://forums.raspberrypi.com/viewtopic.php?p=2202349#p2202349) and onward.
 
 ## Building the Software
 To build the software, follow these instructions:
@@ -59,7 +59,7 @@ path of the executable. For example, `/some/path/from/root/shakey-table/build/sr
 executable, you can enter `./ShakeyTable` (the leading dot means *this directory*).
 
 ## Documentation
-Documentation of this project is provided by Doxygen formated comments in the code.
+Documentation of this project is provided by Doxygen formatted comments in the code.
 Doxygen can be used to create a website and PDF document that organise the documentation
 in a way that is clear, easy to navigate, and easy to read.
 
@@ -76,5 +76,5 @@ tools at the top of the page.
 ### PDF Document
 After running `make doc`, there will also be a `build/latex/` directory. If you have a TeX distribution
 installed, you can `cd` into this directory and enter `make`. This will invoke `pdflatex` to generate
-a PDF document called `refman.pdf`, which will contain the Doxygen generated documenation for the project.
+a PDF document called `refman.pdf`, which will contain the Doxygen generated documentation for the project.
 View with your PDF reader of choice. Most browsers can also view PDF documents.
