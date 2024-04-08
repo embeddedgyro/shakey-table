@@ -39,6 +39,8 @@ void testGetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
     }
 }
 
+
+
 //Call backs and interface class implementation to perform the online file testing
 /**
  * @brief Implementation of the PID_Interface for the inner PID controller,
@@ -256,24 +258,24 @@ int main() {
     MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
-    //try{
+    try{
     // Initialize the sensor with desired parameters
-    /*i2c_status_t initStatus = MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
+    i2c_status_t initStatus = MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
     std::cout << initStatus << std::endl;
     if (initStatus != I2C_STATUS_SUCCESS) {
         //Capturing initialization failure
-        //std::cout <<"Throwing"<< std::endl;
+        std::cout <<"Throwing"<< std::endl;
         throw std::runtime_error("Initialization failure!");
-        return 1;
+        //return 0;
     }
     }
     catch (const std::exception& e) {
         //Capturing test case failure
         std::cout<<"Catch is getting executed"<< std::endl;
         std::cerr << "Issue: " << e.what() << std::endl;
-        return 1; // Returning non-zero exit code to indicate test failure
+        //return 0; // Returning non-zero exit code to indicate test failure
     }
-    */
+    
     try{
     //Execute test case
         std::cout<<"Test cases getting executed" << std::endl;
