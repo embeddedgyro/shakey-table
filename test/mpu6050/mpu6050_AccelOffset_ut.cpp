@@ -39,91 +39,6 @@ void testGetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
     }
 }
 
-
-
-//Call backs and interface class implementation to perform the online file testing
-/**
- * @brief Implementation of the PID_Interface for the inner PID controller,
- * driving the motor driver.
- */
-class PID_MotorDriver : public PID_Interface
-{
-public:
-  /**
-   * @brief Constructor taking and assigning a motor driver object reference.
-   * @param _motorDriver The motor driver object.
-   */
-  PID_MotorDriver(MotorDriver& _motorDriver) : motorDriver(_motorDriver) {}
-  
-  /**
-   * @brief PID controller callback implementation, passing the PID output to the provided motor driver object.
-   * @param pidOutput Output of the PID controller passed to the callback.
-   */
-  virtual void hasOutput(double pidOutput) { motorDriver.setDutyCycle(pidOutput); } // May want to have duty cycle acceleration, rather than setting DC directly
-
-private:
-  /**
-   * @brief Motor driver object reference attribute.
-   */
-  MotorDriver& motorDriver;
-};
-
-
-/**
- * @brief Implementation of the PID_Interface for the outer PID controller,
- * controlling position via torque outputs that are sent to the inner PID
- * controller.
- */
-class PID_Position : public PID_Interface
-{
-public:
-  /**
-   * @brief Constructor taking and assigning a PID controller object reference.
-   * @param _pidController The PID controller object.
-   */
-  PID_Position(PID& _pidController) : pidController(_pidController) {}
-  
-  /**
-   * @brief PID controller callback implementation, passing the PID output to the provided PID controller object.
-   * @param pidOutput Output of the PID controller passed to the callback.
-   */
-  virtual void hasOutput(double pidOutput) override { pidController.setSetpoint(pidOutput); }
-
-private:
-  /**
-   * @brief PID controller object reference attribute.
-   */
-  PID& pidController;
-};
-
-
-/**
- * @brief Implementation of the INA260Interface for feedback of current (torque)
- * values as the PV for the inner PID controller driving the motor driver.
- */
-class INA260_Feedback : public INA260_Driver::INA260Interface
-{
-public:
-  /**
-   * @brief Constructor taking and assigning a PID controller object reference.
-   * @param _pidController The PID controller object.
-   */
-  INA260_Feedback(PID& _pidController) : pidController(_pidController) {}
-
-  /**
-   * @brief INA260 callback implementation, passing the measured current (torque) to the provided PID controller object.
-   * @param sample Current measured by the INA260 passed to the callback.
-   */
-  virtual void hasSample(INA260_Driver::INA260Sample& sample) override { pidController.calculate(sample.current); } // May want a scale factor to convert current -> torque (or just adjust PID constants)
-
-private:
-  /**
-   * @brief PID controller object reference attribute.
-   */
-  PID& pidController;
-};
-
-
 /**
  * @brief Implementation of the MPU6050Interface. This is where the magic
  * happens for calculating the cup holder's angular position based on the IMU
@@ -137,8 +52,8 @@ public:
    * @brief Constructor taking and assigning a PID controller object reference.
    * @param _pidController The PID controller object.
    */
-  MPU6050_Feedback(PID& _pidController, float _radius, float _samplePeriod)
-    : pidController(_pidController), radius(_radius), samplePeriod(_samplePeriod) {}
+  MPU6050_Feedback(float _radius, float _samplePeriod)
+    :  radius(_radius), samplePeriod(_samplePeriod) {}
 
   /**
    * @brief MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder,
@@ -176,15 +91,10 @@ public:
     if (axGrav > 0)
       angularPos = -angularPos;
 
-    // Pass angular position to outer PID controller as PV.
-    pidController.calculate(angularPos);
+    float angularPosDeg = angularPos * 180.0 / 3.14159265358979323846;
   }
 
 private:
-  /**
-   * @brief PID controller object reference attribute.
-   */
-  PID& pidController;
 
   /**
    * @brief Radius from axis of rotation to MPU in meters.
@@ -208,8 +118,8 @@ int main() {
     // MPU6050 settings:
     MPU6050_Driver::Gyro_FS_t MPU_GyroScale = MPU6050_Driver::Gyro_FS_t::FS_250_DPS;
     MPU6050_Driver::Accel_FS_t MPU_AccelScale = MPU6050_Driver::Accel_FS_t::FS_2G;
-    MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_260Hz;
-    uint8_t MPU_SRdiv = 7;
+    MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_184Hz;
+    uint8_t MPU_SRdiv = 25;
     uint8_t MPU_INTconf = MPU6050_Driver::Regbits_INT_PIN_CFG::BIT_INT_RD_CLEAR;
     uint8_t MPU_INTenable = MPU6050_Driver::Regbits_INT_ENABLE::BIT_DATA_RDY_EN;
 
@@ -223,75 +133,22 @@ int main() {
     // Radius from axis of ratation to MPU chip (need to actually measure this):
     float radius = 0.15;
     // I2C device files and addresses for MPU and INA:
-    std::string MPU_i2cFile = "/dev/i2c-0";
+    std::string MPU_i2cFile = "/dev/i2c-1";
     uint8_t MPU_Address = MPU6050_ADDRESS;
-
-    // Gpiod device file path:
-    std::filesystem::path chip_path("/dev/gpiochip4");
-
-    std::cout << "Set up variables." << std::endl;
-
-    // Initialise motor driver object. Assuming line offset 16 for direction pin is correct for now.
-    MotorDriver MD20(chip_path, 16, 200);
-
-    std::cout << "Set up motor driver object." << std::endl;
-    float INA_SamplePeriod = 204e-6;
-
-    // Initialise inner PID controller with callback using motor driver object.
-    // Initially with the PID output being the DC directly, so set min to 0 and max to 1.
-    // Initially with Kp=1, Kd=0, and Ki=0.
-    std::cout << "InnerPID" << std::endl;
-    PID_MotorDriver innerPIDCallback(MD20);
-    PID innerPID(&innerPIDCallback, 0, INA_SamplePeriod, 1, 0, 1, 0, 0);
-
-    // Initialise outer PID controller with callback using the inner PID controller.
-    // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
-    // Initially with Kp=1, Kd=0, and Ki=0.
-    std::cout << "OuterPID" << std::endl;
-    PID_Position outerPIDCallback(innerPID);
-    PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), 1, 0, 0);
-
+    
     // Initialise MPU6050 object with callback using the outer PID controller, and I2C callback for communication.
     std::cout << "MPU6050 instance creation" << std::endl;
-    MPU6050_Feedback MPU6050Callback(outerPID, radius, MPU_SamplePeriod);
+    MPU6050_Feedback MPU6050Callback(radius, MPU_SamplePeriod);
     SMBUS_I2C_IF MPU6050_I2C_Callback;
     MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
-    try{
-<<<<<<< HEAD
-    // Initialize the sensor with desired parameters
-=======
-    //Initialize the sensor with desired parameters
->>>>>>> fc799f0e702dff7f1d360bf4de3079cf74ebfb98
-    i2c_status_t initStatus = MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable);
-    std::cout << initStatus << std::endl;
-    if (initStatus != I2C_STATUS_SUCCESS) {
-        //Capturing initialization failure
-        std::cout <<"Throwing"<< std::endl;
-        throw std::runtime_error("Initialization failure!");
-        //return 0;
-    }
-    }
-    catch (const std::exception& e) {
-        //Capturing test case failure
-        std::cout<<"Catch is getting executed"<< std::endl;
-        std::cerr << "Issue: " << e.what() << std::endl;
-        //return 0; // Returning non-zero exit code to indicate test failure
-    }
-    
-    try{
     //Execute test case
-        std::cout<<"Test cases getting executed" << std::endl;
-        testSetAccelXOffset(&MPU6050);
-        testGetAccelXOffset(&MPU6050);
-        std::cout << "All tests passed!" << std::endl;
-    }catch (const std::exception& e) {
-        //Capturing test case failure
-        std::cout<<"Catch is getting executed"<< std::endl;
-        std::cerr << "Test failed: " << e.what() << std::endl;
-        return 1; // Returning non-zero exit code to indicate test failure
-    }
+    std::cout<<"Test cases getting executed" << std::endl;
+    testSetAccelXOffset(&MPU6050);
+    testGetAccelXOffset(&MPU6050);
+    std::cout << "AccelOffset Test cases passed!" << std::endl;
+    MPU6050.begin();
     return 0;
 }
 

@@ -252,11 +252,7 @@ int main() {
   std::cout << "Set up variables." << std::endl;
 
   // Initialise motor driver object. Assuming line offset 16 for direction pin is correct for now.
-<<<<<<< HEAD
-  MotorDriver MD20(chip_path, 16, 200);
-=======
   MotorDriver MD20(chip_path, MD_DirPin, 50000);
->>>>>>> testing
 
   std::cout << "Set up motor driver object." << std::endl;
 

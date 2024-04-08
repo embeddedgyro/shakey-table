@@ -44,7 +44,7 @@ void testGetAccel_X_Raw(MPU6050_Driver::MPU6050* mpu) {
     // Call the method
     std::cout << "Test function for testGetAccel_X_Raw is getting executed" << std::endl;
     i2c_status_t error;
-    int16_t accelXVal = mpu.GetAccel_X_Raw(&error);
+    int16_t accelXVal = mpu->GetAccel_X_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || accelXVal == 0x00) {
@@ -58,7 +58,7 @@ void testGetAccel_Y_Raw(MPU6050_Driver::MPU6050* mpu) {
     // Call the method
     std::cout << "Test function for testGetAccel_Y_Raw is getting executed" << std::endl;
     i2c_status_t error;
-    int16_t accelYVal = mpu.GetAccel_Y_Raw(&error);
+    int16_t accelYVal = mpu->GetAccel_Y_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || accelYVal == 0x00) {
@@ -71,7 +71,7 @@ void testGetAccel_Z_Raw(MPU6050_Driver::MPU6050* mpu) {
     // Call the method
     std::cout << "Test function for testGetAccel_Z_Raw is getting executed" << std::endl;
     i2c_status_t error;
-    int16_t accelZVal = mpu.GetAccel_Z_Raw(&error);
+    int16_t accelZVal = mpu->GetAccel_Z_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || accelZVal == 0x00) {
@@ -83,7 +83,7 @@ void testSetGyro_X_Offset(MPU6050_Driver::MPU6050* mpu) {
 
     // Call the method
     std::cout << "Test function for testSetGyro_X_Offset is getting executed" << std::endl;
-    i2c_status_t result = mpu.SetGyro_X_Offset(100);
+    i2c_status_t result = mpu->SetGyro_X_Offset(100);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -98,7 +98,7 @@ void testGetGyro_X_Offset(MPU6050_Driver::MPU6050* mpu) {
     // Call the method
     std::cout << "Test function for testGetGyro_X_Offset is getting executed" << std::endl;
     i2c_status_t error;
-    int16_t offset = mpu.GetGyro_X_Offset(&error);
+    int16_t offset = mpu->GetGyro_X_Offset(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || offset != 100) {
@@ -111,7 +111,7 @@ void testGetGyro_X_Raw(MPU6050_Driver::MPU6050* mpu) {
     // Call the method
     std::cout << "Test function for testGetGyro_X_Raw is getting executed" << std::endl;
     i2c_status_t error;
-    int16_t gyroXVal = mpu.GetGyro_X_Raw(&error);
+    int16_t gyroXVal = mpu->GetGyro_X_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || gyroXVal == 0x00) {
@@ -125,7 +125,7 @@ void testGetGyro_Y_Raw(MPU6050_Driver::MPU6050* mpu) {
     // Call the method
     std::cout << "Test function for testGetGyro_Y_Raw is getting executed" << std::endl;
     i2c_status_t error;
-    int16_t gyroYVal = mpu.GetGyro_Y_Raw(&error);
+    int16_t gyroYVal = mpu->GetGyro_Y_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || gyroYVal == 0x00) {
@@ -138,7 +138,7 @@ void testGetGyro_Z_Raw(MPU6050_Driver::MPU6050* mpu) {
     // Call the method
     std::cout << "Test function for testGetGyro_Z_Raw is getting executed" << std::endl;
     i2c_status_t error;
-    int16_t gyroZVal = mpu.GetGyro_Z_Raw(&error);
+    int16_t gyroZVal = mpu->GetGyro_Z_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || gyroZVal == 0x00) {
@@ -150,7 +150,7 @@ void testSetGyro_SampleRateDivider(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
     std::cout << "Test function for testSetGyro_SampleRateDivider is getting executed" << std::endl;
     // Call the method
-    i2c_status_t result = mpu.SetGyro_SampleRateDivider(200);
+    i2c_status_t result = mpu->SetGyro_SampleRateDivider(200);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -164,7 +164,7 @@ void testGetGyro_SampleRateDivider(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for testGetGyro_SampleRateDivider is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t samplerate = mpu.GetGyro_SampleRateDivider(&error);
+    int16_t samplerate = mpu->GetGyro_SampleRateDivider(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || samplerate != 200) {
@@ -177,7 +177,7 @@ void testSetSensor_FIFO_Config(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
     std::cout << "Test function for testSetSensor_FIFO_Config is getting executed" << std::endl;
     // Call the method
-    i2c_status_t result = mpu.SetSensor_FIFO_Config(250);
+    i2c_status_t result = mpu->SetSensor_FIFO_Config(250);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -191,7 +191,7 @@ void testGetSensor_FIFO_Config(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for testGetSensor_FIFO_Config is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t fifoconfigval = mpu.GetSensor_FIFO_Config(&error);
+    int16_t fifoconfigval = mpu->GetSensor_FIFO_Config(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || fifoconfigval != 250) {
@@ -203,7 +203,7 @@ void testSetSensor_FIFO_Enable(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
     std::cout << "Test function for testSetSensor_FIFO_Enable is getting executed" << std::endl;
     // Call the method
-    i2c_status_t result = mpu.SetSensor_FIFO_Enable(true);
+    i2c_status_t result = mpu->SetSensor_FIFO_Enable(true);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -217,7 +217,7 @@ void testGetSensor_FIFO_Enable(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for testGetSensor_FIFO_Enable is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    bool state = mpu.GetSensor_FIFO_Enable(&error);
+    bool state = mpu->GetSensor_FIFO_Enable(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || state != true) {
@@ -229,7 +229,7 @@ void testSetSensor_InterruptPinConfig(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
     std::cout << "Test function for testSetSensor_InterruptPinConfig is getting executed" << std::endl;
     // Call the method
-    i2c_status_t result = mpu.SetSensor_InterruptPinConfig(150);
+    i2c_status_t result = mpu->SetSensor_InterruptPinConfig(150);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -242,96 +242,13 @@ void testGetSensor_InterruptPinConfig(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for testGetSensor_InterruptPinConfig is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t intPinConfig = mpu.GetSensor_InterruptPinConfig(&error);
+    int16_t intPinConfig = mpu->GetSensor_InterruptPinConfig(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || intPinConfig != 150) {
         throw std::runtime_error("GetSensor_InterruptPinConfig test failed!");
     }
 }
-
-//Call backs and interface class implementation to perform the online file testing
-/**
- * @brief Implementation of the PID_Interface for the inner PID controller,
- * driving the motor driver.
- */
-class PID_MotorDriver : public PID_Interface
-{
-public:
-  /**
-   * @brief Constructor taking and assigning a motor driver object reference.
-   * @param _motorDriver The motor driver object.
-   */
-  PID_MotorDriver(MotorDriver& _motorDriver) : motorDriver(_motorDriver) {}
-  
-  /**
-   * @brief PID controller callback implementation, passing the PID output to the provided motor driver object.
-   * @param pidOutput Output of the PID controller passed to the callback.
-   */
-  virtual void hasOutput(double pidOutput) { motorDriver.setDutyCycle(pidOutput); } // May want to have duty cycle acceleration, rather than setting DC directly
-
-private:
-  /**
-   * @brief Motor driver object reference attribute.
-   */
-  MotorDriver& motorDriver;
-};
-
-
-/**
- * @brief Implementation of the PID_Interface for the outer PID controller,
- * controlling position via torque outputs that are sent to the inner PID
- * controller.
- */
-class PID_Position : public PID_Interface
-{
-public:
-  /**
-   * @brief Constructor taking and assigning a PID controller object reference.
-   * @param _pidController The PID controller object.
-   */
-  PID_Position(PID& _pidController) : pidController(_pidController) {}
-  
-  /**
-   * @brief PID controller callback implementation, passing the PID output to the provided PID controller object.
-   * @param pidOutput Output of the PID controller passed to the callback.
-   */
-  virtual void hasOutput(double pidOutput) override { pidController.setSetpoint(pidOutput); }
-
-private:
-  /**
-   * @brief PID controller object reference attribute.
-   */
-  PID& pidController;
-};
-
-
-/**
- * @brief Implementation of the INA260Interface for feedback of current (torque)
- * values as the PV for the inner PID controller driving the motor driver.
- */
-class INA260_Feedback : public INA260_Driver::INA260Interface
-{
-public:
-  /**
-   * @brief Constructor taking and assigning a PID controller object reference.
-   * @param _pidController The PID controller object.
-   */
-  INA260_Feedback(PID& _pidController) : pidController(_pidController) {}
-
-  /**
-   * @brief INA260 callback implementation, passing the measured current (torque) to the provided PID controller object.
-   * @param sample Current measured by the INA260 passed to the callback.
-   */
-  virtual void hasSample(INA260_Driver::INA260Sample& sample) override { pidController.calculate(sample.current); } // May want a scale factor to convert current -> torque (or just adjust PID constants)
-
-private:
-  /**
-   * @brief PID controller object reference attribute.
-   */
-  PID& pidController;
-};
-
 
 /**
  * @brief Implementation of the MPU6050Interface. This is where the magic
@@ -346,8 +263,8 @@ public:
    * @brief Constructor taking and assigning a PID controller object reference.
    * @param _pidController The PID controller object.
    */
-  MPU6050_Feedback(PID& _pidController, float _radius, float _samplePeriod)
-    : pidController(_pidController), radius(_radius), samplePeriod(_samplePeriod) {}
+  MPU6050_Feedback(float _radius, float _samplePeriod)
+    :  radius(_radius), samplePeriod(_samplePeriod) {}
 
   /**
    * @brief MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder,
@@ -385,15 +302,18 @@ public:
     if (axGrav > 0)
       angularPos = -angularPos;
 
-    // Pass angular position to outer PID controller as PV.
-    pidController.calculate(angularPos);
+    float angularPosDeg = angularPos * 180.0 / 3.14159265358979323846;
+    /*
+    // Print data.
+    std::cout << "Accel X = " << sample.ax << " g, Gyro X = " << sample.gx << " deg/s" << std::endl;
+    std::cout << "Accel Y = " << sample.ay << " g, Gyro Y = " << sample.gy << " deg/s" << std::endl;
+    std::cout << "Accel Z = " << sample.az << " g, Gyro Z = " << sample.gz << " deg/s" << std::endl;
+    std::cout << "Calculated angular postion = " << angularPos << " rad" << std::endl << std::endl;
+    std::cout << "Calculated angular postion = " << angularPosDeg << " deg" << std::endl << std::endl;
+    */
   }
 
 private:
-  /**
-   * @brief PID controller object reference attribute.
-   */
-  PID& pidController;
 
   /**
    * @brief Radius from axis of rotation to MPU in meters.
@@ -417,8 +337,8 @@ int main() {
     // MPU6050 settings:
     MPU6050_Driver::Gyro_FS_t MPU_GyroScale = MPU6050_Driver::Gyro_FS_t::FS_250_DPS;
     MPU6050_Driver::Accel_FS_t MPU_AccelScale = MPU6050_Driver::Accel_FS_t::FS_2G;
-    MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_260Hz;
-    uint8_t MPU_SRdiv = 7;
+    MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_184Hz;
+    uint8_t MPU_SRdiv = 25;
     uint8_t MPU_INTconf = MPU6050_Driver::Regbits_INT_PIN_CFG::BIT_INT_RD_CLEAR;
     uint8_t MPU_INTenable = MPU6050_Driver::Regbits_INT_ENABLE::BIT_DATA_RDY_EN;
 
@@ -432,37 +352,12 @@ int main() {
     // Radius from axis of ratation to MPU chip (need to actually measure this):
     float radius = 0.15;
     // I2C device files and addresses for MPU and INA:
-    std::string MPU_i2cFile = "/dev/i2c-0";
+    std::string MPU_i2cFile = "/dev/i2c-1";
     uint8_t MPU_Address = MPU6050_ADDRESS;
-
-    // Gpiod device file path:
-    std::filesystem::path chip_path("/dev/gpiochip4");
-
-    std::cout << "Set up variables." << std::endl;
-
-    // Initialise motor driver object. Assuming line offset 16 for direction pin is correct for now.
-    MotorDriver MD20(chip_path, 16, 200);
-
-    std::cout << "Set up motor driver object." << std::endl;
-    float INA_SamplePeriod = 204e-6;
-
-    // Initialise inner PID controller with callback using motor driver object.
-    // Initially with the PID output being the DC directly, so set min to 0 and max to 1.
-    // Initially with Kp=1, Kd=0, and Ki=0.
-    std::cout << "InnerPID" << std::endl;
-    PID_MotorDriver innerPIDCallback(MD20);
-    PID innerPID(&innerPIDCallback, 0, INA_SamplePeriod, 1, 0, 1, 0, 0);
-
-    // Initialise outer PID controller with callback using the inner PID controller.
-    // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
-    // Initially with Kp=1, Kd=0, and Ki=0.
-    std::cout << "OuterPID" << std::endl;
-    PID_Position outerPIDCallback(innerPID);
-    PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), 1, 0, 0);
-
+    
     // Initialise MPU6050 object with callback using the outer PID controller, and I2C callback for communication.
     std::cout << "MPU6050 instance creation" << std::endl;
-    MPU6050_Feedback MPU6050Callback(outerPID, radius, MPU_SamplePeriod);
+    MPU6050_Feedback MPU6050Callback(radius, MPU_SamplePeriod);
     SMBUS_I2C_IF MPU6050_I2C_Callback;
     MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
@@ -484,7 +379,7 @@ int main() {
         std::cerr << "Issue: " << e.what() << std::endl;
         return 1; // Returning non-zero exit code to indicate test failure
     }
-    
+    std::cout<<"Initialization successfull!"<< std::endl;
     try{
     //Execute test case
         std::cout<<"Test cases getting executed" << std::endl;
