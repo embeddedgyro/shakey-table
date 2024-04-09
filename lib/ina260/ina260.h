@@ -2,6 +2,7 @@
 #define INA260_H
 #include "../i2c_interface/i2c_interface.h"
 #include <thread>
+#include <gpiod.hpp>
 
 namespace INA260_Driver {
 
@@ -81,7 +82,7 @@ public:
 };
 class INA260 {
 public:
-  INA260(I2C_Interface *comInterface, INA260Interface *inaInterface);
+  INA260(I2C_Interface *comInterface, INA260Interface *inaInterface, gpiod::line::offset _gpioPin);
 
   i2c_status_t InitializeSensor(Alert_Conf alert_mode = Alert_Conf::CNVR,
                                 Conv_Time volt_conv_time = Conv_Time::TU140,
@@ -117,6 +118,9 @@ private:
 
   /** Pointer to registered MPU6050 interface. */
   INA260Interface *ina260cb = nullptr;
+
+  /** GPIO pin that will be used to listen for interrupts from the INA */
+  gpiod::line::offset gpioPin;
 
   /** Data aquisition thread. */
   std::thread dataAquisitionThread;
