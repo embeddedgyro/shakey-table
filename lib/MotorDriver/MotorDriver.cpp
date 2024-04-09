@@ -153,6 +153,7 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             {
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
                   throw std::invalid_argument( "Failed to open duty_cycle file." );
+                  return 1;
             }
       }
       else if (DutyCycle < 0 && DutyCycle >= -1)
@@ -174,12 +175,14 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             {
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
                   throw std::invalid_argument( "Failed to open duty_cycle file." );
+                  return 1;
             }
       }
       else
       {
             std::cout << "Duty Cycle out of limit." << std::endl; // Display an error message if file Duty Cycle is out of limits
             throw std::invalid_argument( "Duty Cycle out of limit." ); 
+            return 1;
       }
 }
 
@@ -200,20 +203,24 @@ MotorDriver::~MotorDriver()
             {
                   std::cout << "Failed to close period file." << std::endl; // Display an error message if file closing failed
                   throw std::invalid_argument( "Failed to close period file." );
+                  return 1;
             }
       if (DutyCycleOutputFile.is_open())
             {
                   std::cout << "Failed to close duty_cycle file." << std::endl; // Display an error message if file closing failed
                   throw std::invalid_argument( "Failed to close duty_cycle file." );
+                  return 1;
             }
       if (EnableOutputFile.is_open())
             {
                   std::cout << "Failed to close enable file." << std::endl; // Display an error message if file closing failed
                   throw std::invalid_argument( "Failed to close enable file." );
+                  return 1;
             }
       if (PWM2_Export.is_open())
             {
                   std::cout << "Failed to close pwm2 directory." << std::endl; // Display an error message if file closing failed
                   throw std::invalid_argument( "Failed to close pwm2 directory." );
+                  return 1;
             }
 }
