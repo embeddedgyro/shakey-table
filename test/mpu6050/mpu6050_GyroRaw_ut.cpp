@@ -10,6 +10,7 @@
 #include "../../lib/i2c_interface/smbus_i2c_if.h"
 #include "../../lib/ina260/ina260.h"
 #include "../../lib/MotorDriver/MotorDriver.h"
+
 // Test case for GetGyro_X_Raw method
 void testGetGyro_X_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetGyro_X_Raw is getting executed" << std::endl;
@@ -40,7 +41,7 @@ void testGetGyro_Z_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetGyro_Z_Raw is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t gyroZVal = mpu.GetGyro_Z_Raw(&error);
+    int16_t gyroZVal = mpu->GetGyro_Z_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || gyroZVal == 0x00) {
