@@ -37,7 +37,7 @@ public:
    * @brief PID controller callback implementation, passing the PID output to the provided motor driver object.
    * @param pidOutput Output of the PID controller passed to the callback.
    */
-  virtual void hasOutput(double pidOutput) { motorDriver.setDutyCycle(pidOutput); } // May want to have duty cycle acceleration, rather than setting DC directly
+  virtual void hasOutput(double pidOutput) { motorDriver.setDutyCycleDelta(pidOutput); } // May want to have duty cycle acceleration, rather than setting DC directly
 
 private:
   /**
@@ -186,8 +186,8 @@ int main() {
   // MPU6050 settings:
   MPU6050_Driver::Gyro_FS_t MPU_GyroScale = MPU6050_Driver::Gyro_FS_t::FS_250_DPS;
   MPU6050_Driver::Accel_FS_t MPU_AccelScale = MPU6050_Driver::Accel_FS_t::FS_2G;
-  MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_260Hz;
-  uint8_t MPU_SRdiv = 7;
+  MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_94Hz;
+  uint8_t MPU_SRdiv = 9;
   uint8_t MPU_INTconf = MPU6050_Driver::Regbits_INT_PIN_CFG::BIT_INT_RD_CLEAR;
   uint8_t MPU_INTenable = MPU6050_Driver::Regbits_INT_ENABLE::BIT_DATA_RDY_EN;
 
@@ -201,7 +201,7 @@ int main() {
   // INA260 settings:
   INA260_Driver::Alert_Conf INA_AlertMode = INA260_Driver::Alert_Conf::CNVR;
   INA260_Driver::Conv_Time INA_VoltConvTime = INA260_Driver::Conv_Time::TU140;
-  INA260_Driver::Conv_Time INA_CurrConvTime = INA260_Driver::Conv_Time::TU1100;
+  INA260_Driver::Conv_Time INA_CurrConvTime = INA260_Driver::Conv_Time::TU4156;
   INA260_Driver::Ave_Mode INA_AveragingMode = INA260_Driver::Ave_Mode::AV1;
   INA260_Driver::Op_Mode INA_OperatingMode = INA260_Driver::Op_Mode::CURCONT;
 
@@ -243,11 +243,22 @@ int main() {
   uint8_t MPU_Address = MPU6050_ADDRESS;
   uint8_t INA_Address = INA260_ADDRESS;
 
-  // Gpiod device file path:
+  // Gpiod device file path and pins used for interrupts from MPU and INA:
   std::filesystem::path chip_path("/dev/gpiochip4");
+  gpiod::line::offset MPU_IntPin = 17;
+  gpiod::line::offset INA_IntPin = 5;
 
   // Motor driver direction GPIO pin:
-  gpiod::line::offset MD_DirPin = 5;
+  gpiod::line::offset MD_DirPin = 23;
+
+  // Set PID constants
+  double inner_Kp = 0.1;
+  double inner_Kd = 0;
+  double inner_Ki = 0;
+  
+  double outer_Kp = 0.1;
+  double outer_Kd = 0;
+  double outer_Ki = 0;
 
   std::cout << "Set up variables." << std::endl;
 
@@ -274,25 +285,25 @@ int main() {
   // Initially with the PID output being the DC directly, so set min to 0 and max to 1.
   // Initially with Kp=1, Kd=0, and Ki=0.
   PID_MotorDriver innerPIDCallback(MD20);
-  PID innerPID(&innerPIDCallback, 0, INA_SamplePeriod, 1, 0, 1, 0, 0);
+  PID innerPID(&innerPIDCallback, 0, INA_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), inner_Kp, inner_Kd, inner_Ki);
 
   // Initialise outer PID controller with callback using the inner PID controller.
   // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
   // Initially with Kp=1, Kd=0, and Ki=0.
   PID_Position outerPIDCallback(innerPID);
-  PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), 1, 0, 0);
+  PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), outer_Kp, outer_Kd, outer_Ki);
 
   // Initialise MPU6050 object with callback using the outer PID controller, and I2C callback for communication.
   MPU6050_Feedback MPU6050Callback(outerPID, radius, MPU_SamplePeriod);
   SMBUS_I2C_IF MPU6050_I2C_Callback;
   MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
-  MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
-  
+  MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, MPU_IntPin);
+
   // Initialise INA260 object with callback using the inner PID controller, and I2C callback for communication.
   INA260_Feedback INA260Callback(innerPID);
   SMBUS_I2C_IF INA260_I2C_Callback;
   INA260_I2C_Callback.Init_I2C(INA_Address, INA_i2cFile);
-  INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback);
+  INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback, INA_IntPin);
 
   // Setup settings on MPU and INA over i2c.
   MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable, 0, 1); // Given the MPU's orientation, there should be 1g in the Y axis at initalisaton

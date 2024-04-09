@@ -58,7 +58,7 @@ i2c_status_t SMBUS_I2C_IF::Init_I2C(uint8_t slaveAddress, std::string i2cFile)
 		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Unable to open " << i2cFile << ". Error code " << fd << std::endl;
 		exit(fd);
 	} else {
-		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Opened " << i2cFile << ". File descriptor " << fd << std::endl;
+		//std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Opened " << i2cFile << ". File descriptor " << fd << std::endl;
 	}
 
 	int status;
@@ -67,7 +67,7 @@ i2c_status_t SMBUS_I2C_IF::Init_I2C(uint8_t slaveAddress, std::string i2cFile)
 		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Could not set up I2C bus with " << slaveAddress << " slave address. Error code " << status << std::endl;
 		exit(status);
 	} else {
-		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Set up I2C bus with " << slaveAddress << " slave address. Status code " << status << std::endl;
+		//std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::Init_I2C(): Set up I2C bus with " << slaveAddress << " slave address. Status code " << status << std::endl;
 	}
 
 	return I2C_STATUS_SUCCESS;
@@ -92,8 +92,8 @@ uint8_t SMBUS_I2C_IF::ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c
 		status && (*status = I2C_STATUS_ERROR);
 		return 0;
 	} else {
-		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address "
-			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << data << std::endl;
+		//std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegister(): Read a byte at register address "
+		//	  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << data << std::endl;
 	}
 
 	status && (*status = I2C_STATUS_SUCCESS);
@@ -119,8 +119,8 @@ uint16_t SMBUS_I2C_IF::ReadRegisterWordLittleEndian(uint8_t slaveAddress, uint8_
 		status && (*status = I2C_STATUS_ERROR);
 		return 0;
 	} else {
-		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterWord(): Read a word at register address "
-			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << (uint16_t)data << std::endl;
+		//std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterWord(): Read a word at register address "
+		//	  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << (uint16_t)data << std::endl;
 	}
 
 	status && (*status = I2C_STATUS_SUCCESS);
@@ -161,8 +161,8 @@ i2c_status_t SMBUS_I2C_IF::WriteRegister(uint8_t slaveAddress, uint8_t regAddres
 			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
 		return I2C_STATUS_ERROR;
 	} else {
-		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address "
-			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << unsigned(data) << std::endl;
+		//std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegister(): Wrote a byte to register address "
+		//	  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << unsigned(data) << std::endl;
 	}
 
 	return I2C_STATUS_SUCCESS;
@@ -186,8 +186,8 @@ i2c_status_t SMBUS_I2C_IF::WriteRegisterWordLittleEndian(uint8_t slaveAddress, u
 			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
 		return I2C_STATUS_ERROR;
 	} else {
-		std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterWord(): Wrote a word to register address "
-			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << unsigned(data) << std::endl;
+		//std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterWord(): Wrote a word to register address "
+		//	  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Data: " << unsigned(data) << std::endl;
 	}
 
 	return I2C_STATUS_SUCCESS;
@@ -234,8 +234,8 @@ i2c_status_t SMBUS_I2C_IF::ReadRegisterBlock(uint8_t slaveAddress, uint8_t regAd
 	      << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
     return I2C_STATUS_ERROR;
   } else {
-    std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address "
-	      << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
+	  //std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterBlock(): Read block bytes from register address "
+	  //  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
   }
 
   return I2C_STATUS_SUCCESS;
@@ -267,8 +267,8 @@ i2c_status_t SMBUS_I2C_IF::WriteRegisterBlock(uint8_t slaveAddress, uint8_t regA
 	      << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
     return I2C_STATUS_ERROR;
   } else {
-    std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): Wrote block bytes to register address "
-	      << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
+	  //std::cout << "SUCCESS: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterBlock(): Wrote block bytes to register address "
+	  //  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;
   }
 
   return I2C_STATUS_SUCCESS;
