@@ -34,6 +34,7 @@
 
 #include "../i2c_interface/i2c_interface.h"
 #include <thread>
+#include <gpiod.hpp>
 
 namespace MPU6050_Driver {
 
@@ -253,9 +254,10 @@ namespace MPU6050_Driver {
     * Also pass a valid MPU6050Interface class instance to work on aquired data.
     * @param  comInterface I2C interface pointer
     * @param  mpuInterface MPU6050 listener interface pointer.
+    * @param  gpioPin GPIO pin that will listen for interrupts from the MPU.
     * @retval none
     */
-    MPU6050(I2C_Interface* comInterface, MPU6050Interface* mpuInterface);
+    MPU6050(I2C_Interface* comInterface, MPU6050Interface* mpuInterface, gpiod::line::offset _gpioPin);
 
     /**
     * @brief  This method wakes up the sensor and configures the accelerometer and
@@ -703,6 +705,9 @@ namespace MPU6050_Driver {
 
     /** Pointer to registered MPU6050 interface. */
     MPU6050Interface* mpu6050cb = nullptr;
+
+    /** GPIO pin that will listen for interrupts from the MPU. */
+    gpiod::line::offset gpioPin;
 
     /** Data aquisition thread. */
     std::thread dataAquisitionThread;

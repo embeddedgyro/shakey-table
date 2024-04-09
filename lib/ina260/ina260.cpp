@@ -5,7 +5,9 @@
 #include <gpiod.hpp>
 
 namespace INA260_Driver {
-INA260::INA260(I2C_Interface *comInterface, INA260Interface *inaInterface) {
+  INA260::INA260(I2C_Interface *comInterface, INA260Interface *inaInterface, gpiod::line::offset _gpioPin)
+    : gpioPin(_gpioPin)
+  {
   if (comInterface)
     this->i2c = comInterface;
   if (inaInterface)
@@ -45,14 +47,13 @@ void INA260::end(void) {
 
 void INA260::dataAquisition(void) {
   const std::filesystem::path chip_path("/dev/gpiochip4");
-  const gpiod::line::offset line_offset = 17;
 
   auto request =
       gpiod::chip(chip_path)
           .prepare_request()
           .set_consumer("watch-line-value")
           .add_line_settings(
-              line_offset, gpiod::line_settings()
+              gpioPin, gpiod::line_settings()
                                .set_direction(gpiod::line ::direction::INPUT)
                                .set_edge_detection(gpiod::line::edge ::FALLING))
           .do_request();
