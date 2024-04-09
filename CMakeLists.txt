@@ -11,7 +11,12 @@ add_subdirectory(lib)
 add_subdirectory(src)
 add_subdirectory(test)
 enable_testing()
-add_test(NAME MyTest COMMAND Test)
+
+add_test(NAME mpu COMMAND MPU_Test)
+add_test(NAME pid COMMAND PID_Test)
+
+#add_test(NAME On_Test COMMAND Online_Test)
+#add_test(NAME Off_Test COMMAND Offline_Test)
 
 # Generate Doxyfile and associated target
 find_package(Doxygen)

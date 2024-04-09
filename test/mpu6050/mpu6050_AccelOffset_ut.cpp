@@ -143,7 +143,7 @@ int main() {
     MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
-    //Execute test case
+    //Execute test cases
     std::cout<<"Test cases getting executed" << std::endl;
     testSetAccelXOffset(&MPU6050);
     testGetAccelXOffset(&MPU6050);
