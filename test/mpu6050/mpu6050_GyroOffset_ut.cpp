@@ -143,8 +143,8 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 17);
 
     //Execute test case
-        testSetGyro_X_Offset(MPU6050);
-        testGetGyro_X_Offset(MPU6050);
+        testSetGyro_X_Offset(&MPU6050);
+        testGetGyro_X_Offset(&MPU6050);
     std::cout << "All Gyro_X_Offset tests passed!" << std::endl;
     return 0;
 }
