@@ -38,15 +38,19 @@ namespace MPU6050_Driver {
     * @brief  Class constructor. In order to make the class communicate with sensor
     * user should pass a valid I2C_Interface class instance!
     * @param  comInterface I2C interface pointer
+    * @param  gpioPin GPIO pin that will listen for interrupts from the MPU.
     * @retval none
     */
-  MPU6050::MPU6050(I2C_Interface* comInterface, MPU6050Interface* mpuInterface)
+  MPU6050::MPU6050(I2C_Interface* comInterface, MPU6050Interface* mpuInterface, gpiod::line::offset _gpioPin)
+    :
+    gpioPin(_gpioPin)
   {
     /* assign internal interface pointers if given is not null! */
     if (comInterface)
       this->i2c = comInterface;
     if (mpuInterface)
       this->mpu6050cb = mpuInterface;
+    
   }
 
   /**
@@ -1143,7 +1147,6 @@ namespace MPU6050_Driver {
     // Set up GPIO pin for detecting edges from the MPU6050 interrupt pin.
     // Set values as appropriate.
     const std::filesystem::path chip_path("/dev/gpiochip4");
-    const gpiod::line::offset line_offset = 27;
 
     // Set up edge event that will block until a rising edge is detected
     // (or maybe falling edge, will need to check datasheet).
@@ -1152,7 +1155,7 @@ namespace MPU6050_Driver {
       .prepare_request()
       .set_consumer("watch-line-value")
       .add_line_settings(
-			 line_offset,
+			 gpioPin,
 			 gpiod::line_settings()
 			 .set_direction(gpiod::line::direction::INPUT)
 			 .set_edge_detection(gpiod::line::edge::RISING)
