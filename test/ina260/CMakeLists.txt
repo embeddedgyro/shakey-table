@@ -1,5 +1,5 @@
 # Add the executable
-add_executable(INA_Test ina260_Wakeup_ut ina260_ReadCurrent_ut.cpp ina260_ReadPower_ut.cpp ina260_ReadVoltage.cpp )
+add_executable(INA_Test ina260_Wakeup_ut.cpp ina260_ReadCurrent_ut.cpp ina260_ReadPower_ut.cpp ina260_ReadVoltage.cpp )
 
 
 # Link the libraries
