@@ -155,9 +155,9 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 17);
 
     //Execute test case
-        testGetAccel_X_Raw(MPU6050);
-        testGetAccel_Y_Raw(MPU6050);
-        testGetAccel_Z_Raw(MPU6050);
+        testGetAccel_X_Raw(&MPU6050);
+        testGetAccel_Y_Raw(&MPU6050);
+        testGetAccel_Z_Raw(&MPU6050);
     std::cout << "All tests for GetAccel_Raw passed!" << std::endl;
     return 0;
 }

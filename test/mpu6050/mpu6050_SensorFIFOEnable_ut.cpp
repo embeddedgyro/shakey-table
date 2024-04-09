@@ -143,8 +143,8 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 17);
 
     //Execute test case
-        testSetSensor_FIFO_Enable(MPU6050);
-        testGetSensor_FIFO_Enable(MPU6050);
+        testSetSensor_FIFO_Enable(&MPU6050);
+        testGetSensor_FIFO_Enable(&MPU6050);
     std::cout << "All Sensor_FIFO_Enable tests passed!" << std::endl;
     return 0;
 }

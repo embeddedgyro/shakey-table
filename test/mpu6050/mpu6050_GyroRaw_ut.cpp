@@ -152,9 +152,9 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 17);
 
     //Execute test case
-        testGetGyro_X_Raw(MPU6050);
-        testGetGyro_Y_Raw(MPU6050);
-        testGetGyro_Z_Raw(MPU6050);
+        testGetGyro_X_Raw(&MPU6050);
+        testGetGyro_Y_Raw(&MPU6050);
+        testGetGyro_Z_Raw(&MPU6050);
     std::cout << "All tests for GetGyro_Raw passed!" << std::endl;
     return 0;
 }

@@ -143,8 +143,8 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 17);
 
     //Execute test case
-        testSetGyro_SampleRateDivider(MPU6050);
-        testGetGyro_SampleRateDivider(MPU6050);
+        testSetGyro_SampleRateDivider(&MPU6050);
+        testGetGyro_SampleRateDivider(&MPU6050);
     std::cout << "All Gyro_SampleRateDivider tests passed!" << std::endl;
     return 0;
 }
