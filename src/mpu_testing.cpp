@@ -125,7 +125,7 @@ int main() {
   MPU6050_Feedback MPU6050Callback(radius, MPU_SamplePeriod);
   SMBUS_I2C_IF MPU6050_I2C_Callback;
   MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
-  MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
+  MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 17);
 
   // Setup settings on MPU over i2c.
   MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable, 0, 1); // Given the MPU's orientation, there should be 1g in the Y axis at initalisaton
