@@ -65,7 +65,7 @@ int main() {
   INA260_Feedback INA260Callback("current_data");
   SMBUS_I2C_IF INA260_I2C_Callback;
   INA260_I2C_Callback.Init_I2C(INA_Address, INA_i2cFile);
-  INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback);
+  INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback, 5);
   
   //Execute test case
     testRead_Current(INA260);
