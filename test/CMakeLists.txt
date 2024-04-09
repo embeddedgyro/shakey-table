@@ -6,10 +6,11 @@ add_subdirectory(pid)
 
 # Aggregate all test executables into a single target
 
-#add_custom_target(OnlineTest
-#    DEPENDS MPU_Test INA_Test
-#    COMMENT "Running Online tests"
-#)
+add_custom_target(OnlineTest
+    DEPENDS mpu6050_AccelOffset_ut mpu6050_AccelRaw_ut mpu6050_GyroOffset_ut mpu6050_GyroRaw_ut mpu6050_GyroSampleRateDivider_ut
+    mpu6050_SensorFIFOConfig_ut mpu6050_SensorFIFOEnable_ut mpu6050_SensorIntrPinConfig_ut mpu6050_Wakeup_ut
+    COMMENT "Running Online tests"
+)
 
 #add_custom_target(OfflineTest
 #    DEPENDS PID_Test MotorDriver_Test

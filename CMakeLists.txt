@@ -12,7 +12,7 @@ add_subdirectory(src)
 add_subdirectory(test)
 enable_testing()
 
-add_test(NAME mpu COMMAND MPU_Test)
+add_test(NAME mpu COMMAND OnlineTest)
 add_test(NAME pid COMMAND PID_Test)
 
 #add_test(NAME On_Test COMMAND Online_Test)
