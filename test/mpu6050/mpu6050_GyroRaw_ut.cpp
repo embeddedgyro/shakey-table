@@ -11,11 +11,11 @@
 #include "../../lib/ina260/ina260.h"
 #include "../../lib/MotorDriver/MotorDriver.h"
 // Test case for GetGyro_X_Raw method
-void testGetGyro_X_Raw(const MPU6050& mpu) {
+void testGetGyro_X_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetGyro_X_Raw is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t gyroXVal = mpu.GetGyro_X_Raw(&error);
+    int16_t gyroXVal = mpu->GetGyro_X_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || gyroXVal == 0x00) {
@@ -23,12 +23,12 @@ void testGetGyro_X_Raw(const MPU6050& mpu) {
     }
 }
 // Test case for GetGyro_X_Raw method
-void testGetGyro_Y_Raw(const MPU6050& mpu) {
+void testGetGyro_Y_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetGyro_Y_Raw is getting executed" << std::endl;
 
     // Call the method
     i2c_status_t error;
-    int16_t gyroYVal = mpu.GetGyro_Y_Raw(&error);
+    int16_t gyroYVal = mpu->GetGyro_Y_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || gyroYVal == 0x00) {
@@ -36,7 +36,7 @@ void testGetGyro_Y_Raw(const MPU6050& mpu) {
     }
 }
 // Test case for GetGyro_Z_Raw method
-void testGetGyro_Z_Raw(const MPU6050& mpu) {
+void testGetGyro_Z_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetGyro_Z_Raw is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
@@ -152,9 +152,9 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
     //Execute test case
-        testGetGyro_X_Raw(mpu6050);
-        testGetGyro_Y_Raw(mpu6050);
-        testGetGyro_Z_Raw(mpu6050);
+        testGetGyro_X_Raw(MPU6050);
+        testGetGyro_Y_Raw(MPU6050);
+        testGetGyro_Z_Raw(MPU6050);
     std::cout << "All tests for GetGyro_Raw passed!" << std::endl;
     return 0;
 }

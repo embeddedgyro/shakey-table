@@ -12,11 +12,11 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetGyro_SampleRateDivider method
-void testSetGyro_SampleRateDivider(const MPU6050& mpu) {
+void testSetGyro_SampleRateDivider(MPU6050_Driver::MPU6050* mpu) {
 
     std::cout << "Test function for SetGyro_SampleRateDivider is getting executed" << std::endl;
     // Call the method
-    i2c_status_t result = mpu.SetGyro_SampleRateDivider(200);
+    i2c_status_t result = mpu->SetGyro_SampleRateDivider(200);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -25,12 +25,12 @@ void testSetGyro_SampleRateDivider(const MPU6050& mpu) {
 }
 
 // Test case for GetGyro_SampleRateDivider method
-void testGetGyro_SampleRateDivider(const MPU6050& mpu) {
+void testGetGyro_SampleRateDivider(MPU6050_Driver::MPU6050* mpu) {
 
     std::cout << "Test function for SetGyro_SampleRateDivider is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t samplerate = mpu.GetGyro_SampleRateDivider(&error);
+    int16_t samplerate = mpu->GetGyro_SampleRateDivider(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || samplerate != 200) {
@@ -143,8 +143,8 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
     //Execute test case
-        testSetGyro_SampleRateDivider(mpu6050);
-        testGetGyro_SampleRateDivider(mpu6050);
+        testSetGyro_SampleRateDivider(MPU6050);
+        testGetGyro_SampleRateDivider(MPU6050);
     std::cout << "All Gyro_SampleRateDivider tests passed!" << std::endl;
     return 0;
 }

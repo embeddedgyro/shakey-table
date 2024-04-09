@@ -12,11 +12,11 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetSensor_InterruptPinConfig method
-void testSetSensor_InterruptPinConfig(const MPU6050& mpu) {
+void testSetSensor_InterruptPinConfig(MPU6050_Driver::MPU6050* mpu) {
     
     std::cout << "Test function for GetSensor_InterruptPinConfig is getting executed" << std::endl;
     // Call the method
-    i2c_status_t result = mpu.SetSensor_InterruptPinConfig(150);
+    i2c_status_t result = mpu->SetSensor_InterruptPinConfig(150);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -25,12 +25,12 @@ void testSetSensor_InterruptPinConfig(const MPU6050& mpu) {
 }
 
 // Test case for GetSensor_InterruptPinConfig method
-void testGetSensor_InterruptPinConfig(const MPU6050& mpu) {
+void testGetSensor_InterruptPinConfig(MPU6050_Driver::MPU6050* mpu) {
     
     std::cout << "Test function for GetSensor_InterruptPinConfig is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t intPinConfig = mpu.GetSensor_InterruptPinConfig(&error);
+    int16_t intPinConfig = mpu->GetSensor_InterruptPinConfig(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || intPinConfig != 150) {
@@ -143,8 +143,8 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
     //Execute test case
-        testSetSensor_InterruptPinConfig(mpu6050);
-        testGetSensor_InterruptPinConfig(mpu6050);
+        testSetSensor_InterruptPinConfig(MPU6050);
+        testGetSensor_InterruptPinConfig(MPU6050);
     std::cout << "All GetSensor_InterruptPinConfig tests passed!" << std::endl;
     return 0;
 }

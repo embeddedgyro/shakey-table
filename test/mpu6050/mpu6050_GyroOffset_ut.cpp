@@ -12,11 +12,11 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetGyro_X_Offset method
-void testSetGyro_X_Offset(const MPU6050& mpu) {
+void testSetGyro_X_Offset(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
     std::cout << "Test function for SetGyro_X_Offset is getting executed" << std::endl;
     // Call the method
-    i2c_status_t result = mpu.SetGyro_X_Offset(100);
+    i2c_status_t result = mpu->SetGyro_X_Offset(100);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -25,12 +25,12 @@ void testSetGyro_X_Offset(const MPU6050& mpu) {
 }
 
 // Test case for GetGyro_X_Offset method
-void testGetGyro_X_Offset(const MPU6050& mpu) {
+void testGetGyro_X_Offset(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
     std::cout << "Test function for GetGyro_X_Offset is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t offset = mpu.GetGyro_X_Offset(&error);
+    int16_t offset = mpu->GetGyro_X_Offset(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || offset != 100) {
@@ -143,8 +143,8 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
     //Execute test case
-        testSetGyro_X_Offset(mpu6050);
-        testGetGyro_X_Offset(mpu6050);
+        testSetGyro_X_Offset(MPU6050);
+        testGetGyro_X_Offset(MPU6050);
     std::cout << "All Gyro_X_Offset tests passed!" << std::endl;
     return 0;
 }

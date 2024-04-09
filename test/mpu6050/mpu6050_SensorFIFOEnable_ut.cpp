@@ -12,11 +12,11 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetSensor_FIFO_Enable method
-void testSetSensor_FIFO_Enable(const MPU6050& mpu) {
+void testSetSensor_FIFO_Enable(MPU6050_Driver::MPU6050* mpu) {
 
     std::cout << "Test function for GetSensor_FIFO_Enable is getting executed" << std::endl;
     // Call the method
-    i2c_status_t result = mpu.SetSensor_FIFO_Enable(true);
+    i2c_status_t result = mpu->SetSensor_FIFO_Enable(true);
 
     // Verify the result
     if (result != I2C_STATUS_SUCCESS) {
@@ -25,12 +25,12 @@ void testSetSensor_FIFO_Enable(const MPU6050& mpu) {
 }
 
 // Test case for GetSensor_FIFO_Enable method
-void testGetSensor_FIFO_Enable(const MPU6050& mpu) {
+void testGetSensor_FIFO_Enable(MPU6050_Driver::MPU6050* mpu) {
     
     std::cout << "Test function for GetSensor_FIFO_Enable is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    bool state = mpu.GetSensor_FIFO_Enable(&error);
+    bool state = mpu->GetSensor_FIFO_Enable(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || state != true) {
@@ -143,8 +143,8 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
     //Execute test case
-        testSetSensor_FIFO_Enable(mpu6050);
-        testGetSensor_FIFO_Enable(mpu6050);
+        testSetSensor_FIFO_Enable(MPU6050);
+        testGetSensor_FIFO_Enable(MPU6050);
     std::cout << "All Sensor_FIFO_Enable tests passed!" << std::endl;
     return 0;
 }

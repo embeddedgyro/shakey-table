@@ -12,11 +12,11 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for GetAccel_X_Raw method
-void testGetAccel_X_Raw(const MPU6050& mpu) {
+void testGetAccel_X_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetAccel_X_Raw is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t accelXVal = mpu.GetAccel_X_Raw(&error);
+    int16_t accelXVal = mpu->GetAccel_X_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || accelXVal == 0x00) {
@@ -24,12 +24,12 @@ void testGetAccel_X_Raw(const MPU6050& mpu) {
     }
 }
 // Test case for GetAccel_Y_Raw method
-void testGetAccel_Y_Raw(const MPU6050& mpu) {
+void testGetAccel_Y_Raw(MPU6050_Driver::MPU6050* mpu) {
 
     std::cout << "Test function for GetAccel_Y_Raw is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t accelYVal = mpu.GetAccel_Y_Raw(&error);
+    int16_t accelYVal = mpu->GetAccel_Y_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || accelYVal == 0x00) {
@@ -37,12 +37,12 @@ void testGetAccel_Y_Raw(const MPU6050& mpu) {
     }
 }
 // Test case for GetAccel_Z_Raw method
-void testGetAccel_Z_Raw(const MPU6050& mpu) {
+void testGetAccel_Z_Raw(MPU6050_Driver::MPU6050* mpu) {
 
     std::cout << "Test function for GetAccel_Z_Raw is getting executed" << std::endl;
     // Call the method
     i2c_status_t error;
-    int16_t accelZVal = mpu.GetAccel_Z_Raw(&error);
+    int16_t accelZVal = mpu->GetAccel_Z_Raw(&error);
 
     // Verify the result
     if (error != I2C_STATUS_SUCCESS || accelZVal == 0x00) {
@@ -155,9 +155,9 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback);
 
     //Execute test case
-        testGetAccel_X_Raw(mpu6050);
-        testGetAccel_Y_Raw(mpu6050);
-        testGetAccel_Z_Raw(mpu6050);
+        testGetAccel_X_Raw(MPU6050);
+        testGetAccel_Y_Raw(MPU6050);
+        testGetAccel_Z_Raw(MPU6050);
     std::cout << "All tests for GetAccel_Raw passed!" << std::endl;
     return 0;
 }
