@@ -68,7 +68,7 @@ int main() {
   INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback, 5);
   
   //Execute test case
-    testRead_Current(INA260);
+    testRead_Current(&INA260);
     std::cout << "ReadCurrent_test passed!" << std::endl;
     return 0;
 

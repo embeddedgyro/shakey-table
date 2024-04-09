@@ -68,7 +68,7 @@ int main() {
   INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback, 5);
   
   //Execute test case
-    testRead_Voltage(INA260);
+    testRead_Voltage(&INA260);
     std::cout << "ReadVoltage_test passed!" << std::endl;
     return 0;
 

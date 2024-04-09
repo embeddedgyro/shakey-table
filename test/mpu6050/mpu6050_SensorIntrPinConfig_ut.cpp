@@ -143,8 +143,8 @@ int main() {
     MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 17);
 
     //Execute test case
-        testSetSensor_InterruptPinConfig(MPU6050);
-        testGetSensor_InterruptPinConfig(MPU6050);
+        testSetSensor_InterruptPinConfig(&MPU6050);
+        testGetSensor_InterruptPinConfig(&MPU6050);
     std::cout << "All GetSensor_InterruptPinConfig tests passed!" << std::endl;
     return 0;
 }
