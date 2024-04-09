@@ -199,21 +199,17 @@ MotorDriver::~MotorDriver()
       if (PeriodOutputFile.is_open())
             {
                   std::cout << "Failed to close period file." << std::endl; // Display an error message if file closing failed
-                  throw std::invalid_argument( "Failed to close period file." );
             }
       if (DutyCycleOutputFile.is_open())
             {
                   std::cout << "Failed to close duty_cycle file." << std::endl; // Display an error message if file closing failed
-                  throw std::invalid_argument( "Failed to close duty_cycle file." );
             }
       if (EnableOutputFile.is_open())
             {
                   std::cout << "Failed to close enable file." << std::endl; // Display an error message if file closing failed
-                  throw std::invalid_argument( "Failed to close enable file." );
             }
       if (PWM2_Export.is_open())
             {
                   std::cout << "Failed to close pwm2 directory." << std::endl; // Display an error message if file closing failed
-                  throw std::invalid_argument( "Failed to close pwm2 directory." );
             }
 }
