@@ -144,26 +144,21 @@ namespace MPU6050_Driver {
    */
   i2c_status_t MPU6050::ReadAllRawData(void)
   {
-    // This is a bit cheeky. We are writing to the array of raw data values, of int16_t type,
-    // as if it were an array of uint8_t values. Each 16 bit raw sensor measurement is
-    // stored in 2 registers with contiguous addresses, with the MSB in the lower addess.
-    // All the raw data mesurements (accel, temp, gyro) are stored in a contiguous array
-    // of 8 bit registers, starting at Sensor_Regs::ACCEL_X_OUT_H. There are 14 bytes
-    // of data total, 6 for accel data, 2 for temp data, and 6 for gyro data.
-    // This block read is reading all of this data into the rawData array on one
-    // operation. Since the MSB of each data point is in the lower address,
-    // rawData can be indexed as an array of int16_t data to directly access
-    // each measurement as 16 bit data without bit bashing.
-    //    return i2c->ReadRegisterBlock(MPU6050_ADDRESS, Sensor_Regs::ACCEL_X_OUT_H, 14, (uint8_t*) rawData);
-
+    // Read all sensor data (big endian) in one block read and arrange appropriately (little endian) into rawData array.
+    uint8_t tmpArray[sizeof(rawData)];
     i2c_status_t err;
-    rawData[0] = GetAccel_X_Raw(&err);
-    rawData[1] = GetAccel_Y_Raw(&err);
-    rawData[2] = GetAccel_Z_Raw(&err);
-    rawData[3] = GetTemperature_Celcius(&err);
-    rawData[4] = GetGyro_X_Raw(&err);
-    rawData[5] = GetGyro_Y_Raw(&err);
-    rawData[6] = GetGyro_Z_Raw(&err);
+    err = i2c->ReadRegisterBlock(MPU6050_ADDRESS, Sensor_Regs::ACCEL_X_OUT_H, sizeof(rawData), tmpArray);
+
+    if (err != I2C_STATUS_SUCCESS)
+      return err;
+
+    rawData[0] = ((int16_t)tmpArray[0] << 8) | (int16_t)tmpArray[1];
+    rawData[1] = ((int16_t)tmpArray[2] << 8) | (int16_t)tmpArray[3];
+    rawData[2] = ((int16_t)tmpArray[4] << 8) | (int16_t)tmpArray[5];
+    rawData[3] = ((int16_t)tmpArray[6] << 8) | (int16_t)tmpArray[7];
+    rawData[4] = ((int16_t)tmpArray[8] << 8) | (int16_t)tmpArray[9];
+    rawData[5] = ((int16_t)tmpArray[10] << 8) | (int16_t)tmpArray[11];
+    rawData[6] = ((int16_t)tmpArray[12] << 8) | (int16_t)tmpArray[13];
     return err;
   }
 
