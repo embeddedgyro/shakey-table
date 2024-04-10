@@ -5,11 +5,8 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include "../../lib/pid/pid.h"
-#include "../lib/mpu6050/mpu6050.h"
-#include "../lib/i2c_interface/smbus_i2c_if.h"
-#include "../lib/ina260/ina260.h"
-#include "../lib/MotorDriver/MotorDriver.h"
+#include "../../lib/i2c_interface/smbus_i2c_if.h"
+#include "../../lib/ina260/ina260.h"
 
 
 /**
