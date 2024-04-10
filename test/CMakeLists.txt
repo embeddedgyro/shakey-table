@@ -2,7 +2,7 @@
 add_subdirectory(ina260)
 add_subdirectory(mpu6050)
 add_subdirectory(pid)
-#add_subdirectory(motordriver)
+add_subdirectory(motordriver)
 
 # Aggregate all test executables into a single target
 

@@ -142,7 +142,7 @@ int main() {
     // Radius from axis of ratation to MPU chip (need to actually measure this):
     float radius = 0.15;
     // I2C device files and addresses for MPU and INA:
-    std::string MPU_i2cFile = "/dev/i2c-1";
+    std::string MPU_i2cFile = "/dev/i2c-0";
     uint8_t MPU_Address = MPU6050_ADDRESS;
     
     // Initialise MPU6050 object with callback using the outer PID controller, and I2C callback for communication.
@@ -150,12 +150,13 @@ int main() {
     MPU6050_Feedback MPU6050Callback(radius, MPU_SamplePeriod);
     SMBUS_I2C_IF MPU6050_I2C_Callback;
     MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
-    MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 17);
+    MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 4);
 
     //Execute test case
         testGetGyro_X_Raw(&MPU6050);
         testGetGyro_Y_Raw(&MPU6050);
         testGetGyro_Z_Raw(&MPU6050);
     std::cout << "All tests for GetGyro_Raw passed!" << std::endl;
+    MPU6050.begin();
     return 0;
 }

@@ -57,7 +57,7 @@ int main() {
   INA260_Driver::Op_Mode INA_OperatingMode = INA260_Driver::Op_Mode::CURCONT;
 
   // I2C device files and addresses for MPU and INA:
-  std::string INA_i2cFile = "/dev/i2c-0";
+  std::string INA_i2cFile = "/dev/i2c-1";
   uint8_t INA_Address = INA260_ADDRESS;
 
   // Initialise INA260 object with callback for printing data, and I2C callback for communication.
@@ -69,6 +69,7 @@ int main() {
   //Execute test case
     testRead_Voltage(&INA260);
     std::cout << "ReadVoltage_test passed!" << std::endl;
+    INA260.begin();
     return 0;
 
 }

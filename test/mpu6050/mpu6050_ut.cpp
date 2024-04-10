@@ -390,6 +390,7 @@ int main() {
         testSetSensor_InterruptPinConfig(&MPU6050);
         testGetSensor_InterruptPinConfig(&MPU6050);
         std::cout << "All tests passed!" << std::endl;
+        MPU6050.begin();
     return 0;
 }
 

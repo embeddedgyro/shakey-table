@@ -14,7 +14,7 @@ int main(){
   std::filesystem::path chip_path("/dev/gpiochip4");
 
   // Motor driver direction GPIO pin:
-  gpiod::line::offset MD_DirPin = 5;
+  gpiod::line::offset MD_DirPin = 23;
 
   std::cout << "Set up variables." << std::endl;
 
