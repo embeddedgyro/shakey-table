@@ -118,13 +118,13 @@ request_DIR(::gpiod::chip(chip_path)
 void MotorDriver::setDutyCycle(double DutyCycle)
 {
       // Make sure the DutyCycle is within the limit.
-      if (DutyCycle > 1.0)
+      if (DutyCycle > 0.5)
       {
-            DutyCycle = 1.0;
+            DutyCycle = 0.5;
       }
-      else if (DutyCycle < -1.0)
+      else if (DutyCycle < -0.5)
       {
-            DutyCycle = -1.0;
+            DutyCycle = -0.5;
       }
 
       // Record current duty cycle
@@ -141,13 +141,13 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             {
                   request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
                   prev_DIR = 0;
-		  //std::cout << "Changing direction. Dir pin should be HIGH." << std::endl;
+		  std::cout << "Changing direction. Dir pin should be HIGH." << std::endl;
             }
       
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile <<  Duty_nanosec << std::endl;
-		  //std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'forward' direction." << std::endl;
+		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'forward' direction." << std::endl;
             }
             else 
             {
@@ -163,13 +163,13 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             {
                   request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
                   prev_DIR = 1;
-		  //std::cout << "Changing direction. Dir pin should be LOW." << std::endl;
+		  std::cout << "Changing direction. Dir pin should be LOW." << std::endl;
             }
             
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile << Duty_nanosec << std::endl;
-		  //std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'backward' direction." << std::endl;
+		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'backward' direction." << std::endl;
             }
             else 
             {
