@@ -92,7 +92,10 @@ public:
    * @brief INA260 callback implementation, passing the measured current (torque) to the provided PID controller object.
    * @param sample Current measured by the INA260 passed to the callback.
    */
-  virtual void hasSample(INA260_Driver::INA260Sample& sample) override { pidController.calculate(sample.current); } // May want a scale factor to convert current -> torque (or just adjust PID constants)
+  virtual void hasSample(INA260_Driver::INA260Sample& sample) override {
+    pidController.calculate(sample.current);
+    std::cout << "INA callback called. Data: " << sample.current << std::endl;
+  } // May want a scale factor to convert current -> torque (or just adjust PID constants)
 
 private:
   /**
@@ -156,6 +159,7 @@ public:
 
     // Pass angular position to outer PID controller as PV.
     pidController.calculate(angularPos);
+    std::cout << "MPU working. Data: " << angularPos << std::endl;
   }
 
 private:
@@ -238,25 +242,25 @@ int main() {
   float radius = 0.15;
 
   // I2C device files and addresses for MPU and INA:
-  std::string MPU_i2cFile = "/dev/i2c-1";
-  std::string INA_i2cFile = "/dev/i2c-0";
+  std::string MPU_i2cFile = "/dev/i2c-0";
+  std::string INA_i2cFile = "/dev/i2c-1";
   uint8_t MPU_Address = MPU6050_ADDRESS;
   uint8_t INA_Address = INA260_ADDRESS;
 
   // Gpiod device file path and pins used for interrupts from MPU and INA:
   std::filesystem::path chip_path("/dev/gpiochip4");
-  gpiod::line::offset MPU_IntPin = 17;
+  gpiod::line::offset MPU_IntPin = 4;
   gpiod::line::offset INA_IntPin = 5;
 
   // Motor driver direction GPIO pin:
   gpiod::line::offset MD_DirPin = 23;
 
   // Set PID constants
-  double inner_Kp = 0.1;
+  double inner_Kp = 1;
   double inner_Kd = 0;
   double inner_Ki = 0;
   
-  double outer_Kp = 0.1;
+  double outer_Kp = 1;
   double outer_Kd = 0;
   double outer_Ki = 0;
 
