@@ -14,6 +14,37 @@ This project was only tested on a Pi 5 using the latest Raspberry Pi OS
 We cannot guarantee that it will work on other versions of the Pi or on other operating systems
 or OS versions.
 
+# Hardware
+
+## Components
+
+The following components were used for this project:
+* Raspberry Pi 5 - Microcontroller. Documentation for it can be found here [https://www.raspberrypi.com/documentation/](https://www.raspberrypi.com/documentation/).
+* Current Sensor - INA260. Used for reading current flowing through the motor for PID motor control. Uses I2C communication protocol for interfacing with Pi. Datasheet can be found here [https://www.ti.com/lit/ds/symlink/ina260.pdf?ts=1712654268303&ref_url=https%253A%252F%252Fwww.google.com%252F](https://www.ti.com/lit/ds/symlink/ina260.pdf?ts=1712654268303&ref_url=https%253A%252F%252Fwww.google.com%252F).
+Should be connected in series with the motor. Is powered by a 3V3 supply from the Pi. 
+ADD INFO ABOUT HOW IT IS CONNECTED TO PI, HOW IT FUNCTIONS, TALK ABOUT PULL-UP RESISTORS (NEEDS THEM)
+
+* Gyro-Acelerometer Sensor - MPU6050. Measures The incine of the table from up-right position and captures the acceleration of the table in a 2D plane. Measurements are used for PID motor control. Uses I2C communication protocol for interfacing with Pi. Datasheet can be found here [https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2204/SEN0142_Web.pdf](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2204/SEN0142_Web.pdf).
+Should be mounted firmly to the surface of the table with this orientation INSERT IMAGE OF THE ORIENTATION OR DESCRITE IT PROPERLY. Is powered by a 3V3 supply from the Pi. 
+DESCRIBE FUNCTIONALITY IN MORE DETAIL, DESCRIBE CONNECTIONS TO PI, TALK ABOUT PULL-UP RESISTORS (DOESN'T NEED THEM)
+
+* Motor Driver - Cytron MD20A. Regulates voltage supplied to the motor, controls the direction and speed of motor rotation with PWM. Datasheet can be found here [https://robu.in/wp-content/uploads/2019/05/MD20A-Datasheet.pdf](https://robu.in/wp-content/uploads/2019/05/MD20A-Datasheet.pdf).
+Uses 12V external DC power supply for delivering power to the motor. In this project an external power generator was used for this purpose. Use thick multicore wires for power lines.
+Controls motor rotation by recieving a 20kHz PWM signal with a PID-controlled Duty Cycle from gpio18 on the Pi. Direction is controlled by a High-Low output from gpio23.
+
+* Motor METION MOTOR TYPE AND PROVIDE DATASHEET, DESCRIBE WHAT IT IS USED FOR
+
+* Low-Pass Filter - LC filter with a cut-off at about 1200Hz to eliminate high-frequency noise coming from the motor driver and Pi PWM signal. 
+It uses a 560uH inductor in series with the motor and the current sensor and a 33uF capacitor in parallel with them.(SPECIFY PART NUMBERS). At high frequencies inductor becomes very resistive and blocks high freqeuncy signals from passing into the circuit. Capacitor becomes a short circutit for high frequency signals. High freqeuncies flow through it, avoiding the current sensor and the motor.
+
+## Hardware Assembly
+
+INSERT IMAGE WITH FULL SETUP (REAL WORLD AND SCHEMATIC)
+INSERT IMAGE WITH CORRECT CONFIGURATION OF MPU6050
+INSERT IMAGE WITH PI5 PIN LABLES
+
+## CAD Design
+
 # Software
 ## Prerequisites/Dependencies
 The following Debian packages (Raspberry Pi OS is built on Debian and has access to Debian packages) are required for this program to build and run on a rpi5:
