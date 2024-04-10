@@ -9,6 +9,7 @@
  */
 
 #include <cmath>
+#include <fstream>
 #include <limits>
 #include <thread>
 #include <chrono>
@@ -37,9 +38,13 @@ public:
    * @brief PID controller callback implementation, passing the PID output to the provided motor driver object.
    * @param pidOutput Output of the PID controller passed to the callback.
    */
-  virtual void hasOutput(double pidOutput) { motorDriver.setDutyCycleDelta(pidOutput); } // May want to have duty cycle acceleration, rather than setting DC directly
+  virtual void hasOutput(double pidOutput) {
+    motorDriver.setDutyCycleDelta(pidOutput);
+    log_file << pidOutput << std::endl;
+  } // May want to have duty cycle acceleration, rather than setting DC directly
 
 private:
+  std::ofstream log_file{"Inner_PID_log", std::ios::trunc};
   /**
    * @brief Motor driver object reference attribute.
    */
@@ -65,9 +70,13 @@ public:
    * @brief PID controller callback implementation, passing the PID output to the provided PID controller object.
    * @param pidOutput Output of the PID controller passed to the callback.
    */
-  virtual void hasOutput(double pidOutput) override { pidController.setSetpoint(pidOutput); }
+  virtual void hasOutput(double pidOutput) override {
+    pidController.setSetpoint(pidOutput);
+    log_file << pidOutput << std::endl;
+  }
 
 private:
+  std::ofstream log_file{"Outer_PID_log", std::ios::trunc};
   /**
    * @brief PID controller object reference attribute.
    */
@@ -95,9 +104,11 @@ public:
   virtual void hasSample(INA260_Driver::INA260Sample& sample) override {
     pidController.calculate(sample.current);
     std::cout << "INA callback called. Data: " << sample.current << std::endl;
+    log_file << sample.current << std::endl;
   } // May want a scale factor to convert current -> torque (or just adjust PID constants)
 
 private:
+  std::ofstream log_file{"INA_log", std::ios::trunc};
   /**
    * @brief PID controller object reference attribute.
    */
@@ -117,6 +128,8 @@ public:
   /**
    * @brief Constructor taking and assigning a PID controller object reference.
    * @param _pidController The PID controller object.
+   * @param _radius Distance between MPU and axis of rotation.
+   * @param _samplePeriod Time between samples.
    */
   MPU6050_Feedback(PID& _pidController, float _radius, float _samplePeriod)
     : pidController(_pidController), radius(_radius), samplePeriod(_samplePeriod) {}
@@ -160,9 +173,11 @@ public:
     // Pass angular position to outer PID controller as PV.
     pidController.calculate(angularPos);
     std::cout << "MPU working. Data: " << angularPos << std::endl;
+    log_file << angularPos << std::endl;
   }
 
 private:
+  std::ofstream log_file{"MPU_log", std::ios::trunc};
   /**
    * @brief PID controller object reference attribute.
    */

@@ -147,7 +147,8 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile <<  Duty_nanosec << std::endl;
-		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'forward' direction." << std::endl;
+		  std::cout << "Set duty cycle to " << +Duty_nanosec << " in the 'forward' direction." << std::endl;
+		  log_file << +Duty_nanosec << std::endl;
             }
             else 
             {
@@ -168,7 +169,8 @@ void MotorDriver::setDutyCycle(double DutyCycle)
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile << Duty_nanosec << std::endl;
-		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'backward' direction." << std::endl;
+		  std::cout << "Set duty cycle to " << -Duty_nanosec << " in the 'backward' direction." << std::endl;
+		  log_file << -Duty_nanosec << std::endl;
             }
             else 
             {
