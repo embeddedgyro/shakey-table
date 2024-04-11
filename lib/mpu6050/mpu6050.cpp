@@ -1184,7 +1184,8 @@ void MPU6050::dataAquisition(void) {
           .add_line_settings(gpioPin,
                              gpiod::line_settings()
                                  .set_direction(gpiod::line::direction::INPUT)
-                                 .set_edge_detection(gpiod::line::edge::RISING))
+                                 .set_edge_detection(gpiod::line::edge::RISING)
+			         .set_bias(gpiod::line::bias::DISABLED)) // MPU6050 int pin can push and pull
           .do_request();
 
   // Create buffer for storing edge events.
