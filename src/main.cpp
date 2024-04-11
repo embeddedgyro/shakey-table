@@ -44,7 +44,11 @@ public:
   } // May want to have duty cycle acceleration, rather than setting DC directly
 
 private:
+  /**
+   * @brief Output file stream for logging inner PID outputs.
+   */
   std::ofstream log_file{"Inner_PID_log", std::ios::trunc};
+  
   /**
    * @brief Motor driver object reference attribute.
    */
@@ -76,7 +80,11 @@ public:
   }
 
 private:
+  /**
+   * @brief Output file stream for logging outer PID outputs.
+   */
   std::ofstream log_file{"Outer_PID_log", std::ios::trunc};
+  
   /**
    * @brief PID controller object reference attribute.
    */
@@ -108,7 +116,11 @@ public:
   } // May want a scale factor to convert current -> torque (or just adjust PID constants)
 
 private:
+  /**
+   * @brief Output file stream for logging INA measurements.
+   */
   std::ofstream log_file{"INA_log", std::ios::trunc};
+  
   /**
    * @brief PID controller object reference attribute.
    */
@@ -177,7 +189,11 @@ public:
   }
 
 private:
+  /**
+   * @brief Output file stream for logging MPU measurements.
+   */
   std::ofstream log_file{"MPU_log", std::ios::trunc};
+  
   /**
    * @brief PID controller object reference attribute.
    */
@@ -281,34 +297,16 @@ int main() {
 
   std::cout << "Set up variables." << std::endl;
 
-  // Initialise motor driver object. Assuming line offset 16 for direction pin is correct for now.
+  // Initialise motor driver object.
   MotorDriver MD20(chip_path, MD_DirPin, 50000);
 
   std::cout << "Set up motor driver object." << std::endl;
 
-  /*  while (true) {
-    MD20.setDutyCycle(1);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    MD20.setDutyCycle(0.5);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    MD20.setDutyCycle(0);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    MD20.setDutyCycle(-0.5);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    MD20.setDutyCycle(-1);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    }*/
-
-  
   // Initialise inner PID controller with callback using motor driver object.
-  // Initially with the PID output being the DC directly, so set min to 0 and max to 1.
-  // Initially with Kp=1, Kd=0, and Ki=0.
   PID_MotorDriver innerPIDCallback(MD20);
   PID innerPID(&innerPIDCallback, 0, INA_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), inner_Kp, inner_Kd, inner_Ki);
 
   // Initialise outer PID controller with callback using the inner PID controller.
-  // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
-  // Initially with Kp=1, Kd=0, and Ki=0.
   PID_Position outerPIDCallback(innerPID);
   PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), outer_Kp, outer_Kd, outer_Ki);
 

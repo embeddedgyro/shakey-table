@@ -47,7 +47,11 @@ public:
   }
 
 private:
+  /**
+   * @brief Output file stream for logging PID outputs.
+   */
   std::ofstream log_file{"Outer_PID_log", std::ios::trunc};
+  
   /**
    * @brief Motor driver object reference attribute.
    */
@@ -116,7 +120,11 @@ public:
   }
 
 private:
+  /**
+   * @brief Output file stream for logging MPU measurements.
+   */
   std::ofstream log_file{"MPU_log", std::ios::trunc};
+  
   /**
    * @brief PID controller object reference attribute.
    */
@@ -159,11 +167,11 @@ int main() {
   // Radius from axis of ratation to MPU chip (need to actually measure this):
   float radius = 0.15;
 
-  // I2C device files and addresses for MPU and INA:
+  // I2C device files and addresses for MPU:
   std::string MPU_i2cFile = "/dev/i2c-0";
   uint8_t MPU_Address = MPU6050_ADDRESS;
 
-  // Gpiod device file path and pins used for interrupts from MPU and INA:
+  // Gpiod device file path and pins used for interrupts from MPU:
   std::filesystem::path chip_path("/dev/gpiochip4");
   gpiod::line::offset MPU_IntPin = 4;
 
@@ -177,28 +185,13 @@ int main() {
 
   std::cout << "Set up variables." << std::endl;
 
-  // Initialise motor driver object. Assuming line offset 16 for direction pin is correct for now.
+  // Initialise motor driver object.
   MotorDriver MD20(chip_path, MD_DirPin, 50000);
 
   std::cout << "Set up motor driver object." << std::endl;
 
-  /*  while (true) {
-    MD20.setDutyCycle(1);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    MD20.setDutyCycle(0.5);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    MD20.setDutyCycle(0);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    MD20.setDutyCycle(-0.5);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    MD20.setDutyCycle(-1);
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-    }*/
-
-  
   // Initialise outer PID controller with callback using the inner PID controller.
   // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
-  // Initially with Kp=1, Kd=0, and Ki=0.
   PID_Position outerPIDCallback(MD20);
   PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), outer_Kp, outer_Kd, outer_Ki);
 
@@ -208,10 +201,10 @@ int main() {
   MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
   MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, MPU_IntPin);
 
-  // Setup settings on MPU and INA over i2c.
+  // Setup settings on MPU over i2c.
   MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable, 0, 1); // Given the MPU's orientation, there should be 1g in the Y axis at initalisaton
 
-  // Start data aquisition and processing from the MPU and INA.
+  // Start data aquisition and processing from the MPU.
   MPU6050.begin();
 
   // Sleep this thread forever.

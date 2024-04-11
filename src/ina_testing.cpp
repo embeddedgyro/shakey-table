@@ -8,17 +8,12 @@
  *
  */
 
-#include <cmath>
 #include <fstream>
-#include <limits>
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include "../lib/pid/pid.h"
-#include "../lib/mpu6050/mpu6050.h"
 #include "../lib/i2c_interface/smbus_i2c_if.h"
 #include "../lib/ina260/ina260.h"
-#include "../lib/MotorDriver/MotorDriver.h"
 
 
 /**
@@ -40,6 +35,9 @@ public:
   }
 
 private:
+  /**
+   * @brief Output file stream for logging current measurements.
+   */
   std::ofstream log_file;
 };
 
@@ -53,7 +51,7 @@ int main() {
   INA260_Driver::Ave_Mode INA_AveragingMode = INA260_Driver::Ave_Mode::AV1;
   INA260_Driver::Op_Mode INA_OperatingMode = INA260_Driver::Op_Mode::CURCONT;
 
-  // I2C device files and addresses for MPU and INA:
+  // I2C device files and addresses for INA:
   std::string INA_i2cFile = "/dev/i2c-0";
   uint8_t INA_Address = INA260_ADDRESS;
 
@@ -63,10 +61,10 @@ int main() {
   INA260_I2C_Callback.Init_I2C(INA_Address, INA_i2cFile);
   INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback, 5);
 
-  // Setup settings on MPU over i2c.
+  // Setup settings on INA over i2c.
   INA260.InitializeSensor(INA_AlertMode, INA_VoltConvTime, INA_CurrConvTime, INA_AveragingMode, INA_OperatingMode);
 
-  // Start data aquisition and processing from the MPU.
+  // Start data aquisition and processing from the INA.
   INA260.begin();
 
   // Sleep this thread forever.
