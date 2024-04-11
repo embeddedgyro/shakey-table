@@ -30,7 +30,7 @@ Documentation for it can be found here [https://www.raspberrypi.com/documentatio
 
 Datasheet can be found here [https://www.ti.com/lit/ds/symlink/ina260.pdf](https://www.ti.com/lit/ds/symlink/ina260.pdf).
 
-Should be connected in series with the motor. Vin+ terminal is connected to V- on the motor and Vin- is connected to the junction between inductors and capacitors of the LC filter. Powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C1 pins (SDA->gpio27, SCL->gpio28) which don't have internal pull-up resistors. The Alert pin is connected to gpio5 on the Pi. Additional three 10KOhm resistors should be connected between the SCL, SDA and Alert lines and 3V3 to eliminate the possibility of reading an undefined state during switching of the signal on the lines.
+Should be connected in series with the motor. Vin+ terminal is connected to V- on the motor and Vin- is connected to the junction between inductors and capacitors of the LC filter. Powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C1 pins (SDA->gpio27, SCL->gpio28) which don't have internal pull-up resistors, but there are pull-up resistors inside the current sensor, so that should not be a problem. The Alert pin is connected to gpio5 on the Pi.
 
 * Gyro-Acelerometer Sensor - MPU6050. Measures the acceleration of the table in a 2D plane and subtracts the centripetal acceleration from it to get the acceleration due to gravity. Measurements are used for PID motor control. Uses I2C communication protocol for interfacing with Pi.
 
@@ -60,7 +60,7 @@ Uses two 560uH choke inductors(`MCAP115018077A-561LU`) after MB terminal on the 
 This section contains all reference image materials for wiring and positioning hardware components.
 
 This image represents the wiring of the whole setup:
-![plot](./readme_materials/hardware_setup_shakeytable.drawio.png)
+![plot](./readme_materials/hardware_setup_shakeytable_noresistors.png)
 
 
 This image shows pin configuration on the Raspberry Pi 5 for assembly:
