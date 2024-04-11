@@ -54,7 +54,8 @@ Uses two 560uH choke inductors(`MCAP115018077A-561LU`) after MB terminal on the 
 
 
 ## Hardware Assembly
-
+![plot](./readme_materials/hardware_setup_shakeytable.drawio.png)
+![plot](./readme_materials/pi5_pins.png)
 INSERT IMAGE WITH FULL SETUP (REAL WORLD AND SCHEMATIC)
 INSERT IMAGE WITH CORRECT CONFIGURATION OF MPU6050
 INSERT IMAGE WITH PI5 PIN LABLES
