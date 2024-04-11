@@ -39,7 +39,7 @@ public:
    * @param pidOutput Output of the PID controller passed to the callback.
    */
   virtual void hasOutput(double pidOutput) {
-    motorDriver.setDutyCycleDelta(pidOutput);
+    motorDriver.setDutyCycleDelta(-pidOutput); // If corrective torque is positive, then we need to change DC by a negative amount, and vice versa.
     log_file << pidOutput << std::endl;
   } // May want to have duty cycle acceleration, rather than setting DC directly
 
