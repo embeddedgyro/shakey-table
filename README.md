@@ -18,24 +18,27 @@ or OS versions.
 
 ## Components
 
-The following components were used for this project:
+The following components were used for this project:#
+
 * Raspberry Pi 5 - Microcontroller. Documentation for it can be found here [https://www.raspberrypi.com/documentation/](https://www.raspberrypi.com/documentation/).
+
 * Current Sensor - INA260. Used for reading current flowing through the motor for PID motor control. Uses I2C communication protocol for interfacing with Pi. Datasheet can be found here [https://www.ti.com/lit/ds/symlink/ina260.pdf?ts=1712654268303&ref_url=https%253A%252F%252Fwww.google.com%252F](https://www.ti.com/lit/ds/symlink/ina260.pdf?ts=1712654268303&ref_url=https%253A%252F%252Fwww.google.com%252F).
-Should be connected in series with the motor. Is powered by a 3V3 supply from the Pi. 
-ADD INFO ABOUT HOW IT IS CONNECTED TO PI, HOW IT FUNCTIONS, TALK ABOUT PULL-UP RESISTORS (NEEDS THEM)
+Should be connected in series with the motor with Vin+ terminal connected to V- on the motor and Vin- connected to the junciton between inductors and capacitors of the LC filter. Is powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C1 pins (SDA->gpio27, SCL->gpio28) which don't have internal pull-up resistors. Alert pin is connected to gpio5 on the Pi. Additional three 10KOhm resistors should be connected between the SCL, SDA and Alert lines and 3V3 to eliminate possibility of reading undefined state during swithching of the signal on the lines.
+ADD INFO ABOUT HOW IT FUNCTIONS
 
 * Gyro-Acelerometer Sensor - MPU6050. Measures The incine of the table from up-right position and captures the acceleration of the table in a 2D plane. Measurements are used for PID motor control. Uses I2C communication protocol for interfacing with Pi. Datasheet can be found here [https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2204/SEN0142_Web.pdf](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2204/SEN0142_Web.pdf).
-Should be mounted firmly to the surface of the table with this orientation INSERT IMAGE OF THE ORIENTATION OR DESCRITE IT PROPERLY. Is powered by a 3V3 supply from the Pi. 
-DESCRIBE FUNCTIONALITY IN MORE DETAIL, DESCRIBE CONNECTIONS TO PI, TALK ABOUT PULL-UP RESISTORS (DOESN'T NEED THEM)
+Should be mounted firmly to the surface of the table with connection pins facing the ground. INSERT IMAGE OF THE ORIENTATION OR DESCRITE IT PROPERLY. Is powered by a 3V3 supply from the Pi. It is communicating with the Pi through I2C0 pins (SDA->gpio2, SCL->gpio3) which have internal pull-up resistors. No extra external cirucitry is needed. Interrup pin should be connected to gpio4.
+DESCRIBE FUNCTIONALITY IN MORE DETAIL
 
 * Motor Driver - Cytron MD20A. Regulates voltage supplied to the motor, controls the direction and speed of motor rotation with PWM. Datasheet can be found here [https://robu.in/wp-content/uploads/2019/05/MD20A-Datasheet.pdf](https://robu.in/wp-content/uploads/2019/05/MD20A-Datasheet.pdf).
-Uses 12V external DC power supply for delivering power to the motor. In this project an external power generator was used for this purpose. Use thick multicore wires for power lines.
-Controls motor rotation by recieving a 20kHz PWM signal with a PID-controlled Duty Cycle from gpio18 on the Pi. Direction is controlled by a High-Low output from gpio23.
+Uses 12V external DC power supply connected to VA+ and VB- for delivering power to the motor. In this project an external power generator was used for this purpose. Use thick multicore wires with good isolation for power lines.
+Controls the motor rotation by recieving a 20kHz PWM signal with a PID-controlled Duty Cycle from gpio18 on the Pi. Direction is controlled by a High-Low output from gpio23.
 
-* Motor METION MOTOR TYPE AND PROVIDE DATASHEET, DESCRIBE WHAT IT IS USED FOR
+* Motor - 12V DC Motor 12kg-cm 350RPM w/Encoder [https://uk.robotshop.com/products/12v-dc-motor-12kg-cm-350rpm-encoder](https://uk.robotshop.com/products/12v-dc-motor-12kg-cm-350rpm-encoder).
+Used for rotating the reaction wheel and create the nesessary torque for table stabilisation. V+ terminal should be connected to MA terminal on the motor driver, and V- terminal connected to Vin+ terminal on the current sensor.
 
 * Low-Pass Filter - LC filter with a cut-off at about 1200Hz to eliminate high-frequency noise coming from the motor driver and Pi PWM signal. 
-It uses a 560uH inductor in series with the motor and the current sensor and a 33uF capacitor in parallel with them.(SPECIFY PART NUMBERS). At high frequencies inductor becomes very resistive and blocks high freqeuncy signals from passing into the circuit. Capacitor becomes a short circutit for high frequency signals. High freqeuncies flow through it, avoiding the current sensor and the motor.
+It uses two 560uH choke inductors(`MCAP115018077A-561LU`) after MB terminal on the motor driver in series with the motor and the current sensor. Seven 2.2uF polyester film capacitors(`7212-707`) after inductors in parallel around the current sensor and motor driver. At high frequencies inductor becomes very resistive and blocks high freqeuncy signals from passing into the circuit. Capacitor becomes a short circutit for high frequency signals. High freqeuncies flow through it, avoiding the current sensor and the motor. Inductors with high current rating above 10A and capacitos with high voltage rating above 20V should be used in this project to prevent damage and burning of the filter. Polarised capacitors cannot be used, as current can flow in both directions in this circuit.
 
 ## Hardware Assembly
 
