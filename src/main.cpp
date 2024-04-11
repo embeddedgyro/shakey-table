@@ -257,8 +257,8 @@ int main() {
   float radius = 0.15;
 
   // I2C device files and addresses for MPU and INA:
-  std::string MPU_i2cFile = "/dev/i2c-0";
-  std::string INA_i2cFile = "/dev/i2c-1";
+  std::string MPU_i2cFile = "/dev/i2c-1";
+  std::string INA_i2cFile = "/dev/i2c-0";
   uint8_t MPU_Address = MPU6050_ADDRESS;
   uint8_t INA_Address = INA260_ADDRESS;
 
@@ -271,11 +271,11 @@ int main() {
   gpiod::line::offset MD_DirPin = 23;
 
   // Set PID constants
-  double inner_Kp = 1;
+  double inner_Kp = 0.01;
   double inner_Kd = 0;
   double inner_Ki = 0;
   
-  double outer_Kp = 1;
+  double outer_Kp = 0.01;
   double outer_Kd = 0;
   double outer_Ki = 0;
 
