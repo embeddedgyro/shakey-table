@@ -18,6 +18,8 @@ or OS versions.
 
 ## Components
 
+This section describes hardware components used in this project, and what is their purpose. Descritions are followed by links to datasheets for those components and information about how they should be wired and positioned on a physical prototype. All supporting reference images for this section can be found in "Hardware Assembly" section of this README.
+
 The following components were used for this project:
 
 * Microcontroller - Raspberry Pi 5. Used for executing the main program and interfacing with sensors and motor driver.
@@ -34,7 +36,7 @@ Should be connected in series with the motor. Vin+ terminal is connected to V- o
 
 Datasheet can be found here [https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2204/SEN0142_Web.pdf](https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2204/SEN0142_Web.pdf).
 
-Should be mounted firmly to the surface of the table with connection pins facing the ground. INSERT IMAGE OF THE ORIENTATION OR DESCRIBE IT PROPERLY. Powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C0 pins (SDA->gpio2, SCL->gpio3) which have internal pull-up resistors. No extra external circuitry is needed. Interrup pin should be connected to gpio4.
+Should be mounted firmly to the surface of the table with connection pins facing the ground. Position reference image can be found in "Hardware Assembly" section of the README. Powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C0 pins (SDA->gpio2, SCL->gpio3) which have internal pull-up resistors. No extra external circuitry is needed. Interrup pin should be connected to gpio4.
 
 * Motor Driver - Cytron MD20A. Regulates voltage supplied to the motor. Controls the direction and speed of motor rotation with PWM.
 
@@ -54,11 +56,20 @@ Uses two 560uH choke inductors(`MCAP115018077A-561LU`) after MB terminal on the 
 
 
 ## Hardware Assembly
-![plot](./readme_materials/hardware_setup_shakeytable.drawio.png)
+
+This section contains all reference image materials for wiring and positioning hardware components.
+
+This image represents the wiring of the whole setup:
+![plot](./readme_materials/hardware_setup_shakeytable.drawio.svg)
+
+
+This image shows pin configuration on the Raspberry Pi 5 for assembly:
 ![plot](./readme_materials/pi5_pins.png)
-INSERT IMAGE WITH FULL SETUP (REAL WORLD AND SCHEMATIC)
-INSERT IMAGE WITH CORRECT CONFIGURATION OF MPU6050
-INSERT IMAGE WITH PI5 PIN LABLES
+
+
+This image shows the correct position of the gyro-accelerometer on the shakey table:
+![plot](./readme_materials/gyro_position.jpg)
+
 
 ## CAD Design
 
