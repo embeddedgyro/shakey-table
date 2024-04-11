@@ -60,7 +60,7 @@ Uses two 560uH choke inductors(`MCAP115018077A-561LU`) after MB terminal on the 
 This section contains all reference image materials for wiring and positioning hardware components.
 
 This image represents the wiring of the whole setup:
-![plot](./readme_materials/hardware_setup_shakeytable.drawio.svg)
+![plot](./readme_materials/hardware_setup_shakeytable.drawio.png)
 
 
 This image shows pin configuration on the Raspberry Pi 5 for assembly:
