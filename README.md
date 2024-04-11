@@ -117,6 +117,20 @@ path of the executable. For example, `/some/path/from/root/shakey-table/build/sr
 `src/ShakeyTable` if you are still in the `build` directory. If you are in the same directory as the
 executable, you can enter `./ShakeyTable` (the leading dot means *this directory*).
 
+In addition to the main **ShakeyTable** executable, there will also be a **ShakeyTable_no_INA**
+executable. This runs a version of the main program that doesn't use the INA260 current sensor
+for torque control. Instead, it only uses the MPU6050 and a single PID controller for position control.
+This program was developed as a backup in case the INA260 could not be configured to
+work with the motor driver operating in both directions
+([see the wiki](https://github.com/embeddedgyro/shakey-table/wiki/Hardware-Woes#the-ina260-current-sensor)).
+
+There will also be two executables for testing the functionality of the MPU6050 and INA260,
+named **mpu_testing** and **ina_testing**, respectively. **mpu_testing** will communicate with
+the MPU6050 and continuously write the measured angular position to the screen.
+**ina_testing** will do the same with the INA260, continuously writing out the measured
+current to the screen. These test programs are useful for confirming that the sensors
+have been correctly connected to the Pi and are functioning properly.
+
 ## Documentation
 Documentation of this project is provided by Doxygen formatted comments in the code.
 Doxygen can be used to create a website and PDF document that organise the documentation
