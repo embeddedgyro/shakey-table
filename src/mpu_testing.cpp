@@ -9,15 +9,11 @@
  */
 
 #include <cmath>
-#include <limits>
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include "../lib/pid/pid.h"
 #include "../lib/mpu6050/mpu6050.h"
 #include "../lib/i2c_interface/smbus_i2c_if.h"
-#include "../lib/ina260/ina260.h"
-#include "../lib/MotorDriver/MotorDriver.h"
 
 
 /**
@@ -118,7 +114,7 @@ int main() {
   float radius = 0.15;
 
   // I2C device files and addresses for MPU:
-  std::string MPU_i2cFile = "/dev/i2c-0";
+  std::string MPU_i2cFile = "/dev/i2c-1";
   uint8_t MPU_Address = MPU6050_ADDRESS;
 
   // Initialise MPU6050 object with callback for printing data, and I2C callback for communication.

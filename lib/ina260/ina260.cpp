@@ -93,8 +93,9 @@ void INA260::dataAquisition(void) {
           .set_consumer("watch-line-value")
           .add_line_settings(
               gpioPin, gpiod::line_settings()
-                           .set_direction(gpiod::line ::direction::INPUT)
-                           .set_edge_detection(gpiod::line::edge ::FALLING))
+                           .set_direction(gpiod::line::direction::INPUT)
+                           .set_edge_detection(gpiod::line::edge ::FALLING)
+	                   .set_bias(gpiod::line::bias::PULL_UP)) // INA260 int pin is open drain, and can thus only pull down, so we need pull-up here.
           .do_request();
   gpiod::edge_event_buffer buffer(1);
 

@@ -72,6 +72,7 @@ public:
   void setDutyCycleDelta(double DCdelta);
     
   protected:
+    std::ofstream log_file{"MD20_log", std::ios::trunc};
     /**
     * @brief DIR output pin
     */

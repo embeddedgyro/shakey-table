@@ -2,11 +2,13 @@
 add_executable(${PROJECT_NAME} main.cpp)
 add_executable(mpu_testing mpu_testing.cpp)
 add_executable(ina_testing ina_testing.cpp)
+add_executable(ShakeyTable_no_INA main_no_INA.cpp)
 
 # Link the libraries
 target_link_libraries(${PROJECT_NAME} PUBLIC ina260 mpu6050 pid MotorDriver -lgpiodcxx)
 target_link_libraries(mpu_testing PUBLIC mpu6050 -lgpiodcxx)
 target_link_libraries(ina_testing PUBLIC ina260 -lgpiodcxx)
+target_link_libraries(ShakeyTable_no_INA PUBLIC mpu6050 pid MotorDriver -lgpiodcxx)
 
 # Specify include directories
 target_include_directories(
