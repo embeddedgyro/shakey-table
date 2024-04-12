@@ -168,7 +168,7 @@ int main() {
   float radius = 0.15;
 
   // I2C device files and addresses for MPU:
-  std::string MPU_i2cFile = "/dev/i2c-0";
+  std::string MPU_i2cFile = "/dev/i2c-1";
   uint8_t MPU_Address = MPU6050_ADDRESS;
 
   // Gpiod device file path and pins used for interrupts from MPU:
@@ -179,7 +179,7 @@ int main() {
   gpiod::line::offset MD_DirPin = 23;
 
   // Set PID constants
-  double outer_Kp = 1;
+  double outer_Kp = 0.01;
   double outer_Kd = 0;
   double outer_Ki = 0;
 
