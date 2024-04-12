@@ -1,3 +1,11 @@
+/**
+ * @file    ina260_ReadVoltage_ut.cpp
+ * @author  Jambulingam Kothandapani
+ * @date    05.04.2024
+ * @brief   This file constains the unit testing program that does online testing of i2c communcation of reading voltage value between Pi and the INA sensor 
+ * Copyright 2024 Jambulingam  <jagandhanasekar@gmail.com>
+ *
+ */
 
 #include <cmath>
 #include <fstream>
@@ -9,11 +17,21 @@
 #include "../../lib/ina260/ina260.h"
 
 
-
+/**
+ * @brief Gets typeInfo as the input parameter and compares its type with the float type. 
+ * returns booling output based on the comparison result
+ * @return bool
+ */
 bool isFloat(const std::type_info& typeInfo) {
     return typeInfo == typeid(float);
 }
-// Test case for GetGyro_X_Raw method
+// Test case for Reading voltage method
+/**
+ * @brief Gets the instance of the class ina and calls the function ReadVoltage.
+ * Throws runtime error if the returned value is of non-float type
+ * @param result stores the result of the function call in int16_t type
+ * @return None
+ */
 void testRead_Voltage(INA260_Driver::INA260* ina) {
     std::cout << "Test function for testRead_Voltage is getting executed" << std::endl;
     // Call the method

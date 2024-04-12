@@ -1,3 +1,11 @@
+/**
+ * @file    ina260_Wakeup_ut.cpp
+ * @author  Jambulingam Kothandapani
+ * @date    05.04.2024
+ * @brief   This file constains the unit testing program that does online testing of i2c communcation of sensor wakeup between Pi and the INA sensor 
+ * Copyright 2024 Jambulingam  <jagandhanasekar@gmail.com>
+ *
+ */
 
 #include <cmath>
 #include <fstream>

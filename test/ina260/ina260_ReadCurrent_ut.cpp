@@ -1,4 +1,11 @@
-
+/**
+ * @file    ina260_ReadCurrent_ut.cpp
+ * @author  Jambulingam Kothandapani
+ * @date    05.04.2024
+ * @brief   This file constains the unit testing program that does online testing of i2c communcation of reading Current between Pi and the INA sensor 
+ * Copyright 2024 Jambulingam  <jagandhanasekar@gmail.com>
+ *
+ */
 #include <cmath>
 #include <fstream>
 #include <limits>
@@ -8,12 +15,21 @@
 #include "../../lib/i2c_interface/smbus_i2c_if.h"
 #include "../../lib/ina260/ina260.h"
 
-
-
+/**
+ * @brief Gets typeInfo as the input parameter and compares its type with the float type. 
+ * returns booling output based on the comparison result
+ * @return bool
+ */
 bool isFloat(const std::type_info& typeInfo) {
     return typeInfo == typeid(float);
 }
-// Test case for GetGyro_X_Raw method
+// Test case for ReadCurrent method
+/**
+ * @brief Gets the instance of the class ina and calls the function ReadCurrent.
+ * Throws runtime error if the returned value is of non-float type
+ * @param result stores the result of the function call
+ * @return None
+ */
 void testRead_Current(INA260_Driver::INA260* ina) {
     std::cout << "Test function for testRead_Voltage is getting executed" << std::endl;
     // Call the method

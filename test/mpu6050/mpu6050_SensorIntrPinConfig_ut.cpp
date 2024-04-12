@@ -1,3 +1,12 @@
+/**
+ * @file    mpu6050_SensorIntrPinConfig.cpp
+ * @author  Jambulingam Kothandapani
+ * @date    02.04.2024
+ * @brief   This file constains the unit testing program that does online testing of i2c communcation of setting and getting interrupt Pin configuration between Pi and the MPU sensor 
+ * Copyright 2024 Jambulingam  <jagandhanasekar@gmail.com>
+ *
+ */
+
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -12,6 +21,12 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetSensor_InterruptPinConfig method
+/**
+ * @brief Gets the instance of the class mpu and calls the function SetSensor_InterruptPinConfig
+ * with defined user input. Throws runtime error if the configuration is not successful.
+ * @param result stores the result of the function call
+ * @return None
+ */
 void testSetSensor_InterruptPinConfig(MPU6050_Driver::MPU6050* mpu) {
     
     std::cout << "Test function for GetSensor_InterruptPinConfig is getting executed" << std::endl;
@@ -23,8 +38,13 @@ void testSetSensor_InterruptPinConfig(MPU6050_Driver::MPU6050* mpu) {
         throw std::runtime_error("SetSensor_InterruptPinConfig test failed!");
 }
 }
-
-// Test case for GetSensor_InterruptPinConfig method
+// Test case for SetSensor_InterruptPinConfig method
+/**
+ * @brief Gets the instance of the class mpu and calls the function GetSensor_InterruptPinConfig.
+ * Throws runtime error if the configuration is not successful or the returned intPinConfig value doesn't match with the set value.
+ * @param intPinConfig stores the result of the function call in int16_t type.
+ * @return None
+ */
 void testGetSensor_InterruptPinConfig(MPU6050_Driver::MPU6050* mpu) {
     
     std::cout << "Test function for GetSensor_InterruptPinConfig is getting executed" << std::endl;

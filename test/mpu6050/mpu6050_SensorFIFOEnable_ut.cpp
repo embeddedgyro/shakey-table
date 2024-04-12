@@ -1,3 +1,12 @@
+/**
+ * @file    mpu6050_SensorFIFOeEnable_ut.cpp
+ * @author  Jambulingam Kothandapani
+ * @date    02.04.2024
+ * @brief   This file constains the unit testing program that does online testing of i2c communcation of setting and getting FIFO Enabling between Pi and the MPU sensor 
+ * Copyright 2024 Jambulingam  <jagandhanasekar@gmail.com>
+ *
+ */
+
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -12,6 +21,12 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetSensor_FIFO_Enable method
+/**
+ * @brief Gets the instance of the class mpu and calls the function SetSensor_FIFO_Enable.
+ * Throws runtime error if the Enabling is not successful.
+ * @param result stores the result of the function call.
+ * @return None
+ */
 void testSetSensor_FIFO_Enable(MPU6050_Driver::MPU6050* mpu) {
 
     std::cout << "Test function for GetSensor_FIFO_Enable is getting executed" << std::endl;
@@ -25,6 +40,12 @@ void testSetSensor_FIFO_Enable(MPU6050_Driver::MPU6050* mpu) {
 }
 
 // Test case for GetSensor_FIFO_Enable method
+/**
+ * @brief Gets the instance of the class mpu and calls the function GetSensor_FIFO_Enable.
+ * Throws runtime error if the Enabling is not successful or the returned FIFO_Enable state doesn't match with the set value.
+ * @param state stores the state of the function call in bool type.
+ * @return None
+ */
 void testGetSensor_FIFO_Enable(MPU6050_Driver::MPU6050* mpu) {
     
     std::cout << "Test function for GetSensor_FIFO_Enable is getting executed" << std::endl;

@@ -1,3 +1,12 @@
+/**
+ * @file    mpu6050_AccelRaw_ut.cpp
+ * @author  Jambulingam Kothandapani
+ * @date    02.04.2024
+ * @brief   This file constains the unit testing program that does online testing of i2c communcation of getting Accelerometer's raw value between Pi and the MPU sensor 
+ * Copyright 2024 Jambulingam  <jagandhanasekar@gmail.com>
+ *
+ */
+
 #include <iostream>
 #include <cassert>
 #include <limits>
@@ -12,6 +21,12 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for GetAccel_X_Raw method
+/**
+ * @brief Gets the instance of the class mpu and calls the function GetAccel_X_Raw.
+ * Throws runtime error if the getting function is not successful or the obtained value doesn't match with the set value.
+ * @param accelXVal stores the result of the function call in int16_t type
+ * @return None
+ */
 void testGetAccel_X_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetAccel_X_Raw is getting executed" << std::endl;
     // Call the method
@@ -24,6 +39,12 @@ void testGetAccel_X_Raw(MPU6050_Driver::MPU6050* mpu) {
     }
 }
 // Test case for GetAccel_Y_Raw method
+/**
+ * @brief Gets the instance of the class mpu and calls the function GetAccel_Y_Raw.
+ * Throws runtime error if the getting function is not successful or the obtained value doesn't match with the set value.
+ * @param accelYVal stores the result of the function call in int16_t type
+ * @return None
+ */
 void testGetAccel_Y_Raw(MPU6050_Driver::MPU6050* mpu) {
 
     std::cout << "Test function for GetAccel_Y_Raw is getting executed" << std::endl;
@@ -37,6 +58,12 @@ void testGetAccel_Y_Raw(MPU6050_Driver::MPU6050* mpu) {
     }
 }
 // Test case for GetAccel_Z_Raw method
+/**
+ * @brief Gets the instance of the class mpu and calls the function GetAccel_Z_Raw.
+ * Throws runtime error if the getting function is not successful or the obtained value doesn't match with the set value.
+ * @param accelZVal stores the result of the function call in int16_t type
+ * @return None
+ */
 void testGetAccel_Z_Raw(MPU6050_Driver::MPU6050* mpu) {
 
     std::cout << "Test function for GetAccel_Z_Raw is getting executed" << std::endl;

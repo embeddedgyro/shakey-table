@@ -1,3 +1,11 @@
+/**
+ * @file    mpu6050_GyroRaw_ut.cpp
+ * @author  Jambulingam Kothandapani
+ * @date    02.04.2024
+ * @brief   This file constains the unit testing program that does online testing of i2c communcation of getting Gyro Raw values between Pi and the MPU sensor 
+ * Copyright 2024 Jambulingam  <jagandhanasekar@gmail.com>
+ *
+ */
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -12,6 +20,12 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for GetGyro_X_Raw method
+/**
+ * @brief Gets the instance of the class mpu and calls the function testGetGyro_X_Raw.
+ * Throws runtime error if the getting function is not successful or the obtained value doesn't match with the set value.
+ * @param gyroXVal stores the result of the function call in int16_t type
+ * @return None
+ */
 void testGetGyro_X_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetGyro_X_Raw is getting executed" << std::endl;
     // Call the method
@@ -23,7 +37,13 @@ void testGetGyro_X_Raw(MPU6050_Driver::MPU6050* mpu) {
         throw std::runtime_error("GetGyro_X_Raw test failed!");
     }
 }
-// Test case for GetGyro_X_Raw method
+// Test case for GetGyro_Y_Raw method
+/**
+ * @brief Gets the instance of the class mpu and calls the function GetGyro_Y_Raw.
+ * Throws runtime error if the getting function is not successful or the obtained value doesn't match with the set value.
+ * @param gyroYVal stores the result of the function call in int16_t type
+ * @return None
+ */
 void testGetGyro_Y_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetGyro_Y_Raw is getting executed" << std::endl;
 
@@ -37,6 +57,12 @@ void testGetGyro_Y_Raw(MPU6050_Driver::MPU6050* mpu) {
     }
 }
 // Test case for GetGyro_Z_Raw method
+/**
+ * @brief Gets the instance of the class mpu and calls the function GetGyro_Z_Raw.
+ * Throws runtime error if the getting function is not successful or the obtained value doesn't match with the set value.
+ * @param gyroZVal stores the result of the function call in int16_t type
+ * @return None
+ */
 void testGetGyro_Z_Raw(MPU6050_Driver::MPU6050* mpu) {
     std::cout << "Test function for GetGyro_Z_Raw is getting executed" << std::endl;
     // Call the method

@@ -1,3 +1,12 @@
+/**
+ * @file    mpu6050_AccelOffset_ut.cpp
+ * @author  Jambulingam Kothandapani
+ * @date    02.04.2024
+ * @brief   This file constains the unit testing program that does online testing of i2c communcation of setting and getting Accel offset value between Pi and the MPU sensor 
+ * Copyright 2024 Jambulingam  <jagandhanasekar@gmail.com>
+ *
+ */
+
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -12,6 +21,12 @@
 #include "../../lib/MotorDriver/MotorDriver.h"
 
 // Test case for SetAccel_X_Offset method
+/**
+ * @brief Gets the instance of the class mpu and calls the function SetAccel_X_Offset.
+ * Throws runtime error if the getting function is not successful.
+ * @param accelXVal stores the result of the function call.
+ * @return None
+ */
 void testSetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
     std::cout << "Test function for SetAccelXOffset is getting executed" << std::endl;
@@ -26,6 +41,12 @@ void testSetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
 }
 
 // Test case for GetAccel_X_Offset method
+/**
+ * @brief Gets the instance of the class mpu and calls the function GetAccel_X_Offset.
+ * Throws runtime error if the getting is not successful or the returned value doesn't match with the set value.
+ * @param offset stores the state of the function call in int16_t type.
+ * @return None
+ */
 void testGetAccelXOffset(MPU6050_Driver::MPU6050* mpu) {
     //MPU6050 mpu6050;
     std::cout << "Test function for GetAccelXOffset is getting executed" << std::endl;
