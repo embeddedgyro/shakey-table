@@ -1197,6 +1197,9 @@ void MPU6050::dataAquisition(void) {
 
   // Start data aquisition loop
   while (dataAquisitionRunning) {
+    // Block until edge is detected
+    request.read_edge_events(buffer);
+    
     // Read raw data from MPU6050
     ReadAllRawData();
 
@@ -1214,9 +1217,6 @@ void MPU6050::dataAquisition(void) {
 
     // Send data to the registered callback.
     mpu6050cb->hasSample(sample);
-
-    // Block until edge is detected
-    request.read_edge_events(buffer);
   }
 }
 
