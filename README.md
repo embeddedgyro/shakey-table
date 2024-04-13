@@ -43,6 +43,14 @@ and `--enable-bindings-cxx` (**necessary**, since this is a C++ program). Note t
 See [https://forums.raspberrypi.com/viewtopic.php?t=359251](https://forums.raspberrypi.com/viewtopic.php?t=359251),
 particularly the [post by neuralassembly](https://forums.raspberrypi.com/viewtopic.php?p=2202349#p2202349) and onward.
 
+### config.txt
+To enable the I2C and PWM hardware on the Raspberry Pi 5, the following lines must be added to your `/boot/firmware/config.txt`:
+* `dtparam=i2c_arm=on`
+* `dtparam=i2c_vc=on,i2c_vc_baudrate=400000`
+* `dtoverlay=pwm-2chan`
+
+Remember to reboot your Pi after entering these lines. The `config.txt` used on our Pi can be found in the root of this repo.
+
 ## Building the Software
 To build the software, follow these instructions:
 * `git clone https://github.com/embeddedgyro/shakey-table.git`
