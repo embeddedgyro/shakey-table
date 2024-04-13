@@ -120,7 +120,7 @@ Documentation for it can be found here [https://www.raspberrypi.com/documentatio
 
 Datasheet can be found here [https://www.ti.com/lit/ds/symlink/ina260.pdf](https://www.ti.com/lit/ds/symlink/ina260.pdf).
 
-Should be connected in series with the motor. Vin+ terminal is connected to V- on the motor and Vin- is connected to the junction between inductors and capacitors of the LC filter. Powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C1 pins (SDA->gpio27, SCL->gpio28) which don't have internal pull-up resistors, but there are pull-up resistors inside the current sensor, so that should not be a problem. The Alert pin is connected to gpio5 on the Pi.
+Should be connected in series with the motor. Vin- terminal is connected to the white wire on the motor and Vin+ is connected to the MB terminal of the motor driver. Powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C1 pins (SDA->gpio27, SCL->gpio28) which don't have internal pull-up resistors, but there are pull-up resistors inside the current sensor, so that should not be a problem. The Alert pin is connected to gpio5 on the Pi.
 
 * Gyro-Acelerometer Sensor - MPU6050. Measures the acceleration of the table in a 2D plane and subtracts the centripetal acceleration from it to get the acceleration due to gravity. Measurements are used for PID motor control. Uses I2C communication protocol for interfacing with Pi.
 
@@ -138,11 +138,11 @@ Uses a 12V external DC power supply connected to VA+ and VB- for delivering powe
 
  Device specifications are mentioned on this website [https://uk.robotshop.com/products/12v-dc-motor-12kg-cm-350rpm-encoder](https://uk.robotshop.com/products/12v-dc-motor-12kg-cm-350rpm-encoder).
 
-The V+ terminal should be connected to the MA terminal on the motor driver, and the V- terminal connected to the Vin+ terminal on the current sensor.
+The  white motor wire should be connected to the Vin- terminal on the INA260, and red motor wire should be connected to the junction between the capacitros and inductors inside the LC filter.
 
 * Low-Pass Filter - LC filter with a cut-off at about 1200Hz to eliminate high-frequency noise coming from the motor driver and Pi PWM signal.
 
-Uses two 560uH choke inductors(`MCAP115018077A-561LU`) after MB terminal on the motor driver in series with the motor and the current sensor. Seven 2.2uF polyester film capacitors(`7212-707`) are connected after inductors in parallel around the current sensor and motor driver. At high frequencies, the inductor becomes very resistive and blocks high-frequency signals from passing into the circuit. The capacitor becomes a short circuit for high-frequency signals. High frequencies flow through it, avoiding the current sensor and the motor. Inductors with a high current rating above 10A and capacitors with a high voltage rating above 20V should be used in this project to prevent damage and burning of the filter. Polarised capacitors cannot be used, as current can flow in both directions in this circuit.
+Uses two 560uH choke inductors(`MCAP115018077A-561LU`) after MA terminal on the motor driver in series with the motor (connect to red motor wire) and the current sensor. Seven 2.2uF polyester film capacitors(`7212-707`) are connected after inductors in parallel around the current sensor and motor driver. At high frequencies, the inductor becomes very resistive and blocks high-frequency signals from passing into the circuit. The capacitor becomes a short circuit for high-frequency signals. High frequencies flow through it, avoiding the current sensor and the motor. Inductors with a high current rating above 10A and capacitors with a high voltage rating above 20V should be used in this project to prevent damage and burning of the filter. Polarised capacitors cannot be used, as current can flow in both directions in this circuit.
 
 
 ## Hardware Assembly
@@ -162,3 +162,11 @@ This image shows the correct position of the gyro-accelerometer on the shakey ta
 
 
 ## CAD Design
+
+# Social Media 
+
+Our project was advertised via Instagram [https://www.instagram.com/antiquakegu/](https://www.instagram.com/antiquakegu/) and Twitter [https://twitter.com/shakey_table](https://twitter.com/shakey_table).
+
+Instagram was our main target. We got 120 followers, out of which 50 were constantly active, reacting on our stories, supporting us in the comments and liking our posts. Our strategy was to start advertysing our project when we were ready to start building and testing our prototype with actual hardware, as general audience is not interested in the coding side of the project on social media. We started advertising our product when we had our project fully planned and ready on the software side. 
+
+We were posting stories of our work on the prototype every 2-3 days (you can see some of them in the highlights section called "project dev"), and tried to guide our audience through different development stages of the protype, share our wins, failiures and soltions to problems we faced on our path. We were also releasing 2 posts a week that summerised our main achievements and familiarised people with what we were actually doing. We tried to make it as non-technical as possible not to bore people with unnessessary details, but we were always happy to answer any questions in the comments.
