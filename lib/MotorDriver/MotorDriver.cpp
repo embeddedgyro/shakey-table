@@ -118,13 +118,13 @@ request_DIR(::gpiod::chip(chip_path)
 void MotorDriver::setDutyCycle(double DutyCycle)
 {
       // Make sure the DutyCycle is within the limit.
-      if (DutyCycle > 1.0)
+      if (DutyCycle > 0.5)
       {
-            DutyCycle = 1.0;
+            DutyCycle = 0.5;
       }
-      else if (DutyCycle < -1.0)
+      else if (DutyCycle < -0.5)
       {
-            DutyCycle = -1.0;
+            DutyCycle = -0.5;
       }
 
       // Record current duty cycle
@@ -137,49 +137,46 @@ void MotorDriver::setDutyCycle(double DutyCycle)
       if (DutyCycle >= 0 && DutyCycle <= 1)
       {
             //forward motion
-            if (prev_DIR == 1)
-            {
-                  request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
-                  prev_DIR = 0;
-		  std::cout << "Changing direction. Dir pin should be HIGH." << std::endl;
-            }
+	    request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
+	    std::cout << "Dir pin should be HIGH." << std::endl;
       
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile <<  Duty_nanosec << std::endl;
 		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'forward' direction." << std::endl;
+		  log_file << Duty_nanosec << std::endl;
             }
             else 
             {
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
                   throw std::invalid_argument( "Failed to open duty_cycle file." );
+                  
             }
       }
       else if (DutyCycle < 0 && DutyCycle >= -1)
       {
             //backwards motion
-            if (prev_DIR == 0)
-            {
-                  request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
-                  prev_DIR = 1;
-		  std::cout << "Changing direction. Dir pin should be LOW." << std::endl;
-            }
+	    request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
+	    std::cout << "Dir pin should be LOW." << std::endl;
             
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile << Duty_nanosec << std::endl;
 		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'backward' direction." << std::endl;
+		  log_file << Duty_nanosec << std::endl;
             }
             else 
             {
                   std::cout << "Failed to open duty_cycle file." << std::endl; // Display an error message if file opening failed
                   throw std::invalid_argument( "Failed to open duty_cycle file." );
+                  
             }
       }
       else
       {
             std::cout << "Duty Cycle out of limit." << std::endl; // Display an error message if file Duty Cycle is out of limits
             throw std::invalid_argument( "Duty Cycle out of limit." ); 
+            
       }
 }
 

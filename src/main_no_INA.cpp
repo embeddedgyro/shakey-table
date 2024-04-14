@@ -1,8 +1,10 @@
 /**
- * @file    main.cpp
+ * @file    main_no_INA.cpp
  * @author  Adam J. Englebright
- * @date    30.03.2024
+ * @date    10.04.2024
  * @brief   This file constains the main program that controls the anti-quake cup holder.
+ * this version drops the use of the INA260, since we were having issues with it.
+ * Namely, the I2C comms to the INA would completely break once the motor started doing stuff.
  *
  * Copyright 2024 Adam J. Englebright <adamenglebright@rocketmail.com>
  *
@@ -22,41 +24,6 @@
 
 
 /**
- * @brief Implementation of the PID_Interface for the inner PID controller,
- * driving the motor driver.
- */
-class PID_MotorDriver : public PID_Interface
-{
-public:
-  /**
-   * @brief Constructor taking and assigning a motor driver object reference.
-   * @param _motorDriver The motor driver object.
-   */
-  PID_MotorDriver(MotorDriver& _motorDriver) : motorDriver(_motorDriver) {}
-  
-  /**
-   * @brief PID controller callback implementation, passing the PID output to the provided motor driver object.
-   * @param pidOutput Output of the PID controller passed to the callback.
-   */
-  virtual void hasOutput(double pidOutput) {
-    motorDriver.setDutyCycleDelta(-pidOutput); // If corrective torque is positive, then we need to change DC by a negative amount, and vice versa.
-    log_file << pidOutput << std::endl;
-  } // May want to have duty cycle acceleration, rather than setting DC directly
-
-private:
-  /**
-   * @brief Output file stream for logging inner PID outputs.
-   */
-  std::ofstream log_file{"Inner_PID_log", std::ios::trunc};
-  
-  /**
-   * @brief Motor driver object reference attribute.
-   */
-  MotorDriver& motorDriver;
-};
-
-
-/**
  * @brief Implementation of the PID_Interface for the outer PID controller,
  * controlling position via torque outputs that are sent to the inner PID
  * controller.
@@ -68,63 +35,27 @@ public:
    * @brief Constructor taking and assigning a PID controller object reference.
    * @param _pidController The PID controller object.
    */
-  PID_Position(PID& _pidController) : pidController(_pidController) {}
+  PID_Position(MotorDriver& _motorDriver) : motorDriver(_motorDriver) {}
   
   /**
    * @brief PID controller callback implementation, passing the PID output to the provided PID controller object.
    * @param pidOutput Output of the PID controller passed to the callback.
    */
   virtual void hasOutput(double pidOutput) override {
-    pidController.setSetpoint(pidOutput);
+    motorDriver.setDutyCycleDelta(pidOutput);
     log_file << pidOutput << std::endl;
   }
 
 private:
   /**
-   * @brief Output file stream for logging outer PID outputs.
+   * @brief Output file stream for logging PID outputs.
    */
   std::ofstream log_file{"Outer_PID_log", std::ios::trunc};
   
   /**
-   * @brief PID controller object reference attribute.
+   * @brief Motor driver object reference attribute.
    */
-  PID& pidController;
-};
-
-
-/**
- * @brief Implementation of the INA260Interface for feedback of current (torque)
- * values as the PV for the inner PID controller driving the motor driver.
- */
-class INA260_Feedback : public INA260_Driver::INA260Interface
-{
-public:
-  /**
-   * @brief Constructor taking and assigning a PID controller object reference.
-   * @param _pidController The PID controller object.
-   */
-  INA260_Feedback(PID& _pidController) : pidController(_pidController) {}
-
-  /**
-   * @brief INA260 callback implementation, passing the measured current (torque) to the provided PID controller object.
-   * @param sample Current measured by the INA260 passed to the callback.
-   */
-  virtual void hasSample(INA260_Driver::INA260Sample& sample) override {
-    pidController.calculate(sample.current);
-    std::cout << "INA callback called. Data: " << sample.current << std::endl;
-    log_file << sample.current << std::endl;
-  } // May want a scale factor to convert current -> torque (or just adjust PID constants)
-
-private:
-  /**
-   * @brief Output file stream for logging INA measurements.
-   */
-  std::ofstream log_file{"INA_log", std::ios::trunc};
-  
-  /**
-   * @brief PID controller object reference attribute.
-   */
-  PID& pidController;
+  MotorDriver& motorDriver;
 };
 
 
@@ -233,65 +164,22 @@ int main() {
   else
     MPU_SamplePeriod = (1.0 + (float)MPU_SRdiv) / 1000.0;
 
-  // INA260 settings:
-  INA260_Driver::Alert_Conf INA_AlertMode = INA260_Driver::Alert_Conf::CNVR;
-  INA260_Driver::Conv_Time INA_VoltConvTime = INA260_Driver::Conv_Time::TU140;
-  INA260_Driver::Conv_Time INA_CurrConvTime = INA260_Driver::Conv_Time::TU4156;
-  INA260_Driver::Ave_Mode INA_AveragingMode = INA260_Driver::Ave_Mode::AV1;
-  INA260_Driver::Op_Mode INA_OperatingMode = INA260_Driver::Op_Mode::CURCONT;
-
-  // Bellow assumes that only current is being measured (i.e. INA_OperatingMode = CURCONT).
-  float INA_SamplePeriod;
-  switch (INA_CurrConvTime) {
-  case INA260_Driver::Conv_Time::TU140:
-    INA_SamplePeriod = 140e-6;
-    break;
-  case INA260_Driver::Conv_Time::TU204:
-    INA_SamplePeriod = 204e-6;
-    break;
-  case INA260_Driver::Conv_Time::TU332:
-    INA_SamplePeriod = 332e-6;
-    break;
-  case INA260_Driver::Conv_Time::TU588:
-    INA_SamplePeriod = 588e-6;
-    break;
-  case INA260_Driver::Conv_Time::TU1100:
-    INA_SamplePeriod = 1100e-6;
-    break;
-  case INA260_Driver::Conv_Time::TU2116:
-    INA_SamplePeriod = 2116e-6;
-    break;
-  case INA260_Driver::Conv_Time::TU4156:
-    INA_SamplePeriod = 4156e-6;
-    break;
-  case INA260_Driver::Conv_Time::TU8224:
-    INA_SamplePeriod = 8224e-6;
-    break;
-  }
-
   // Radius from axis of ratation to MPU chip (need to actually measure this):
   float radius = 0.15;
 
-  // I2C device files and addresses for MPU and INA:
-  std::string MPU_i2cFile = "/dev/i2c-1";
-  std::string INA_i2cFile = "/dev/i2c-0";
+  // I2C device files and addresses for MPU:
+  std::string MPU_i2cFile = "/dev/i2c-0";
   uint8_t MPU_Address = MPU6050_ADDRESS;
-  uint8_t INA_Address = INA260_ADDRESS;
 
-  // Gpiod device file path and pins used for interrupts from MPU and INA:
+  // Gpiod device file path and pins used for interrupts from MPU:
   std::filesystem::path chip_path("/dev/gpiochip4");
   gpiod::line::offset MPU_IntPin = 4;
-  gpiod::line::offset INA_IntPin = 5;
 
   // Motor driver direction GPIO pin:
   gpiod::line::offset MD_DirPin = 23;
 
   // Set PID constants
-  double inner_Kp = 0.01;
-  double inner_Kd = 0;
-  double inner_Ki = 0;
-  
-  double outer_Kp = 0.01;
+  double outer_Kp = 1;
   double outer_Kd = 0;
   double outer_Ki = 0;
 
@@ -302,12 +190,9 @@ int main() {
 
   std::cout << "Set up motor driver object." << std::endl;
 
-  // Initialise inner PID controller with callback using motor driver object.
-  PID_MotorDriver innerPIDCallback(MD20);
-  PID innerPID(&innerPIDCallback, 0, INA_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), inner_Kp, inner_Kd, inner_Ki);
-
   // Initialise outer PID controller with callback using the inner PID controller.
-  PID_Position outerPIDCallback(innerPID);
+  // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
+  PID_Position outerPIDCallback(MD20);
   PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), outer_Kp, outer_Kd, outer_Ki);
 
   // Initialise MPU6050 object with callback using the outer PID controller, and I2C callback for communication.
@@ -316,19 +201,11 @@ int main() {
   MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
   MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, MPU_IntPin);
 
-  // Initialise INA260 object with callback using the inner PID controller, and I2C callback for communication.
-  INA260_Feedback INA260Callback(innerPID);
-  SMBUS_I2C_IF INA260_I2C_Callback;
-  INA260_I2C_Callback.Init_I2C(INA_Address, INA_i2cFile);
-  INA260_Driver::INA260 INA260(&INA260_I2C_Callback, &INA260Callback, INA_IntPin);
-
-  // Setup settings on MPU and INA over i2c.
+  // Setup settings on MPU over i2c.
   MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable, 0, 1); // Given the MPU's orientation, there should be 1g in the Y axis at initalisaton
-  INA260.InitializeSensor(INA_AlertMode, INA_VoltConvTime, INA_CurrConvTime, INA_AveragingMode, INA_OperatingMode);
 
-  // Start data aquisition and processing from the MPU and INA.
+  // Start data aquisition and processing from the MPU.
   MPU6050.begin();
-  INA260.begin();
 
   // Sleep this thread forever.
   while (true)
