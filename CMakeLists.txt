@@ -35,11 +35,11 @@ add_multiple_subtests(online
         ina260_ReadCurrent_ut
         ina260_ReadPower_ut
         ina260_ReadVoltage_ut
+        MotorDriver_Test
 )
 
 #Adding motordriver and pid testing as subtest under the major test offline
 add_multiple_subtests(offline
-        MotorDriver_Test
         PID_Test
 )
 
