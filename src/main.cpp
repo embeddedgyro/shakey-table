@@ -38,10 +38,10 @@ public:
    * @brief PID controller callback implementation, passing the PID output to the provided motor driver object.
    * @param pidOutput Output of the PID controller passed to the callback.
    */
-  virtual void hasOutput(double pidOutput) {
-    motorDriver.setDutyCycleDelta(-pidOutput); // If corrective torque is positive, then we need to change DC by a negative amount, and vice versa.
+  virtual void hasOutput(double pidOutput) override {
+    motorDriver.setDutyCycleDelta(-pidOutput); // If corrective torque is positive, then we need to change duty cycle by a negative amount, and vice versa.
     log_file << pidOutput << std::endl;
-  } // May want to have duty cycle acceleration, rather than setting DC directly
+  }
 
 private:
   /**
@@ -94,7 +94,7 @@ private:
 
 /**
  * @brief Implementation of the INA260Interface for feedback of current (torque)
- * values as the PV for the inner PID controller driving the motor driver.
+ * values as the process variable for the inner PID controller driving the motor driver.
  */
 class INA260_Feedback : public INA260_Driver::INA260Interface
 {
@@ -111,7 +111,7 @@ public:
    */
   virtual void hasSample(INA260_Driver::INA260Sample& sample) override {
     pidController.calculate(sample.current);
-    std::cout << "INA callback called. Data: " << sample.current << std::endl;
+    //std::cout << "INA callback called. Data: " << sample.current << std::endl;
     log_file << sample.current << std::endl;
   } // May want a scale factor to convert current -> torque (or just adjust PID constants)
 
@@ -132,7 +132,7 @@ private:
  * @brief Implementation of the MPU6050Interface. This is where the magic
  * happens for calculating the cup holder's angular position based on the IMU
  * measurements. The caclulated angular position is then sent as input to the
- * outer PID controller as the PV.
+ * outer PID controller as the process variable.
  */
 class MPU6050_Feedback : public MPU6050_Driver::MPU6050Interface
 {
@@ -148,7 +148,8 @@ public:
 
   /**
    * @brief MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder,
-   * which is then passed as input to the outer PID controller as the PV.
+   * which is then passed as input to the outer PID controller as the process variable.
+   * @param sample Measured accel, gyro, and temp data passed to the callback.
    */
   virtual void hasSample(MPU6050_Driver::MPU6050Sample& sample) override {
     /*
@@ -158,14 +159,14 @@ public:
      * 3. Angular displacement is zero when the cup holder is upright.
      */
 
-    // Adjust y accel component for centripetal acceleration caused by angular velocity around z axis
+    // Adjust y accel component for centripetal acceleration caused by angular velocity around axis of rotation
     // Watch units. Sample linear acceleration is in g. Convert to m/s^2.
     // Watch units. Sample angular velocity is in deg/s. Convert to rad/s.
     float ayUnitsCorrected = sample.ay * 9.80665;
     float gzUnitsCorrected = sample.gz * 3.14159265358979323846 / 180.0;
     float ayGrav = ayUnitsCorrected + gzUnitsCorrected * gzUnitsCorrected * radius;
 
-    // Adjust x accel component for tangential acceleration caused by angular acceleration around z axis
+    // Adjust x accel component for tangential acceleration caused by angular acceleration around axis of ratation
     // Watch units. Sample linear acceleration is in g. Convert to m/s^2.
     // Watch units. Sample angular velocity is in deg/s. Convert to rad/s.
     float axUnitsCorrected = sample.ax * 9.80665;
@@ -184,7 +185,7 @@ public:
 
     // Pass angular position to outer PID controller as PV.
     pidController.calculate(angularPos);
-    std::cout << "MPU working. Data: " << angularPos << std::endl;
+    //std::cout << "MPU working. Data: " << angularPos << std::endl;
     log_file << angularPos << std::endl;
   }
 
@@ -218,7 +219,7 @@ private:
 
 int main() {
   // Setup some settings in variables.
-  // MPU6050 settings:
+  // MPU6050 settings (due to hardware setbacks, these have not been tweaked to achieve optimal performance):
   MPU6050_Driver::Gyro_FS_t MPU_GyroScale = MPU6050_Driver::Gyro_FS_t::FS_250_DPS;
   MPU6050_Driver::Accel_FS_t MPU_AccelScale = MPU6050_Driver::Accel_FS_t::FS_2G;
   MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_94Hz;
@@ -233,14 +234,14 @@ int main() {
   else
     MPU_SamplePeriod = (1.0 + (float)MPU_SRdiv) / 1000.0;
 
-  // INA260 settings:
+  // INA260 settings (due to hardware setbacks, these have not been tweaked to achieve optimal performance):
   INA260_Driver::Alert_Conf INA_AlertMode = INA260_Driver::Alert_Conf::CNVR;
   INA260_Driver::Conv_Time INA_VoltConvTime = INA260_Driver::Conv_Time::TU140;
   INA260_Driver::Conv_Time INA_CurrConvTime = INA260_Driver::Conv_Time::TU4156;
   INA260_Driver::Ave_Mode INA_AveragingMode = INA260_Driver::Ave_Mode::AV1;
   INA260_Driver::Op_Mode INA_OperatingMode = INA260_Driver::Op_Mode::CURCONT;
 
-  // Bellow assumes that only current is being measured (i.e. INA_OperatingMode = CURCONT).
+  // Bellow assumes that only current is being measured (i.e. INA_OperatingMode = CURCONT), which is all we need for this project.
   float INA_SamplePeriod;
   switch (INA_CurrConvTime) {
   case INA260_Driver::Conv_Time::TU140:
@@ -269,7 +270,7 @@ int main() {
     break;
   }
 
-  // Radius from axis of ratation to MPU chip (need to actually measure this):
+  // Radius from axis of ratation to MPU chip (measured at approx. 15cm):
   float radius = 0.15;
 
   // I2C device files and addresses for MPU and INA:
@@ -286,7 +287,7 @@ int main() {
   // Motor driver direction GPIO pin:
   gpiod::line::offset MD_DirPin = 23;
 
-  // Set PID constants
+  // Set PID constants (due to hardware setbacks, these have not been tweaked to achieve optimal performance)
   double inner_Kp = 0.01;
   double inner_Kd = 0;
   double inner_Ki = 0;
@@ -295,12 +296,12 @@ int main() {
   double outer_Kd = 0;
   double outer_Ki = 0;
 
-  std::cout << "Set up variables." << std::endl;
+  //std::cout << "Set up variables." << std::endl;
 
   // Initialise motor driver object.
   MotorDriver MD20(chip_path, MD_DirPin, 50000);
 
-  std::cout << "Set up motor driver object." << std::endl;
+  //std::cout << "Set up motor driver object." << std::endl;
 
   // Initialise inner PID controller with callback using motor driver object.
   PID_MotorDriver innerPIDCallback(MD20);

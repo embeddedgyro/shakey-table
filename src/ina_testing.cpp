@@ -23,10 +23,14 @@
 class INA260_Feedback : public INA260_Driver::INA260Interface
 {
 public:
+  /**
+   * @brief Constructor assigning values.
+   * @param file Name of file used for logging current measurements.
+   */
   INA260_Feedback(std::string file) : log_file(file, std::ios::trunc) {}
   
   /**
-   * @brief INA260 callback implementation, passing the measured current (torque) to the provided PID controller object.
+   * @brief INA260 callback implementation, printing the measured current.
    * @param sample Current measured by the INA260 passed to the callback.
    */
   virtual void hasSample(INA260_Driver::INA260Sample& sample) override {
@@ -51,7 +55,7 @@ int main() {
   INA260_Driver::Ave_Mode INA_AveragingMode = INA260_Driver::Ave_Mode::AV1;
   INA260_Driver::Op_Mode INA_OperatingMode = INA260_Driver::Op_Mode::CURCONT;
 
-  // I2C device files and addresses for INA:
+  // I2C device file and address for INA:
   std::string INA_i2cFile = "/dev/i2c-0";
   uint8_t INA_Address = INA260_ADDRESS;
 

@@ -3,8 +3,8 @@
  * @author  Adam J. Englebright
  * @date    10.04.2024
  * @brief   This file constains the main program that controls the anti-quake cup holder.
- * this version drops the use of the INA260, since we were having issues with it.
- * Namely, the I2C comms to the INA would completely break once the motor started doing stuff.
+ * This version drops the use of the INA260, since we were having issues with it.
+ * Namely, the I2C comms to the INA would completely break once the motor started doing stuff (but were otherwise fine).
  *
  * Copyright 2024 Adam J. Englebright <adamenglebright@rocketmail.com>
  *
@@ -19,26 +19,24 @@
 #include "../lib/pid/pid.h"
 #include "../lib/mpu6050/mpu6050.h"
 #include "../lib/i2c_interface/smbus_i2c_if.h"
-#include "../lib/ina260/ina260.h"
 #include "../lib/MotorDriver/MotorDriver.h"
 
 
 /**
- * @brief Implementation of the PID_Interface for the outer PID controller,
- * controlling position via torque outputs that are sent to the inner PID
- * controller.
+ * @brief Implementation of the PID_Interface for the outer (in this case only) PID controller,
+ * controlling position via duty cycle changes that are sent to the motor driver control code.
  */
 class PID_Position : public PID_Interface
 {
 public:
   /**
-   * @brief Constructor taking and assigning a PID controller object reference.
-   * @param _pidController The PID controller object.
+   * @brief Constructor taking and assigning a motor driver object reference.
+   * @param _motorDriver The motor driver object.
    */
   PID_Position(MotorDriver& _motorDriver) : motorDriver(_motorDriver) {}
   
   /**
-   * @brief PID controller callback implementation, passing the PID output to the provided PID controller object.
+   * @brief PID controller callback implementation, passing the PID output to the provided motor driver object.
    * @param pidOutput Output of the PID controller passed to the callback.
    */
   virtual void hasOutput(double pidOutput) override {
@@ -63,7 +61,7 @@ private:
  * @brief Implementation of the MPU6050Interface. This is where the magic
  * happens for calculating the cup holder's angular position based on the IMU
  * measurements. The caclulated angular position is then sent as input to the
- * outer PID controller as the PV.
+ * outer PID controller as the process variable.
  */
 class MPU6050_Feedback : public MPU6050_Driver::MPU6050Interface
 {
@@ -79,7 +77,8 @@ public:
 
   /**
    * @brief MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder,
-   * which is then passed as input to the outer PID controller as the PV.
+   * which is then passed as input to the outer PID controller as the process variable.
+   * @param sample Measured accel, gyro, and temp data passed to the callback.
    */
   virtual void hasSample(MPU6050_Driver::MPU6050Sample& sample) override {
     /*
@@ -89,14 +88,14 @@ public:
      * 3. Angular displacement is zero when the cup holder is upright.
      */
 
-    // Adjust y accel component for centripetal acceleration caused by angular velocity around z axis
+    // Adjust y accel component for centripetal acceleration caused by angular velocity around axis of rotation
     // Watch units. Sample linear acceleration is in g. Convert to m/s^2.
     // Watch units. Sample angular velocity is in deg/s. Convert to rad/s.
     float ayUnitsCorrected = sample.ay * 9.80665;
     float gzUnitsCorrected = sample.gz * 3.14159265358979323846 / 180.0;
     float ayGrav = ayUnitsCorrected + gzUnitsCorrected * gzUnitsCorrected * radius;
 
-    // Adjust x accel component for tangential acceleration caused by angular acceleration around z axis
+    // Adjust x accel component for tangential acceleration caused by angular acceleration around axis of rotation
     // Watch units. Sample linear acceleration is in g. Convert to m/s^2.
     // Watch units. Sample angular velocity is in deg/s. Convert to rad/s.
     float axUnitsCorrected = sample.ax * 9.80665;
@@ -115,7 +114,7 @@ public:
 
     // Pass angular position to outer PID controller as PV.
     pidController.calculate(angularPos);
-    std::cout << "MPU working. Data: " << angularPos << std::endl;
+    //std::cout << "MPU working. Data: " << angularPos << std::endl;
     log_file << angularPos << std::endl;
   }
 
@@ -164,10 +163,10 @@ int main() {
   else
     MPU_SamplePeriod = (1.0 + (float)MPU_SRdiv) / 1000.0;
 
-  // Radius from axis of ratation to MPU chip (need to actually measure this):
+  // Radius from axis of ratation to MPU chip (measured to be approx. 15cm):
   float radius = 0.15;
 
-  // I2C device files and addresses for MPU:
+  // I2C device file and address for MPU:
   std::string MPU_i2cFile = "/dev/i2c-1";
   uint8_t MPU_Address = MPU6050_ADDRESS;
 
@@ -178,21 +177,22 @@ int main() {
   // Motor driver direction GPIO pin:
   gpiod::line::offset MD_DirPin = 23;
 
-  // Set PID constants
+  // Set PID constants (current best settings from testing):
   double outer_Kp = 0.35;
   double outer_Kd = 0;
   double outer_Ki = 0.005;
 
-  std::cout << "Set up variables." << std::endl;
+  //std::cout << "Set up variables." << std::endl;
 
   // Initialise motor driver object.
   MotorDriver MD20(chip_path, MD_DirPin, 50000);
 
-  std::cout << "Set up motor driver object." << std::endl;
+  //std::cout << "Set up motor driver object." << std::endl;
 
-  // Initialise outer PID controller with callback using the inner PID controller.
-  // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
+  // Initialise outer PID controller with callback using the motor dirver.
   PID_Position outerPIDCallback(MD20);
+  // In testing, the upright position was found to measure and angle of -0.07 rad from the MPU, so we used this as our setpoint.
+  // This value could change depending on the calibration of your own MPU, and the manufacture and mounting of your MPU onto the cup holder.
   PID outerPID(&outerPIDCallback, -0.07, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), outer_Kp, outer_Kd, outer_Ki);
 
   // Initialise MPU6050 object with callback using the outer PID controller, and I2C callback for communication.

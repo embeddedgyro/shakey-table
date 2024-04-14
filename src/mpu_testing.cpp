@@ -25,6 +25,8 @@ class MPU6050_Feedback : public MPU6050_Driver::MPU6050Interface
 public:
   /**
    * @brief Constructor assigning values.
+   * @param _radius Distance between MPU and axis of rotation.
+   * @param _samplePeriod Time between samples.
    */
   MPU6050_Feedback(float _radius, float _samplePeriod)
     : radius(_radius), samplePeriod(_samplePeriod) {}
@@ -32,6 +34,7 @@ public:
   /**
    * @brief MPU6050 callback implementation. Takes the sample data and calculates the angular position of the cup holder,
    * which is then printed.
+   * @param sample Measured accel, gyro, and temp data passed to the callback.
    */
   virtual void hasSample(MPU6050_Driver::MPU6050Sample& sample) override {
     /*
@@ -41,14 +44,14 @@ public:
      * 3. Angular displacement is zero when the cup holder is upright.
      */
 
-    // Adjust y accel component for centripetal acceleration caused by angular velocity around z axis
+    // Adjust y accel component for centripetal acceleration caused by angular velocity around axis of rotation
     // Watch units. Sample linear acceleration is in g. Convert to m/s^2.
     // Watch units. Sample angular velocity is in deg/s. Convert to rad/s.
     float ayUnitsCorrected = sample.ay * 9.80665;
     float gzUnitsCorrected = sample.gz * 3.14159265358979323846 / 180.0;
     float ayGrav = ayUnitsCorrected + gzUnitsCorrected * gzUnitsCorrected * radius;
 
-    // Adjust x accel component for tangential acceleration caused by angular acceleration around z axis
+    // Adjust x accel component for tangential acceleration caused by angular acceleration around axis of rotation
     // Watch units. Sample linear acceleration is in g. Convert to m/s^2.
     // Watch units. Sample angular velocity is in deg/s. Convert to rad/s.
     float axUnitsCorrected = sample.ax * 9.80665;
@@ -110,18 +113,21 @@ int main() {
   else
     MPU_SamplePeriod = (1.0 + (float)MPU_SRdiv) / 1000.0;
 
-  // Radius from axis of ratation to MPU chip (need to actually measure this):
+  // Radius from axis of ratation to MPU chip (measured to be approx. 15cm):
   float radius = 0.15;
 
-  // I2C device files and addresses for MPU:
+  // I2C device file and address for MPU:
   std::string MPU_i2cFile = "/dev/i2c-1";
   uint8_t MPU_Address = MPU6050_ADDRESS;
+
+  // Gpiod pins used for interrupts from MPU:
+  gpiod::line::offset MPU_IntPin = 4;
 
   // Initialise MPU6050 object with callback for printing data, and I2C callback for communication.
   MPU6050_Feedback MPU6050Callback(radius, MPU_SamplePeriod);
   SMBUS_I2C_IF MPU6050_I2C_Callback;
   MPU6050_I2C_Callback.Init_I2C(MPU_Address, MPU_i2cFile);
-  MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, 4);
+  MPU6050_Driver::MPU6050 MPU6050(&MPU6050_I2C_Callback, &MPU6050Callback, MPU_IntPin);
 
   // Setup settings on MPU over i2c.
   MPU6050.InitializeSensor(MPU_GyroScale, MPU_AccelScale, MPU_DLPFconf, MPU_SRdiv, MPU_INTconf, MPU_INTenable, 0, 1); // Given the MPU's orientation, there should be 1g in the Y axis at initalisaton
