@@ -85,8 +85,11 @@ Documentation of this project is provided by Doxygen formatted comments in the c
 Doxygen can be used to create a website and PDF document that organise the documentation
 in a way that is clear, easy to navigate, and easy to read.
 
-### Website
-To create the documentation website, run `make doc` after the `cmake ..` command from the above build instructions.
+### Master Release Documentation
+To see the the documentation for the latest release of shakey table the documentation can be found [here](https://shakeytable.guengineering.co.uk/).
+
+### Self Hosted Website
+To create the documentation website for personal forks and development builds, run `make doc` after the `cmake ..` command from the above build instructions.
 Running `cmake ..` will create a Doxyfile, and running `make doc` will run Doxygen on this file to generate
 the documentation website under the `build/html/` directory.
 
