@@ -39,7 +39,7 @@ namespace MPU6050_Driver {
  * user should pass a valid I2C_Interface class instance!
  * @param  comInterface I2C interface pointer
  * @param  mpuInterface MPU6050 interface pointer
- * @param  gpioPin GPIO pin that will listen for interrupts from the MPU.
+ * @param  _gpioPin GPIO pin that will listen for interrupts from the MPU.
  * @retval none
  */
 MPU6050::MPU6050(I2C_Interface *comInterface, MPU6050Interface *mpuInterface,
@@ -67,11 +67,11 @@ MPU6050::MPU6050(I2C_Interface *comInterface, MPU6050Interface *mpuInterface,
  * @param  accelCalX Target acceleration in the X axis for calibration (units g)
  * @param  accelCalY Target acceleration in the Y axis for calibration (units g)
  * @param  accelCalZ Target acceleration in the Z axis for calibration (units g)
- * @param  accelCalX Target angular velocity in the X axis for calibration
+ * @param  gyroCalX Target angular velocity in the X axis for calibration
  * (units deg/s)
- * @param  accelCalY Target angular velocity in the Y axis for calibration
+ * @param  gyroCalY Target angular velocity in the Y axis for calibration
  * (units deg/s)
- * @param  accelCalZ Target angular velocity in the Z axis for calibration
+ * @param  gyroCalZ Target angular velocity in the Z axis for calibration
  * (units deg/s)
  * @retval i2c_status_t Success status
  */
@@ -83,39 +83,43 @@ i2c_status_t MPU6050::InitializeSensor(
   gyroFSRange = gyroScale;
 
   i2c_status_t result = WakeUpSensor();
-  std::cout << "Woken" << std::endl;
+  //std::cout << "Woken" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetGyroFullScale(gyroScale);
 
-  std::cout << "full gyro" << std::endl;
+  //std::cout << "full gyro" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetAccelFullScale(accelScale);
 
-  std::cout << "full accel" << std::endl;
+  //std::cout << "full accel" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetSensor_DLPF_Config(DLPFconf);
 
-  std::cout << "dlpf conf" << std::endl;
+  //std::cout << "dlpf conf" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetSensor_InterruptPinConfig(INTconf);
 
-  std::cout << "SRdiv set" << std::endl;
+  //std::cout << "SRdiv set" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetGyro_SampleRateDivider(SRdiv);
 
-  std::cout << "int conf" << std::endl;
+  //std::cout << "int conf" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetSensor_InterruptEnable(INTenable);
 
-  std::cout << "int en" << std::endl;
+  /* The below calibration methods did not work correctly for us, and we found the factory calibration
+   * to be sufficiently accurate, so we have not used them.
+   */
+  
+  //std::cout << "int en" << std::endl;
   //    if(result == I2C_STATUS_SUCCESS)
   // result = Calibrate_Accel_Registers(accelCalX, accelCalY, accelCalZ);
 
-  std::cout << "cal accel" << std::endl;
+  //std::cout << "cal accel" << std::endl;
   //    if(result == I2C_STATUS_SUCCESS)
   // result = Calibrate_Gyro_Registers(gyroCalX, gyroCalY, gyroCalZ);
 
-  std::cout << "cal gyro" << std::endl;
+  //std::cout << "cal gyro" << std::endl;
   return result;
 }
 
@@ -682,10 +686,10 @@ int16_t MPU6050::GetAccel_Z_Offset(i2c_status_t *error) {
  * method implemented to calibrate accelerometer registers automatically. It
  * works with the similar concept of binary search algorithm (setting a range
  * and narrowing on each step).
- * @param targetX target value for accelerometer X axis register in MG so 1.0f
+ * @param targetX_MG target value for accelerometer X axis register in MG so 1.0f
  * means 1G
- * @param targetY target value for accelerometer Y axis register in MG
- * @param targetZ target value for accelerometer Z axis register in MG
+ * @param targetY_MG target value for accelerometer Y axis register in MG
+ * @param targetZ_MG target value for accelerometer Z axis register in MG
  * @retval i2c_status_t
  */
 i2c_status_t MPU6050::Calibrate_Accel_Registers(float targetX_MG,
@@ -944,13 +948,12 @@ float MPU6050::GetAccel_MG_Constant(Accel_FS_t accelRange) {
 }
 
 /**
- * @brief This function sets the gyroscope sample rate divider. Once the sample
- * rate divider set, actual sample rate can be found with this formula: Actual
- * sample rate = Gyroscope Output Rate / (1 + sampleRate) Keep in mind that
- * Gyroscope Output Rate = 8kHz when the DLPF (digital low pass filter) is
- * disabled (DLPF_CFG = 0 or 7), and 1kHz when the DLPF is enabled. Accel sample
- * rate is constantly 1 kHz.
- * @param sampleRate Gyroscope sample rate divider value
+ * @brief This function sets the gyroscope sample rate divider. Once the sample rate divider set, actual sample rate
+ *        can be found with this formula:
+ *        Actual sample rate = Gyroscope Output Rate / (1 + sampleRate)
+ *        Keep in mind that Gyroscope Output Rate = 8kHz when the DLPF (digital low pass filter) is disabled
+ *        (DLPF_CFG = 0 or 7), and 1kHz when the DLPF is enabled. Accel sample rate is constantly 1 kHz.
+ * @param sampleRate Gyroscope sample rate divider.     
  * @retval i2c_status_t
  */
 i2c_status_t MPU6050::SetGyro_SampleRateDivider(uint8_t sampleRate) {
@@ -1176,7 +1179,6 @@ void MPU6050::dataAquisition(void) {
   const std::filesystem::path chip_path("/dev/gpiochip4");
 
   // Set up edge event that will block until a rising edge is detected
-  // (or maybe falling edge, will need to check datasheet).
   auto request =
       gpiod::chip(chip_path)
           .prepare_request()
@@ -1197,10 +1199,13 @@ void MPU6050::dataAquisition(void) {
 
   // Start data aquisition loop
   while (dataAquisitionRunning) {
+    // Block until edge is detected
+    request.read_edge_events(buffer);
+    
     // Read raw data from MPU6050
     ReadAllRawData();
 
-    // Store data in smaple struct, in float format with proper units.
+    // Store data in sample struct, in float format with proper units.
     sample.ax = rawData[0] * GetAccel_MG_Constant(accelFSRange);
     sample.ay = rawData[1] * GetAccel_MG_Constant(accelFSRange);
     sample.az = rawData[2] * GetAccel_MG_Constant(accelFSRange);
@@ -1214,9 +1219,6 @@ void MPU6050::dataAquisition(void) {
 
     // Send data to the registered callback.
     mpu6050cb->hasSample(sample);
-
-    // Block until edge is detected
-    request.read_edge_events(buffer);
   }
 }
 

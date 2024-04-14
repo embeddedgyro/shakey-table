@@ -48,8 +48,8 @@ bool I2C_Interface::ReadRegisterBit(uint8_t slaveAddress, uint8_t regAddress, ui
   * from the slace device with the given address.
   * @param  slaveAddress Slave chip I2C bus address
   * @param  regAddress Register address that the data to be written
-  * @param  bitNo Bit number to be set/reset
   * @param  bitMask Bit mask to be set/reset
+  * @param  bitVal Bit value to be written
   * @retval i2c_status_t
   */
 i2c_status_t I2C_Interface::WriteRegisterBit(uint8_t slaveAddress, uint8_t regAddress, uint8_t bitMask, bool bitVal)

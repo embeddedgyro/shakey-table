@@ -45,7 +45,7 @@ public:
    * Creates a directory for PWM, opens files for PWM control and enables it
    * Sets DIR pi
    * @param chip_path File path of the gpiochip device file to be used
-   * @param _pin_DIR Pi GPIO pin for direction control
+   * @param pin_DIR Pi GPIO pin for direction control
    * @param period_ns PWM period in nanoseconds
    */
   MotorDriver(const std::filesystem::path chip_path,
@@ -72,6 +72,9 @@ public:
   void setDutyCycleDelta(double DCdelta);
     
   protected:
+    /**
+     * @brief Output file stream for logging motor driver control.
+     */
     std::ofstream log_file{"MD20_log", std::ios::trunc};
     /**
     * @brief DIR output pin
@@ -86,15 +89,15 @@ public:
     */
     std::basic_ofstream<char> PWM2_Unexport;
     /**
-    * @brief Output file stream object
+    * @brief PWM period file stream object
     */
     std::basic_ofstream<char> PeriodOutputFile;
     /**
-    * @brief Duty Cycle file stream object
+    * @brief PWM Duty Cycle file stream object
     */
     std::basic_ofstream<char> DutyCycleOutputFile;
     /**
-    * @brief Enable file stream object
+    * @brief PWM Enable file stream object
     */
     std::basic_ofstream<char> EnableOutputFile;
     /**
