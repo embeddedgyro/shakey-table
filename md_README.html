@@ -115,24 +115,27 @@ Building the Software</h2>
 Documentation</h2>
 <p>Documentation of this project is provided by Doxygen formatted comments in the code. Doxygen can be used to create a website and PDF document that organise the documentation in a way that is clear, easy to navigate, and easy to read.</p>
 <h3><a class="anchor" id="autotoc_md6"></a>
-Website</h3>
-<p>To create the documentation website, run <code>make doc</code> after the <code>cmake ..</code> command from the above build instructions. Running <code>cmake ..</code> will create a Doxyfile, and running <code>make doc</code> will run Doxygen on this file to generate the documentation website under the <code>build/html/</code> directory.</p>
-<p>To view this website, open your browser of choice. In the URL bar, enter <code><a href="file:///some/path/from/root/shakey-table/build/html/index.html">file:///some/path/from/root/shakey-table/build/html/index.html</a></code>. This will open the main page of the website. From there you can find the rest of the documentation using the navigation tools at the top of the page.</p>
+Master Release Documentation</h3>
+<p>To see the the documentation for the latest release of shakey table the documentation can be found <a href="https://shakeytable.guengineering.co.uk/">here</a>.</p>
 <h3><a class="anchor" id="autotoc_md7"></a>
+Self Hosted Website</h3>
+<p>To create the documentation website for personal forks and development builds, run <code>make doc</code> after the <code>cmake ..</code> command from the above build instructions. Running <code>cmake ..</code> will create a Doxyfile, and running <code>make doc</code> will run Doxygen on this file to generate the documentation website under the <code>build/html/</code> directory.</p>
+<p>To view this website, open your browser of choice. In the URL bar, enter <code><a href="file:///some/path/from/root/shakey-table/build/html/index.html">file:///some/path/from/root/shakey-table/build/html/index.html</a></code>. This will open the main page of the website. From there you can find the rest of the documentation using the navigation tools at the top of the page.</p>
+<h3><a class="anchor" id="autotoc_md8"></a>
 PDF Document</h3>
 <p>After running <code>make doc</code>, there will also be a <code>build/latex/</code> directory. If you have a TeX distribution installed, you can <code>cd</code> into this directory and enter <code>make</code>. This will invoke <code>pdflatex</code> to generate a PDF document called <code>refman.pdf</code>, which will contain the Doxygen generated documentation for the project. View with your PDF reader of choice. Most browsers can also view PDF documents.</p>
-<h1><a class="anchor" id="autotoc_md8"></a>
+<h1><a class="anchor" id="autotoc_md9"></a>
 Unit Testing</h1>
 <p>ShakeyTable on the whole has three modules namely <code>MPU6050</code>, <code>INA260</code> and <code>Cytron MD20A</code> along with <a class="el" href="classPID.html" title="PID controller class.">PID</a> control functionality. When developing unit testing we intend to validate each module's functionalities by a specific set of test cases and consolidated them into <code>Online</code> and <code>Offline</code> testing based on its nature of examination. Online unit testing validates each module's communication status to raspberry pi through i2c bus. Hence to run online testing each module has to be configured into the overall setup and actively involved in communication. On the other hand offline testing intend to validate the static functionalities of the software, examining the expected output against the module's program output. These testing can be validated when the setup is offline to ensure proper functioning of the software.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md10"></a>
 Building Unit Tests</h2>
 <p>Follow the software building procedure as mentioned before which includes cloning the repo and building the system through commands <code>cmake .. make</code>. This will generate the executable files for each module's unit testing functions. Now type <code>ctest</code> in the same directory to view the results of both online and offline testing together. You can also view the results of either one testing through the command <code>ctest -R online</code> or <code>ctest -R offline</code> which executes only the files associated to those testing. Individual executable files for concern modules can be found in the directory <code>./test/****/**</code>. Here <code>./</code> indicates that you are required to be currently in <code>build</code> directory and <code>****</code> indicates the module that you intended to view the executables (eg., mpu6050, ina260) and <code>**</code> specifies the specific test file executable. eg., <code>./test/mpu6050/mpu6050_AccelOffset_ut</code>.</p>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Unit Testing Output</h2>
 <p>Each unit test will either pop <code>Passed</code> if successfully executed without exception or <code>Subprocess aborted***Exception:</code> with the exception scenario encountered if failed.</p>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Hardware</h1>
-<h2><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
 Components</h2>
 <p>This section describes hardware components used in this project, and what is their purpose. Descritions are followed by links to datasheets for those components and information about how they should be wired and positioned on a physical prototype. All supporting reference images for this section can be found in "Hardware Assembly" section of this README.</p>
 <p>The following components were used for this project:</p>
@@ -166,16 +169,16 @@ Components</h2>
 </ul>
 <p>Uses two 560uH choke inductors(<code>MCAP115018077A-561LU</code>) after MA terminal on the motor driver in series with the motor (connect to red motor wire) and the current sensor. Seven 2.2uF polyester film capacitors(<code>7212-707</code>) are connected after inductors in parallel around the current sensor and motor driver. At high frequencies, the inductor becomes very resistive and blocks high-frequency signals from passing into the circuit. The capacitor becomes a short circuit for high-frequency signals. High frequencies flow through it, avoiding the current sensor and the motor. Inductors with a high current rating above 10A and capacitors with a high voltage rating above 20V should be used in this project to prevent damage and burning of the filter. Polarised capacitors cannot be used, as current can flow in both directions in this circuit.</p>
 <p>WARNING! If there is not a lot of noise that disrupts current sensor readings, we reccommend not to use this compoenent as it might cause I2C communication issues and damage sensors due to high current and voltage spikes during the switching of the direction and duty cycle of motor rotation.</p>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 Hardware Assembly</h2>
 <p>This section contains all reference image materials for wiring and positioning hardware components.</p>
 <p>This image represents the wiring of the whole setup: <img src="./readme_materials/hardware_setup_shakeytable_noresistors.png" alt="plot" class="inline"/></p>
 <p>This image shows pin configuration on the Raspberry Pi 5 for assembly: <img src="./readme_materials/pi5_pins.png" alt="plot" class="inline"/></p>
 <p>This image shows the correct position of the gyro-accelerometer on the shakey table: <img src="./readme_materials/gyro_position.jpg" alt="plot" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md15"></a>
 CAD Design</h2>
 <p>For the cad design a <a href="https://openscad.org/">OpenSCAD</a> was used. OpenSCAD is an open source parametric CAD program. It has a programming language that it uses for defining the 3d design of objects. It is good for customisable designs. In the cad directory you can see the design file for the shakey table including the wheel lid and frame.</p>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Social Media</h1>
 <p>Our project was advertised via Instagram <a href="https://www.instagram.com/antiquakegu/">https://www.instagram.com/antiquakegu/</a> and Twitter <a href="https://twitter.com/shakey_table">https://twitter.com/shakey_table</a>.</p>
 <p>Instagram was our main target. We got 120 followers, out of which 50 were constantly active, reacting on our stories, supporting us in the comments and liking our posts. Our strategy was to start advertysing our project when we were ready to start building and testing our prototype with actual hardware, as general audience is not interested in the coding side of the project on social media. We started advertising our product when we had our project fully planned and ready on the software side.</p>
