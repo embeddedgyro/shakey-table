@@ -1,3 +1,5 @@
+.DS_Store
+
 # Prerequisites
 *.d
 
@@ -30,3 +32,13 @@
 *.exe
 *.out
 *.app
+
+# Emacs
+*~
+
+#*#
+.vscode
+
+# Exclude build dir files
+
+build/*
