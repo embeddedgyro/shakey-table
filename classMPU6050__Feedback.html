@@ -70,7 +70,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation of the MPU6050Interface. This is where the magic happens for calculating the cup holder's angular position based on the IMU measurements. The caclulated angular position is then sent as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the PV.  
+<p>Implementation of the MPU6050Interface. This is where the magic happens for calculating the cup holder's angular position based on the IMU measurements. The caclulated angular position is then sent as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the process variable.  
  <a href="classMPU6050__Feedback.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for MPU6050_Feedback:</div>
@@ -96,24 +96,20 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4871b89ad5b8d46ed15bf67ac20ffe30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#a4871b89ad5b8d46ed15bf67ac20ffe30">MPU6050_Feedback</a> (<a class="el" href="classPID.html">PID</a> &amp;_pidController, float _radius, float _samplePeriod)</td></tr>
 <tr class="memdesc:a4871b89ad5b8d46ed15bf67ac20ffe30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking and assigning a <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object reference.  <a href="classMPU6050__Feedback.html#a4871b89ad5b8d46ed15bf67ac20ffe30">More...</a><br /></td></tr>
 <tr class="separator:a4871b89ad5b8d46ed15bf67ac20ffe30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memItemLeft" align="right" valign="top"><a id="abbaa2f67879d8aeeb31e0a2f2bbeccf3"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">hasSample</a> (<a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;sample) override</td></tr>
-<tr class="memdesc:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder, which is then passed as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the PV. <br /></td></tr>
+<tr class="memitem:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">hasSample</a> (<a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;sample) override</td></tr>
+<tr class="memdesc:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder, which is then passed as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the process variable.  <a href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">More...</a><br /></td></tr>
 <tr class="separator:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4871b89ad5b8d46ed15bf67ac20ffe30"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#a4871b89ad5b8d46ed15bf67ac20ffe30">MPU6050_Feedback</a> (<a class="el" href="classPID.html">PID</a> &amp;_pidController, float _radius, float _samplePeriod)</td></tr>
 <tr class="memdesc:a4871b89ad5b8d46ed15bf67ac20ffe30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking and assigning a <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object reference.  <a href="classMPU6050__Feedback.html#a4871b89ad5b8d46ed15bf67ac20ffe30">More...</a><br /></td></tr>
 <tr class="separator:a4871b89ad5b8d46ed15bf67ac20ffe30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memItemLeft" align="right" valign="top"><a id="abbaa2f67879d8aeeb31e0a2f2bbeccf3"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">hasSample</a> (<a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;sample) override</td></tr>
-<tr class="memdesc:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder, which is then passed as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the PV. <br /></td></tr>
+<tr class="memitem:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">hasSample</a> (<a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;sample) override</td></tr>
+<tr class="memdesc:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder, which is then passed as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the process variable.  <a href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">More...</a><br /></td></tr>
 <tr class="separator:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdde8317a4c4afd6330bb9744d50818e"><td class="memItemLeft" align="right" valign="top"><a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abdde8317a4c4afd6330bb9744d50818e">MPU6050_Feedback</a> (float _radius, float _samplePeriod)</td></tr>
-<tr class="memdesc:abdde8317a4c4afd6330bb9744d50818e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor assigning values. <br /></td></tr>
+<tr class="memitem:abdde8317a4c4afd6330bb9744d50818e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abdde8317a4c4afd6330bb9744d50818e">MPU6050_Feedback</a> (float _radius, float _samplePeriod)</td></tr>
+<tr class="memdesc:abdde8317a4c4afd6330bb9744d50818e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor assigning values.  <a href="classMPU6050__Feedback.html#abdde8317a4c4afd6330bb9744d50818e">More...</a><br /></td></tr>
 <tr class="separator:abdde8317a4c4afd6330bb9744d50818e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memItemLeft" align="right" valign="top"><a id="abbaa2f67879d8aeeb31e0a2f2bbeccf3"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">hasSample</a> (<a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;sample) override</td></tr>
-<tr class="memdesc:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MPU6050 callback implementation. Takes the sample data and calculates the angular position of the cup holder, which is then printed. <br /></td></tr>
+<tr class="memitem:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">hasSample</a> (<a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;sample) override</td></tr>
+<tr class="memdesc:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">MPU6050 callback implementation. Takes the sample data and calculates the angular position of the cup holder, which is then printed.  <a href="classMPU6050__Feedback.html#abbaa2f67879d8aeeb31e0a2f2bbeccf3">More...</a><br /></td></tr>
 <tr class="separator:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdde8317a4c4afd6330bb9744d50818e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMPU6050__Feedback.html#abdde8317a4c4afd6330bb9744d50818e">MPU6050_Feedback</a> (float _radius, float _samplePeriod)</td></tr>
 <tr class="memdesc:abdde8317a4c4afd6330bb9744d50818e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking and assigning a <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object reference.  <a href="classMPU6050__Feedback.html#abdde8317a4c4afd6330bb9744d50818e">More...</a><br /></td></tr>
@@ -187,11 +183,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="separator:abbaa2f67879d8aeeb31e0a2f2bbeccf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation of the MPU6050Interface. This is where the magic happens for calculating the cup holder's angular position based on the IMU measurements. The caclulated angular position is then sent as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the PV. </p>
+<div class="textblock"><p>Implementation of the MPU6050Interface. This is where the magic happens for calculating the cup holder's angular position based on the IMU measurements. The caclulated angular position is then sent as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the process variable. </p>
+<p>Implementation of the MPU6050Interface. This is where the magic happens for calculating the cup holder's angular position based on the IMU measurements. The caclulated angular position is then sent as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the PV.</p>
 <p>Implementation of the MPU6050Interface. Simply reads data from the MPU and displays it for testing. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4871b89ad5b8d46ed15bf67ac20ffe30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4871b89ad5b8d46ed15bf67ac20ffe30">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[1/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4871b89ad5b8d46ed15bf67ac20ffe30">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[1/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +240,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="a4871b89ad5b8d46ed15bf67ac20ffe30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4871b89ad5b8d46ed15bf67ac20ffe30">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[2/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4871b89ad5b8d46ed15bf67ac20ffe30">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[2/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -295,7 +292,52 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[3/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[3/13]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MPU6050_Feedback::MPU6050_Feedback </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>_samplePeriod</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor assigning values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_radius</td><td>Distance between MPU and axis of rotation. </td></tr>
+    <tr><td class="paramname">_samplePeriod</td><td>Time between samples. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="abdde8317a4c4afd6330bb9744d50818e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[4/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -339,7 +381,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[4/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[5/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -383,7 +425,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[5/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[6/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -427,7 +469,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[6/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[7/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -471,7 +513,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[7/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[8/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -515,7 +557,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[8/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[9/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -559,7 +601,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[9/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[10/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -603,7 +645,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[10/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[11/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -647,7 +689,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[11/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[12/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -691,7 +733,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </div>
 </div>
 <a id="abdde8317a4c4afd6330bb9744d50818e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[12/12]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abdde8317a4c4afd6330bb9744d50818e">&#9670;&nbsp;</a></span>MPU6050_Feedback() <span class="overload">[13/13]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -731,6 +773,115 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abbaa2f67879d8aeeb31e0a2f2bbeccf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbaa2f67879d8aeeb31e0a2f2bbeccf3">&#9670;&nbsp;</a></span>hasSample() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void MPU6050_Feedback::hasSample </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;&#160;</td>
+          <td class="paramname"><em>sample</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder, which is then passed as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the process variable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sample</td><td>Measured accel, gyro, and temp data passed to the callback. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classMPU6050__Driver_1_1MPU6050Interface.html#a0fb904cfcdcde78c3c0caed2610cfba5">MPU6050_Driver::MPU6050Interface</a>.</p>
+
+</div>
+</div>
+<a id="abbaa2f67879d8aeeb31e0a2f2bbeccf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbaa2f67879d8aeeb31e0a2f2bbeccf3">&#9670;&nbsp;</a></span>hasSample() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void MPU6050_Feedback::hasSample </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;&#160;</td>
+          <td class="paramname"><em>sample</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>MPU6050 callback implementation. Takes the sample data and caclulates the angular position of the cup holder, which is then passed as input to the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller as the process variable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sample</td><td>Measured accel, gyro, and temp data passed to the callback. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classMPU6050__Driver_1_1MPU6050Interface.html#a0fb904cfcdcde78c3c0caed2610cfba5">MPU6050_Driver::MPU6050Interface</a>.</p>
+
+</div>
+</div>
+<a id="abbaa2f67879d8aeeb31e0a2f2bbeccf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbaa2f67879d8aeeb31e0a2f2bbeccf3">&#9670;&nbsp;</a></span>hasSample() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void MPU6050_Feedback::hasSample </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structMPU6050__Driver_1_1MPU6050Sample.html">MPU6050_Driver::MPU6050Sample</a> &amp;&#160;</td>
+          <td class="paramname"><em>sample</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>MPU6050 callback implementation. Takes the sample data and calculates the angular position of the cup holder, which is then printed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sample</td><td>Measured accel, gyro, and temp data passed to the callback. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="classMPU6050__Driver_1_1MPU6050Interface.html#a0fb904cfcdcde78c3c0caed2610cfba5">MPU6050_Driver::MPU6050Interface</a>.</p>
 
 </div>
 </div>

@@ -69,6 +69,8 @@ $(function() {
 <div class="title">I2C_Interface Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="i2c__interface_8h_source.html">i2c_interface.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for I2C_Interface:</div>
 <div class="dyncontent">
@@ -87,44 +89,46 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9e03ae8e39d5fcc57f57415484a58a75"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a9e03ae8e39d5fcc57f57415484a58a75">~I2C_Interface</a> ()</td></tr>
 <tr class="memdesc:a9e03ae8e39d5fcc57f57415484a58a75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class destructor.  <a href="classI2C__Interface.html#a9e03ae8e39d5fcc57f57415484a58a75">More...</a><br /></td></tr>
 <tr class="separator:a9e03ae8e39d5fcc57f57415484a58a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3e351933ecab20a69e20bd6acb7b581"><td class="memItemLeft" align="right" valign="top">virtual i2c_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#ac3e351933ecab20a69e20bd6acb7b581">Init_I2C</a> (i2c_clockspeed_t clock=i2c_clockspeed_t::CLK_100KHz)</td></tr>
+<tr class="memitem:ac3e351933ecab20a69e20bd6acb7b581"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#ac3e351933ecab20a69e20bd6acb7b581">Init_I2C</a> (<a class="el" href="i2c__interface_8h.html#a809eca22b3272c28dd692c62ba22cff1">i2c_clockspeed_t</a> clock=i2c_clockspeed_t::CLK_100KHz)</td></tr>
 <tr class="memdesc:ac3e351933ecab20a69e20bd6acb7b581"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C peripheral initialization method.  <a href="classI2C__Interface.html#ac3e351933ecab20a69e20bd6acb7b581">More...</a><br /></td></tr>
 <tr class="separator:ac3e351933ecab20a69e20bd6acb7b581"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99f1f236a7c98ba08bdc6dc892e58eb4"><td class="memItemLeft" align="right" valign="top">virtual i2c_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a99f1f236a7c98ba08bdc6dc892e58eb4">Init_I2C</a> (uint8_t slaveAddress, std::string i2cFile)</td></tr>
+<tr class="memitem:a99f1f236a7c98ba08bdc6dc892e58eb4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a99f1f236a7c98ba08bdc6dc892e58eb4">Init_I2C</a> (uint8_t slaveAddress, std::string i2cFile)</td></tr>
 <tr class="memdesc:a99f1f236a7c98ba08bdc6dc892e58eb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">I2C peripheral initialization method.  <a href="classI2C__Interface.html#a99f1f236a7c98ba08bdc6dc892e58eb4">More...</a><br /></td></tr>
 <tr class="separator:a99f1f236a7c98ba08bdc6dc892e58eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aafc2f292a607a176b7b164b9a8a464"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a5aafc2f292a607a176b7b164b9a8a464">ReadRegister</a> (uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status=nullptr)=0</td></tr>
+<tr class="memitem:a5aafc2f292a607a176b7b164b9a8a464"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a5aafc2f292a607a176b7b164b9a8a464">ReadRegister</a> (uint8_t slaveAddress, uint8_t regAddress, <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> *status=nullptr)=0</td></tr>
 <tr class="memdesc:a5aafc2f292a607a176b7b164b9a8a464"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used for reading the data of the given register from the slave with given address.  <a href="classI2C__Interface.html#a5aafc2f292a607a176b7b164b9a8a464">More...</a><br /></td></tr>
 <tr class="separator:a5aafc2f292a607a176b7b164b9a8a464"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a954f8bcfe5502df11fdc615726d954ee"><td class="memItemLeft" align="right" valign="top">virtual uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a954f8bcfe5502df11fdc615726d954ee">ReadRegisterWordLittleEndian</a> (uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status=nullptr)=0</td></tr>
+<tr class="memitem:a954f8bcfe5502df11fdc615726d954ee"><td class="memItemLeft" align="right" valign="top">virtual uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a954f8bcfe5502df11fdc615726d954ee">ReadRegisterWordLittleEndian</a> (uint8_t slaveAddress, uint8_t regAddress, <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> *status=nullptr)=0</td></tr>
 <tr class="memdesc:a954f8bcfe5502df11fdc615726d954ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used for reading the data of the given register from the slave with given address. For registers that store a word of data. Interprets register data as little endian (LSB stored in lower address).  <a href="classI2C__Interface.html#a954f8bcfe5502df11fdc615726d954ee">More...</a><br /></td></tr>
 <tr class="separator:a954f8bcfe5502df11fdc615726d954ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba6fbd881e7b5557eeabe3dd7269a843"><td class="memItemLeft" align="right" valign="top">virtual uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#aba6fbd881e7b5557eeabe3dd7269a843">ReadRegisterWordBigEndian</a> (uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status=nullptr)=0</td></tr>
+<tr class="memitem:aba6fbd881e7b5557eeabe3dd7269a843"><td class="memItemLeft" align="right" valign="top">virtual uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#aba6fbd881e7b5557eeabe3dd7269a843">ReadRegisterWordBigEndian</a> (uint8_t slaveAddress, uint8_t regAddress, <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> *status=nullptr)=0</td></tr>
 <tr class="memdesc:aba6fbd881e7b5557eeabe3dd7269a843"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used for reading the data of the given register from the slave with given address. For registers that store a word of data. Interprets register data as big endian (MSB stored in lower address).  <a href="classI2C__Interface.html#aba6fbd881e7b5557eeabe3dd7269a843">More...</a><br /></td></tr>
 <tr class="separator:aba6fbd881e7b5557eeabe3dd7269a843"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5ccc56f78035b9262f80d9a27df1084"><td class="memItemLeft" align="right" valign="top">virtual i2c_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#af5ccc56f78035b9262f80d9a27df1084">WriteRegister</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t data)=0</td></tr>
+<tr class="memitem:af5ccc56f78035b9262f80d9a27df1084"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#af5ccc56f78035b9262f80d9a27df1084">WriteRegister</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t data)=0</td></tr>
 <tr class="memdesc:af5ccc56f78035b9262f80d9a27df1084"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used for writing given data to the given register of the slave device with the given address.  <a href="classI2C__Interface.html#af5ccc56f78035b9262f80d9a27df1084">More...</a><br /></td></tr>
 <tr class="separator:af5ccc56f78035b9262f80d9a27df1084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51791dd2f6cf4f28843b76ea4b6c1e58"><td class="memItemLeft" align="right" valign="top">virtual i2c_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a51791dd2f6cf4f28843b76ea4b6c1e58">WriteRegisterWordLittleEndian</a> (uint8_t slaveAddress, uint8_t regAddress, uint16_t data)=0</td></tr>
+<tr class="memitem:a51791dd2f6cf4f28843b76ea4b6c1e58"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a51791dd2f6cf4f28843b76ea4b6c1e58">WriteRegisterWordLittleEndian</a> (uint8_t slaveAddress, uint8_t regAddress, uint16_t data)=0</td></tr>
 <tr class="memdesc:a51791dd2f6cf4f28843b76ea4b6c1e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used for writing given data to the given register of the slave device with the given address. For registers that store a word of data. Interprets register data as little endian (LSB stored in lower address).  <a href="classI2C__Interface.html#a51791dd2f6cf4f28843b76ea4b6c1e58">More...</a><br /></td></tr>
 <tr class="separator:a51791dd2f6cf4f28843b76ea4b6c1e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d19a73f46411c035d90d5525621ecdd"><td class="memItemLeft" align="right" valign="top">virtual i2c_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a4d19a73f46411c035d90d5525621ecdd">WriteRegisterWordBigEndian</a> (uint8_t slaveAddress, uint8_t regAddress, uint16_t data)=0</td></tr>
+<tr class="memitem:a4d19a73f46411c035d90d5525621ecdd"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a4d19a73f46411c035d90d5525621ecdd">WriteRegisterWordBigEndian</a> (uint8_t slaveAddress, uint8_t regAddress, uint16_t data)=0</td></tr>
 <tr class="memdesc:a4d19a73f46411c035d90d5525621ecdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used for writing given data to the given register of the slave device with the given address. For registers that store a word of data. Interprets register data as big endian (MSB stored in lower address).  <a href="classI2C__Interface.html#a4d19a73f46411c035d90d5525621ecdd">More...</a><br /></td></tr>
 <tr class="separator:a4d19a73f46411c035d90d5525621ecdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad933aa087b713577ea4cada8f320573e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#ad933aa087b713577ea4cada8f320573e">ReadRegisterBit</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t bitMask, i2c_status_t *status)</td></tr>
+<tr class="memitem:ad933aa087b713577ea4cada8f320573e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#ad933aa087b713577ea4cada8f320573e">ReadRegisterBit</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t bitMask, <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> *status)</td></tr>
 <tr class="memdesc:ad933aa087b713577ea4cada8f320573e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used for reading a bit value of the given register from the slace device with the given address.  <a href="classI2C__Interface.html#ad933aa087b713577ea4cada8f320573e">More...</a><br /></td></tr>
 <tr class="separator:ad933aa087b713577ea4cada8f320573e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ce67c45d887b6fd3a805e3c9124a683"><td class="memItemLeft" align="right" valign="top">i2c_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a8ce67c45d887b6fd3a805e3c9124a683">WriteRegisterBit</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t bitMask, bool bitVal)</td></tr>
+<tr class="memitem:a8ce67c45d887b6fd3a805e3c9124a683"><td class="memItemLeft" align="right" valign="top"><a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a8ce67c45d887b6fd3a805e3c9124a683">WriteRegisterBit</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t bitMask, bool bitVal)</td></tr>
 <tr class="memdesc:a8ce67c45d887b6fd3a805e3c9124a683"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used for writing a bit value of the given register from the slace device with the given address.  <a href="classI2C__Interface.html#a8ce67c45d887b6fd3a805e3c9124a683">More...</a><br /></td></tr>
 <tr class="separator:a8ce67c45d887b6fd3a805e3c9124a683"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c8cca35fdecba511fd62c7ddf3fe2f1"><td class="memItemLeft" align="right" valign="top">virtual i2c_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a9c8cca35fdecba511fd62c7ddf3fe2f1">ReadRegisterBlock</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t length, uint8_t *data)=0</td></tr>
+<tr class="memitem:a9c8cca35fdecba511fd62c7ddf3fe2f1"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#a9c8cca35fdecba511fd62c7ddf3fe2f1">ReadRegisterBlock</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t length, uint8_t *data)=0</td></tr>
 <tr class="memdesc:a9c8cca35fdecba511fd62c7ddf3fe2f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used to read a block of bytes up to 32 bytes long, starting from the given register of the slave device with the given address.  <a href="classI2C__Interface.html#a9c8cca35fdecba511fd62c7ddf3fe2f1">More...</a><br /></td></tr>
 <tr class="separator:a9c8cca35fdecba511fd62c7ddf3fe2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9ef0c2919c4aa0c6627c814fcc8ae8f"><td class="memItemLeft" align="right" valign="top">virtual i2c_status_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#af9ef0c2919c4aa0c6627c814fcc8ae8f">WriteRegisterBlock</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t length, uint8_t *data)=0</td></tr>
+<tr class="memitem:af9ef0c2919c4aa0c6627c814fcc8ae8f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classI2C__Interface.html#af9ef0c2919c4aa0c6627c814fcc8ae8f">WriteRegisterBlock</a> (uint8_t slaveAddress, uint8_t regAddress, uint8_t length, uint8_t *data)=0</td></tr>
 <tr class="memdesc:af9ef0c2919c4aa0c6627c814fcc8ae8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be used to write a block of bytes up to 32 bytes long, starting from the given register of the slave device with the given address.  <a href="classI2C__Interface.html#af9ef0c2919c4aa0c6627c814fcc8ae8f">More...</a><br /></td></tr>
 <tr class="separator:af9ef0c2919c4aa0c6627c814fcc8ae8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>I2C Interface class to make sensor driver work with other MCU architectures by simply overriding this virtual methods according to current architecture I2C driver methods. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac23c569c303fa785c87bc0770ca01d3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac23c569c303fa785c87bc0770ca01d3e">&#9670;&nbsp;</a></span>I2C_Interface()</h2>
 
@@ -214,9 +218,9 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual i2c_status_t I2C_Interface::Init_I2C </td>
+          <td class="memname">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> I2C_Interface::Init_I2C </td>
           <td>(</td>
-          <td class="paramtype">i2c_clockspeed_t&#160;</td>
+          <td class="paramtype"><a class="el" href="i2c__interface_8h.html#a809eca22b3272c28dd692c62ba22cff1">i2c_clockspeed_t</a>&#160;</td>
           <td class="paramname"><em>clock</em> = <code>i2c_clockspeed_t::CLK_100KHz</code></td><td>)</td>
           <td></td>
         </tr>
@@ -254,7 +258,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual i2c_status_t I2C_Interface::Init_I2C </td>
+          <td class="memname">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> I2C_Interface::Init_I2C </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>slaveAddress</em>, </td>
@@ -321,7 +325,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">i2c_status_t *&#160;</td>
+          <td class="paramtype"><a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> *&#160;</td>
           <td class="paramname"><em>status</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -384,7 +388,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">i2c_status_t *&#160;</td>
+          <td class="paramtype"><a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> *&#160;</td>
           <td class="paramname"><em>status</em>&#160;</td>
         </tr>
         <tr>
@@ -424,7 +428,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual i2c_status_t I2C_Interface::ReadRegisterBlock </td>
+          <td class="memname">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> I2C_Interface::ReadRegisterBlock </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>slaveAddress</em>, </td>
@@ -505,7 +509,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">i2c_status_t *&#160;</td>
+          <td class="paramtype"><a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> *&#160;</td>
           <td class="paramname"><em>status</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -565,7 +569,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">i2c_status_t *&#160;</td>
+          <td class="paramtype"><a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> *&#160;</td>
           <td class="paramname"><em>status</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -611,7 +615,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual i2c_status_t I2C_Interface::WriteRegister </td>
+          <td class="memname">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> I2C_Interface::WriteRegister </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>slaveAddress</em>, </td>
@@ -668,7 +672,7 @@ Public Member Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">i2c_status_t I2C_Interface::WriteRegisterBit </td>
+          <td class="memname"><a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> I2C_Interface::WriteRegisterBit </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>slaveAddress</em>, </td>
@@ -715,21 +719,6 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">slaveAddress</td><td>Slave chip I2C bus address </td></tr>
-    <tr><td class="paramname">regAddress</td><td>Register address that the data to be written </td></tr>
-    <tr><td class="paramname">bitNo</td><td>Bit number to be set/reset </td></tr>
-    <tr><td class="paramname">bitMask</td><td>Bit mask to be set/reset </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="retval"><dt>Return values</dt><dd>
-  <table class="retval">
-    <tr><td class="paramname">i2c_status_t</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -743,7 +732,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual i2c_status_t I2C_Interface::WriteRegisterBlock </td>
+          <td class="memname">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> I2C_Interface::WriteRegisterBlock </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>slaveAddress</em>, </td>
@@ -810,7 +799,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual i2c_status_t I2C_Interface::WriteRegisterWordBigEndian </td>
+          <td class="memname">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> I2C_Interface::WriteRegisterWordBigEndian </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>slaveAddress</em>, </td>
@@ -870,7 +859,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual i2c_status_t I2C_Interface::WriteRegisterWordLittleEndian </td>
+          <td class="memname">virtual <a class="el" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> I2C_Interface::WriteRegisterWordLittleEndian </td>
           <td>(</td>
           <td class="paramtype">uint8_t&#160;</td>
           <td class="paramname"><em>slaveAddress</em>, </td>

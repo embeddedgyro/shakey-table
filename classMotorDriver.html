@@ -92,7 +92,8 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a881445d4664e454e7c502ba8e4e100fe"><td class="memItemLeft" align="right" valign="top"><a id="a881445d4664e454e7c502ba8e4e100fe"></a>
-std::ofstream&#160;</td><td class="memItemRight" valign="bottom"><b>log_file</b> {&quot;MD20_log&quot;, std::ios::trunc}</td></tr>
+std::ofstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotorDriver.html#a881445d4664e454e7c502ba8e4e100fe">log_file</a> {&quot;MD20_log&quot;, std::ios::trunc}</td></tr>
+<tr class="memdesc:a881445d4664e454e7c502ba8e4e100fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output file stream for logging motor driver control. <br /></td></tr>
 <tr class="separator:a881445d4664e454e7c502ba8e4e100fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26502151cb69ed70c941df613eb3afeb"><td class="memItemLeft" align="right" valign="top"><a id="a26502151cb69ed70c941df613eb3afeb"></a>
 gpiod::line::offset&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotorDriver.html#a26502151cb69ed70c941df613eb3afeb">_pin_DIR</a></td></tr>
@@ -108,15 +109,15 @@ std::basic_ofstream&lt; char &gt;&#160;</td><td class="memItemRight" valign="bot
 <tr class="separator:a03d2b13dd5124e738b37ef164ba652d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24e6fc1a50378756f7b7a32c48c12fc6"><td class="memItemLeft" align="right" valign="top"><a id="a24e6fc1a50378756f7b7a32c48c12fc6"></a>
 std::basic_ofstream&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotorDriver.html#a24e6fc1a50378756f7b7a32c48c12fc6">PeriodOutputFile</a></td></tr>
-<tr class="memdesc:a24e6fc1a50378756f7b7a32c48c12fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Output file stream object. <br /></td></tr>
+<tr class="memdesc:a24e6fc1a50378756f7b7a32c48c12fc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM period file stream object. <br /></td></tr>
 <tr class="separator:a24e6fc1a50378756f7b7a32c48c12fc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cccf80453ea652792c0415e440cfd37"><td class="memItemLeft" align="right" valign="top"><a id="a4cccf80453ea652792c0415e440cfd37"></a>
 std::basic_ofstream&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotorDriver.html#a4cccf80453ea652792c0415e440cfd37">DutyCycleOutputFile</a></td></tr>
-<tr class="memdesc:a4cccf80453ea652792c0415e440cfd37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duty Cycle file stream object. <br /></td></tr>
+<tr class="memdesc:a4cccf80453ea652792c0415e440cfd37"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM Duty Cycle file stream object. <br /></td></tr>
 <tr class="separator:a4cccf80453ea652792c0415e440cfd37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb6a0885f256c799ba7b423b6a716b5b"><td class="memItemLeft" align="right" valign="top"><a id="aeb6a0885f256c799ba7b423b6a716b5b"></a>
 std::basic_ofstream&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotorDriver.html#aeb6a0885f256c799ba7b423b6a716b5b">EnableOutputFile</a></td></tr>
-<tr class="memdesc:aeb6a0885f256c799ba7b423b6a716b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable file stream object. <br /></td></tr>
+<tr class="memdesc:aeb6a0885f256c799ba7b423b6a716b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">PWM Enable file stream object. <br /></td></tr>
 <tr class="separator:aeb6a0885f256c799ba7b423b6a716b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a742fe20e9b5d4585f9c310ed8c7cd94a"><td class="memItemLeft" align="right" valign="top"><a id="a742fe20e9b5d4585f9c310ed8c7cd94a"></a>
 gpiod::line_request&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMotorDriver.html#a742fe20e9b5d4585f9c310ed8c7cd94a">request_DIR</a></td></tr>
@@ -172,7 +173,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 <p>Constructor function for the <a class="el" href="classMotorDriver.html" title="The main MotorDriver class, Sets and controlls the DIR and PWM pins of the MotorDriver,...">MotorDriver</a> class Creates a directory for PWM, opens files for PWM control and enables it Sets DIR pi </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">chip_path</td><td>File path of the gpiochip device file to be used </td></tr>
-    <tr><td class="paramname">_pin_DIR</td><td>Pi GPIO pin for direction control </td></tr>
+    <tr><td class="paramname">pin_DIR</td><td>Pi GPIO pin for direction control </td></tr>
     <tr><td class="paramname">period_ns</td><td>PWM period in nanoseconds </td></tr>
   </table>
   </dd>

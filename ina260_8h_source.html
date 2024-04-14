@@ -92,125 +92,135 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;SensorConst MAN_ID = 0xfe;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;SensorConst DIE_ID = 0xff;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}; <span class="comment">// namespace Sensor_Regs</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>ReadingBases {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;ReadingBasesConst CURRENT = 0.00125;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;ReadingBasesConst VOLTAGE = 0.00125;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;ReadingBasesConst POWER = 0.01;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}; <span class="comment">// namespace ReadingBases</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">enum class</span> Alert_Conf {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  OCL = 0b10000000,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  UCL = 0b01000000,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  BOL = 0b00100000,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  BUL = 0b00010000,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  POL = 0b00001000,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  CNVR = 0b00000100</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">enum class</span> Ave_Mode {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  AV1 = 0,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  AV4 = 1,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  AV16 = 2,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  AV64 = 3,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  AV128 = 4,</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  AV256 = 5,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  AV512 = 6,</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  AV1024 = 7</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">enum class</span> Conv_Time {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  TU140 = 0,</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  TU204 = 1,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  TU332 = 2,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  TU588 = 3,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  TU1100 = 4,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  TU2116 = 5,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  TU4156 = 6,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  TU8224 = 7</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">enum class</span> Op_Mode {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  PDTRIG = 0,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  CURTRIT = 1,</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  VOLTRIG = 2,</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  CURVOLTRIG = 3,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  PDCONT = 4,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  CURCONT = 5,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  VOLCONT = 6,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  CURVOLCONT = 7</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="structINA260__Driver_1_1INA260Sample.html">   68</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structINA260__Driver_1_1INA260Sample.html">INA260Sample</a> {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordtype">float</span> current = 0;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keywordtype">float</span> voltage = 0;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;};</div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classINA260__Driver_1_1INA260Interface.html">   76</a></span>&#160;<span class="keyword">class </span><a class="code" href="classINA260__Driver_1_1INA260Interface.html">INA260Interface</a> {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classINA260__Driver_1_1INA260Interface.html#ae4a7706b31fdd8dc3a479fc5d44fe65c">   81</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classINA260__Driver_1_1INA260Interface.html#ae4a7706b31fdd8dc3a479fc5d44fe65c">hasSample</a>(<a class="code" href="structINA260__Driver_1_1INA260Sample.html">INA260Sample</a> &amp;sample) = 0;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classINA260__Driver_1_1INA260.html">   83</a></span>&#160;<span class="keyword">class </span><a class="code" href="classINA260__Driver_1_1INA260.html">INA260</a> {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <a class="code" href="classINA260__Driver_1_1INA260.html#a2ae6d86401ca5df9f22104a637b962dc">INA260</a>(<a class="code" href="classI2C__Interface.html">I2C_Interface</a> *comInterface, <a class="code" href="classINA260__Driver_1_1INA260Interface.html">INA260Interface</a> *inaInterface,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;         gpiod::line::offset _gpioPin);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  i2c_status_t <a class="code" href="classINA260__Driver_1_1INA260.html#aaaeb7c95822f4fe6db2a48bbdd89f114">InitializeSensor</a>(Alert_Conf alert_mode = Alert_Conf::CNVR,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                                Conv_Time volt_conv_time = Conv_Time::TU140,</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                                Conv_Time curr_conv_time = Conv_Time::TU140,</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                Ave_Mode averaging_mode = Ave_Mode::AV1,</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                                Op_Mode operating_mode = Op_Mode::CURVOLCONT);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a86f715385e78b91540bde54d2ff7765e">begin</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a76a07127a56519b8d1d81eb62166d943">end</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="classINA260__Driver_1_1INA260.html#aace5cbe8d43e034a4ebe3517c3a4828f">  132</a></span>&#160;  <a class="code" href="classINA260__Driver_1_1INA260.html#aace5cbe8d43e034a4ebe3517c3a4828f">~INA260</a>() { <a class="code" href="classINA260__Driver_1_1INA260.html#a76a07127a56519b8d1d81eb62166d943">end</a>(); }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  i2c_status_t <a class="code" href="classINA260__Driver_1_1INA260.html#af746a20def22614e44705d24975a0dbb">AveragingMode</a>(Ave_Mode ave_setting = Ave_Mode::AV1);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  i2c_status_t <a class="code" href="classINA260__Driver_1_1INA260.html#a55fb974cb49db32303b79c59b0fa69d7">CurrentConvTime</a>(Conv_Time convert_time = Conv_Time::TU140);</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  i2c_status_t <a class="code" href="classINA260__Driver_1_1INA260.html#a54e1ba6bd9afc7104cdffb6b660c1839">VoltageConvTime</a>(Conv_Time convert_time = Conv_Time::TU140);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  i2c_status_t <a class="code" href="classINA260__Driver_1_1INA260.html#a2a49efcb9e45aaaf27c80f580a6a0125">OperatingMode</a>(Op_Mode operate_mode = Op_Mode::PDTRIG);</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  i2c_status_t <a class="code" href="classINA260__Driver_1_1INA260.html#a9cffc4a6e06885d616673ccdb1395269">AlertSet</a>(Alert_Conf alert_mode = Alert_Conf::CNVR);</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a48d9736cccf28d4d7ebd77976868b0ae">ReadCurrent</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a98aa267efa26004dae030f00a669353c">ReadVoltage</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a0c95bb68319b8c83534249d845e8ccf7">ReadPower</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  <a class="code" href="classI2C__Interface.html">I2C_Interface</a> *i2c = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  <a class="code" href="classINA260__Driver_1_1INA260Interface.html">INA260Interface</a> *ina260cb = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  gpiod::line::offset gpioPin;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  std::thread dataAquisitionThread;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="keywordtype">bool</span> dataAquisitionRunning;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  <span class="keywordtype">void</span> dataAquisition(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;};</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;} <span class="comment">// namespace INA260_Driver</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>ReadingBases {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;ReadingBasesConst CURRENT = 0.00125;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;ReadingBasesConst VOLTAGE = 0.00125;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;ReadingBasesConst POWER = 0.01;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}; <span class="comment">// namespace ReadingBases</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">enum class</span> Alert_Conf {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  OCL = 0b10000000,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  UCL = 0b01000000,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  BOL = 0b00100000,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  BUL = 0b00010000,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  POL = 0b00001000,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  CNVR = 0b00000100</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;};</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">enum class</span> Ave_Mode {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  AV1 = 0,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  AV4 = 1,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  AV16 = 2,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  AV64 = 3,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  AV128 = 4,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  AV256 = 5,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  AV512 = 6,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  AV1024 = 7</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;};</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">enum class</span> Conv_Time {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  TU140 = 0,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  TU204 = 1,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  TU332 = 2,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  TU588 = 3,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  TU1100 = 4,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  TU2116 = 5,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  TU4156 = 6,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  TU8224 = 7</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">enum class</span> Op_Mode {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  PDTRIG = 0,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  CURTRIT = 1,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  VOLTRIG = 2,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  CURVOLTRIG = 3,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  PDCONT = 4,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  CURCONT = 5,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  VOLCONT = 6,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  CURVOLCONT = 7</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="structINA260__Driver_1_1INA260Sample.html">   75</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structINA260__Driver_1_1INA260Sample.html">INA260Sample</a> {</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="structINA260__Driver_1_1INA260Sample.html#a90310663745cda4eea09385740357ae6">   79</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structINA260__Driver_1_1INA260Sample.html#a90310663745cda4eea09385740357ae6">current</a> = 0;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="structINA260__Driver_1_1INA260Sample.html#a5185a27925812be0768f8797700ef055">   84</a></span>&#160;  <span class="keywordtype">float</span> <a class="code" href="structINA260__Driver_1_1INA260Sample.html#a5185a27925812be0768f8797700ef055">voltage</a> = 0;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="classINA260__Driver_1_1INA260Interface.html">   91</a></span>&#160;<span class="keyword">class </span><a class="code" href="classINA260__Driver_1_1INA260Interface.html">INA260Interface</a> {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="classINA260__Driver_1_1INA260Interface.html#ae4a7706b31fdd8dc3a479fc5d44fe65c">   96</a></span>&#160;  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classINA260__Driver_1_1INA260Interface.html#ae4a7706b31fdd8dc3a479fc5d44fe65c">hasSample</a>(<a class="code" href="structINA260__Driver_1_1INA260Sample.html">INA260Sample</a> &amp;sample) = 0;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classINA260__Driver_1_1INA260.html">  102</a></span>&#160;<span class="keyword">class </span><a class="code" href="classINA260__Driver_1_1INA260.html">INA260</a> {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <a class="code" href="classINA260__Driver_1_1INA260.html#a2ae6d86401ca5df9f22104a637b962dc">INA260</a>(<a class="code" href="classI2C__Interface.html">I2C_Interface</a> *comInterface, <a class="code" href="classINA260__Driver_1_1INA260Interface.html">INA260Interface</a> *inaInterface,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;         gpiod::line::offset _gpioPin);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <a class="code" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> <a class="code" href="classINA260__Driver_1_1INA260.html#aaaeb7c95822f4fe6db2a48bbdd89f114">InitializeSensor</a>(Alert_Conf alert_mode = Alert_Conf::CNVR,</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                                Conv_Time volt_conv_time = Conv_Time::TU140,</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                                Conv_Time curr_conv_time = Conv_Time::TU140,</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                                Ave_Mode averaging_mode = Ave_Mode::AV1,</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;                                Op_Mode operating_mode = Op_Mode::CURVOLCONT);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a86f715385e78b91540bde54d2ff7765e">begin</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a76a07127a56519b8d1d81eb62166d943">end</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="classINA260__Driver_1_1INA260.html#aace5cbe8d43e034a4ebe3517c3a4828f">  151</a></span>&#160;  <a class="code" href="classINA260__Driver_1_1INA260.html#aace5cbe8d43e034a4ebe3517c3a4828f">~INA260</a>() { <a class="code" href="classINA260__Driver_1_1INA260.html#a76a07127a56519b8d1d81eb62166d943">end</a>(); }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <a class="code" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> <a class="code" href="classINA260__Driver_1_1INA260.html#af746a20def22614e44705d24975a0dbb">AveragingMode</a>(Ave_Mode ave_setting = Ave_Mode::AV1);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  <a class="code" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> <a class="code" href="classINA260__Driver_1_1INA260.html#a55fb974cb49db32303b79c59b0fa69d7">CurrentConvTime</a>(Conv_Time convert_time = Conv_Time::TU140);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <a class="code" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> <a class="code" href="classINA260__Driver_1_1INA260.html#a54e1ba6bd9afc7104cdffb6b660c1839">VoltageConvTime</a>(Conv_Time convert_time = Conv_Time::TU140);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <a class="code" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> <a class="code" href="classINA260__Driver_1_1INA260.html#a2a49efcb9e45aaaf27c80f580a6a0125">OperatingMode</a>(Op_Mode operate_mode = Op_Mode::PDTRIG);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <a class="code" href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a> <a class="code" href="classINA260__Driver_1_1INA260.html#a9cffc4a6e06885d616673ccdb1395269">AlertSet</a>(Alert_Conf alert_mode = Alert_Conf::CNVR);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a48d9736cccf28d4d7ebd77976868b0ae">ReadCurrent</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a98aa267efa26004dae030f00a669353c">ReadVoltage</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  <span class="keywordtype">float</span> <a class="code" href="classINA260__Driver_1_1INA260.html#a0c95bb68319b8c83534249d845e8ccf7">ReadPower</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  <a class="code" href="classI2C__Interface.html">I2C_Interface</a> *i2c = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  <a class="code" href="classINA260__Driver_1_1INA260Interface.html">INA260Interface</a> *ina260cb = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  gpiod::line::offset gpioPin;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  std::thread dataAquisitionThread;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keywordtype">bool</span> dataAquisitionRunning;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  <span class="keywordtype">void</span> dataAquisition(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;};</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;} <span class="comment">// namespace INA260_Driver</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassI2C__Interface_html"><div class="ttname"><a href="classI2C__Interface.html">I2C_Interface</a></div><div class="ttdef"><b>Definition:</b> i2c_interface.h:61</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260Interface_html"><div class="ttname"><a href="classINA260__Driver_1_1INA260Interface.html">INA260_Driver::INA260Interface</a></div><div class="ttdoc">Callback Interface where the callback needs to be implemented by the host application.</div><div class="ttdef"><b>Definition:</b> ina260.h:76</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260Interface_html"><div class="ttname"><a href="classINA260__Driver_1_1INA260Interface.html">INA260_Driver::INA260Interface</a></div><div class="ttdoc">Callback Interface where the callback needs to be implemented by the host application.</div><div class="ttdef"><b>Definition:</b> ina260.h:91</div></div>
 <div class="ttc" id="aclassINA260__Driver_1_1INA260Interface_html_ae4a7706b31fdd8dc3a479fc5d44fe65c"><div class="ttname"><a href="classINA260__Driver_1_1INA260Interface.html#ae4a7706b31fdd8dc3a479fc5d44fe65c">INA260_Driver::INA260Interface::hasSample</a></div><div class="ttdeci">virtual void hasSample(INA260Sample &amp;sample)=0</div><div class="ttdoc">Called after a sample has arrived.</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html">INA260_Driver::INA260</a></div><div class="ttdef"><b>Definition:</b> ina260.h:83</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a0c95bb68319b8c83534249d845e8ccf7"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a0c95bb68319b8c83534249d845e8ccf7">INA260_Driver::INA260::ReadPower</a></div><div class="ttdeci">float ReadPower(void)</div><div class="ttdoc">Read the power through the sensor.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:147</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a2a49efcb9e45aaaf27c80f580a6a0125"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a2a49efcb9e45aaaf27c80f580a6a0125">INA260_Driver::INA260::OperatingMode</a></div><div class="ttdeci">i2c_status_t OperatingMode(Op_Mode operate_mode=Op_Mode::PDTRIG)</div><div class="ttdoc">This method configures the operating mode. Can be continuous or triggered and can depend on voltage o...</div><div class="ttdef"><b>Definition:</b> ina260.cpp:207</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a2ae6d86401ca5df9f22104a637b962dc"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a2ae6d86401ca5df9f22104a637b962dc">INA260_Driver::INA260::INA260</a></div><div class="ttdeci">INA260(I2C_Interface *comInterface, INA260Interface *inaInterface, gpiod::line::offset _gpioPin)</div><div class="ttdoc">Class constructor. In order to make the class communicate with sensor user should pass a valid I2C_In...</div><div class="ttdef"><b>Definition:</b> ina260.cpp:18</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html">INA260_Driver::INA260</a></div><div class="ttdoc">INA260 driver class.</div><div class="ttdef"><b>Definition:</b> ina260.h:102</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a0c95bb68319b8c83534249d845e8ccf7"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a0c95bb68319b8c83534249d845e8ccf7">INA260_Driver::INA260::ReadPower</a></div><div class="ttdeci">float ReadPower(void)</div><div class="ttdoc">Read the power through the sensor.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:149</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a2a49efcb9e45aaaf27c80f580a6a0125"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a2a49efcb9e45aaaf27c80f580a6a0125">INA260_Driver::INA260::OperatingMode</a></div><div class="ttdeci">i2c_status_t OperatingMode(Op_Mode operate_mode=Op_Mode::PDTRIG)</div><div class="ttdoc">This method configures the operating mode. Can be continuous or triggered and can depend on voltage o...</div><div class="ttdef"><b>Definition:</b> ina260.cpp:212</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a2ae6d86401ca5df9f22104a637b962dc"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a2ae6d86401ca5df9f22104a637b962dc">INA260_Driver::INA260::INA260</a></div><div class="ttdeci">INA260(I2C_Interface *comInterface, INA260Interface *inaInterface, gpiod::line::offset _gpioPin)</div><div class="ttdoc">Class constructor. In order to make the class communicate with sensor user should pass a valid I2C_In...</div><div class="ttdef"><b>Definition:</b> ina260.cpp:16</div></div>
 <div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a48d9736cccf28d4d7ebd77976868b0ae"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a48d9736cccf28d4d7ebd77976868b0ae">INA260_Driver::INA260::ReadCurrent</a></div><div class="ttdeci">float ReadCurrent(void)</div><div class="ttdoc">Read the current through the sensor.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:133</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a54e1ba6bd9afc7104cdffb6b660c1839"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a54e1ba6bd9afc7104cdffb6b660c1839">INA260_Driver::INA260::VoltageConvTime</a></div><div class="ttdeci">i2c_status_t VoltageConvTime(Conv_Time convert_time=Conv_Time::TU140)</div><div class="ttdoc">This method configures the conversion time between samples for voltage.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:191</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a55fb974cb49db32303b79c59b0fa69d7"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a55fb974cb49db32303b79c59b0fa69d7">INA260_Driver::INA260::CurrentConvTime</a></div><div class="ttdeci">i2c_status_t CurrentConvTime(Conv_Time convert_time=Conv_Time::TU140)</div><div class="ttdoc">This method configures the conversion time between samples for current.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:174</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a76a07127a56519b8d1d81eb62166d943"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a76a07127a56519b8d1d81eb62166d943">INA260_Driver::INA260::end</a></div><div class="ttdeci">void end(void)</div><div class="ttdoc">This method stops data aquisition.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:76</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a86f715385e78b91540bde54d2ff7765e"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a86f715385e78b91540bde54d2ff7765e">INA260_Driver::INA260::begin</a></div><div class="ttdeci">void begin(void)</div><div class="ttdoc">This function will begin data aquisition in a separate thread.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:66</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a98aa267efa26004dae030f00a669353c"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a98aa267efa26004dae030f00a669353c">INA260_Driver::INA260::ReadVoltage</a></div><div class="ttdeci">float ReadVoltage(void)</div><div class="ttdoc">Read the voltage through the sensor.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:119</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a9cffc4a6e06885d616673ccdb1395269"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a9cffc4a6e06885d616673ccdb1395269">INA260_Driver::INA260::AlertSet</a></div><div class="ttdeci">i2c_status_t AlertSet(Alert_Conf alert_mode=Alert_Conf::CNVR)</div><div class="ttdoc">This method configures the interupt pin mode.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:161</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_aaaeb7c95822f4fe6db2a48bbdd89f114"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#aaaeb7c95822f4fe6db2a48bbdd89f114">INA260_Driver::INA260::InitializeSensor</a></div><div class="ttdeci">i2c_status_t InitializeSensor(Alert_Conf alert_mode=Alert_Conf::CNVR, Conv_Time volt_conv_time=Conv_Time::TU140, Conv_Time curr_conv_time=Conv_Time::TU140, Ave_Mode averaging_mode=Ave_Mode::AV1, Op_Mode operating_mode=Op_Mode::CURVOLCONT)</div><div class="ttdoc">This method wakes and configures the sensor to a specific convertion time, averaging mode,...</div><div class="ttdef"><b>Definition:</b> ina260.cpp:40</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_aace5cbe8d43e034a4ebe3517c3a4828f"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#aace5cbe8d43e034a4ebe3517c3a4828f">INA260_Driver::INA260::~INA260</a></div><div class="ttdeci">~INA260()</div><div class="ttdoc">Class destructor. Simple calls end() to stope data quisition.</div><div class="ttdef"><b>Definition:</b> ina260.h:132</div></div>
-<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_af746a20def22614e44705d24975a0dbb"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#af746a20def22614e44705d24975a0dbb">INA260_Driver::INA260::AveragingMode</a></div><div class="ttdeci">i2c_status_t AveragingMode(Ave_Mode ave_setting=Ave_Mode::AV1)</div><div class="ttdoc">This method configures the number of samples that are averaged from the sensor.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:226</div></div>
-<div class="ttc" id="astructINA260__Driver_1_1INA260Sample_html"><div class="ttname"><a href="structINA260__Driver_1_1INA260Sample.html">INA260_Driver::INA260Sample</a></div><div class="ttdef"><b>Definition:</b> ina260.h:68</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a54e1ba6bd9afc7104cdffb6b660c1839"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a54e1ba6bd9afc7104cdffb6b660c1839">INA260_Driver::INA260::VoltageConvTime</a></div><div class="ttdeci">i2c_status_t VoltageConvTime(Conv_Time convert_time=Conv_Time::TU140)</div><div class="ttdoc">This method configures the conversion time between samples for voltage.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:195</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a55fb974cb49db32303b79c59b0fa69d7"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a55fb974cb49db32303b79c59b0fa69d7">INA260_Driver::INA260::CurrentConvTime</a></div><div class="ttdeci">i2c_status_t CurrentConvTime(Conv_Time convert_time=Conv_Time::TU140)</div><div class="ttdoc">This method configures the conversion time between samples for current.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:178</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a76a07127a56519b8d1d81eb62166d943"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a76a07127a56519b8d1d81eb62166d943">INA260_Driver::INA260::end</a></div><div class="ttdeci">void end(void)</div><div class="ttdoc">This method stops data aquisition.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:74</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a86f715385e78b91540bde54d2ff7765e"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a86f715385e78b91540bde54d2ff7765e">INA260_Driver::INA260::begin</a></div><div class="ttdeci">void begin(void)</div><div class="ttdoc">This function will begin data aquisition in a separate thread.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:64</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a98aa267efa26004dae030f00a669353c"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a98aa267efa26004dae030f00a669353c">INA260_Driver::INA260::ReadVoltage</a></div><div class="ttdeci">float ReadVoltage(void)</div><div class="ttdoc">Read the voltage through the sensor.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:117</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_a9cffc4a6e06885d616673ccdb1395269"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#a9cffc4a6e06885d616673ccdb1395269">INA260_Driver::INA260::AlertSet</a></div><div class="ttdeci">i2c_status_t AlertSet(Alert_Conf alert_mode=Alert_Conf::CNVR)</div><div class="ttdoc">This method configures the interupt pin mode.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:165</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_aaaeb7c95822f4fe6db2a48bbdd89f114"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#aaaeb7c95822f4fe6db2a48bbdd89f114">INA260_Driver::INA260::InitializeSensor</a></div><div class="ttdeci">i2c_status_t InitializeSensor(Alert_Conf alert_mode=Alert_Conf::CNVR, Conv_Time volt_conv_time=Conv_Time::TU140, Conv_Time curr_conv_time=Conv_Time::TU140, Ave_Mode averaging_mode=Ave_Mode::AV1, Op_Mode operating_mode=Op_Mode::CURVOLCONT)</div><div class="ttdoc">This method wakes and configures the sensor to a specific convertion time, averaging mode,...</div><div class="ttdef"><b>Definition:</b> ina260.cpp:38</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_aace5cbe8d43e034a4ebe3517c3a4828f"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#aace5cbe8d43e034a4ebe3517c3a4828f">INA260_Driver::INA260::~INA260</a></div><div class="ttdeci">~INA260()</div><div class="ttdoc">Class destructor. Simple calls end() to stope data quisition.</div><div class="ttdef"><b>Definition:</b> ina260.h:151</div></div>
+<div class="ttc" id="aclassINA260__Driver_1_1INA260_html_af746a20def22614e44705d24975a0dbb"><div class="ttname"><a href="classINA260__Driver_1_1INA260.html#af746a20def22614e44705d24975a0dbb">INA260_Driver::INA260::AveragingMode</a></div><div class="ttdeci">i2c_status_t AveragingMode(Ave_Mode ave_setting=Ave_Mode::AV1)</div><div class="ttdoc">This method configures the number of samples that are averaged from the sensor.</div><div class="ttdef"><b>Definition:</b> ina260.cpp:231</div></div>
+<div class="ttc" id="ai2c__interface_8h_html_ada1e8e589688e2d6626421d8d85d9c53"><div class="ttname"><a href="i2c__interface_8h.html#ada1e8e589688e2d6626421d8d85d9c53">i2c_status_t</a></div><div class="ttdeci">i2c_status_t</div><div class="ttdef"><b>Definition:</b> i2c_interface.h:42</div></div>
+<div class="ttc" id="astructINA260__Driver_1_1INA260Sample_html"><div class="ttname"><a href="structINA260__Driver_1_1INA260Sample.html">INA260_Driver::INA260Sample</a></div><div class="ttdoc">Sample from the INA260.</div><div class="ttdef"><b>Definition:</b> ina260.h:75</div></div>
+<div class="ttc" id="astructINA260__Driver_1_1INA260Sample_html_a5185a27925812be0768f8797700ef055"><div class="ttname"><a href="structINA260__Driver_1_1INA260Sample.html#a5185a27925812be0768f8797700ef055">INA260_Driver::INA260Sample::voltage</a></div><div class="ttdeci">float voltage</div><div class="ttdoc">Measured voltage.</div><div class="ttdef"><b>Definition:</b> ina260.h:84</div></div>
+<div class="ttc" id="astructINA260__Driver_1_1INA260Sample_html_a90310663745cda4eea09385740357ae6"><div class="ttname"><a href="structINA260__Driver_1_1INA260Sample.html#a90310663745cda4eea09385740357ae6">INA260_Driver::INA260Sample::current</a></div><div class="ttdeci">float current</div><div class="ttdoc">Measured current.</div><div class="ttdef"><b>Definition:</b> ina260.h:79</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

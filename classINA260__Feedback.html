@@ -93,11 +93,11 @@ Collaboration diagram for INA260_Feedback:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a620acdcb3ce2e6ca7a0132bcc8a3e5a9"><td class="memItemLeft" align="right" valign="top"><a id="a620acdcb3ce2e6ca7a0132bcc8a3e5a9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INA260_Feedback</b> (std::string file)</td></tr>
+<tr class="memitem:a620acdcb3ce2e6ca7a0132bcc8a3e5a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classINA260__Feedback.html#a620acdcb3ce2e6ca7a0132bcc8a3e5a9">INA260_Feedback</a> (std::string file)</td></tr>
+<tr class="memdesc:a620acdcb3ce2e6ca7a0132bcc8a3e5a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor assigning values.  <a href="classINA260__Feedback.html#a620acdcb3ce2e6ca7a0132bcc8a3e5a9">More...</a><br /></td></tr>
 <tr class="separator:a620acdcb3ce2e6ca7a0132bcc8a3e5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a061d246bde5db47a78cb2aaf740aaac5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classINA260__Feedback.html#a061d246bde5db47a78cb2aaf740aaac5">hasSample</a> (<a class="el" href="structINA260__Driver_1_1INA260Sample.html">INA260_Driver::INA260Sample</a> &amp;sample) override</td></tr>
-<tr class="memdesc:a061d246bde5db47a78cb2aaf740aaac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">INA260 callback implementation, passing the measured current (torque) to the provided <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object.  <a href="classINA260__Feedback.html#a061d246bde5db47a78cb2aaf740aaac5">More...</a><br /></td></tr>
+<tr class="memdesc:a061d246bde5db47a78cb2aaf740aaac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">INA260 callback implementation, printing the measured current.  <a href="classINA260__Feedback.html#a061d246bde5db47a78cb2aaf740aaac5">More...</a><br /></td></tr>
 <tr class="separator:a061d246bde5db47a78cb2aaf740aaac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a396437d18e22b4f073901631d104cd7d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classINA260__Feedback.html#a396437d18e22b4f073901631d104cd7d">INA260_Feedback</a> (<a class="el" href="classPID.html">PID</a> &amp;_pidController)</td></tr>
 <tr class="memdesc:a396437d18e22b4f073901631d104cd7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking and assigning a <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object reference.  <a href="classINA260__Feedback.html#a396437d18e22b4f073901631d104cd7d">More...</a><br /></td></tr>
@@ -132,10 +132,44 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the INA260Interface for feedback of current (torque) and simply printing the value. </p>
-<p>Implementation of the INA260Interface for feedback of current (torque) values as the PV for the inner <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller driving the motor driver. </p>
+<p>Implementation of the INA260Interface for feedback of current (torque) values as the process variable for the inner <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller driving the motor driver. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a620acdcb3ce2e6ca7a0132bcc8a3e5a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a620acdcb3ce2e6ca7a0132bcc8a3e5a9">&#9670;&nbsp;</a></span>INA260_Feedback() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">INA260_Feedback::INA260_Feedback </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor assigning values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>Name of file used for logging current measurements. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a396437d18e22b4f073901631d104cd7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a396437d18e22b4f073901631d104cd7d">&#9670;&nbsp;</a></span>INA260_Feedback()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a396437d18e22b4f073901631d104cd7d">&#9670;&nbsp;</a></span>INA260_Feedback() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -193,7 +227,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>INA260 callback implementation, passing the measured current (torque) to the provided <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object. </p>
+<p>INA260 callback implementation, printing the measured current. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">sample</td><td>Current measured by the INA260 passed to the callback. </td></tr>

@@ -96,9 +96,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a56273b8f1267e541033ef446575f006d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID__MotorDriver.html#a56273b8f1267e541033ef446575f006d">PID_MotorDriver</a> (<a class="el" href="classMotorDriver.html">MotorDriver</a> &amp;_motorDriver)</td></tr>
 <tr class="memdesc:a56273b8f1267e541033ef446575f006d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking and assigning a motor driver object reference.  <a href="classPID__MotorDriver.html#a56273b8f1267e541033ef446575f006d">More...</a><br /></td></tr>
 <tr class="separator:a56273b8f1267e541033ef446575f006d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f248c75cea661f0e265242bdf69ef05"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID__MotorDriver.html#a2f248c75cea661f0e265242bdf69ef05">hasOutput</a> (double pidOutput)</td></tr>
-<tr class="memdesc:a2f248c75cea661f0e265242bdf69ef05"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classPID.html" title="PID controller class.">PID</a> controller callback implementation, passing the <a class="el" href="classPID.html" title="PID controller class.">PID</a> output to the provided motor driver object.  <a href="classPID__MotorDriver.html#a2f248c75cea661f0e265242bdf69ef05">More...</a><br /></td></tr>
-<tr class="separator:a2f248c75cea661f0e265242bdf69ef05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1101486ebc86d86d41dd4c91a6a0018b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID__MotorDriver.html#a1101486ebc86d86d41dd4c91a6a0018b">hasOutput</a> (double pidOutput) override</td></tr>
+<tr class="memdesc:a1101486ebc86d86d41dd4c91a6a0018b"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classPID.html" title="PID controller class.">PID</a> controller callback implementation, passing the <a class="el" href="classPID.html" title="PID controller class.">PID</a> output to the provided motor driver object.  <a href="classPID__MotorDriver.html#a1101486ebc86d86d41dd4c91a6a0018b">More...</a><br /></td></tr>
+<tr class="separator:a1101486ebc86d86d41dd4c91a6a0018b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the <a class="el" href="classPID__Interface.html" title="PID controller callback interface.">PID_Interface</a> for the inner <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller, driving the motor driver. </p>
@@ -138,8 +138,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2f248c75cea661f0e265242bdf69ef05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f248c75cea661f0e265242bdf69ef05">&#9670;&nbsp;</a></span>hasOutput()</h2>
+<a id="a1101486ebc86d86d41dd4c91a6a0018b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1101486ebc86d86d41dd4c91a6a0018b">&#9670;&nbsp;</a></span>hasOutput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,7 +157,7 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

@@ -100,14 +100,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a53b1a933e4239f520b7b2fc1ce2fb713"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classPID.html" title="PID controller class.">PID</a> controller callback implementation, passing the <a class="el" href="classPID.html" title="PID controller class.">PID</a> output to the provided <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object.  <a href="classPID__Position.html#a53b1a933e4239f520b7b2fc1ce2fb713">More...</a><br /></td></tr>
 <tr class="separator:a53b1a933e4239f520b7b2fc1ce2fb713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84922a009605b31ff28eec9a8f01b58c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID__Position.html#a84922a009605b31ff28eec9a8f01b58c">PID_Position</a> (<a class="el" href="classMotorDriver.html">MotorDriver</a> &amp;_motorDriver)</td></tr>
-<tr class="memdesc:a84922a009605b31ff28eec9a8f01b58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking and assigning a <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object reference.  <a href="classPID__Position.html#a84922a009605b31ff28eec9a8f01b58c">More...</a><br /></td></tr>
+<tr class="memdesc:a84922a009605b31ff28eec9a8f01b58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor taking and assigning a motor driver object reference.  <a href="classPID__Position.html#a84922a009605b31ff28eec9a8f01b58c">More...</a><br /></td></tr>
 <tr class="separator:a84922a009605b31ff28eec9a8f01b58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53b1a933e4239f520b7b2fc1ce2fb713"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPID__Position.html#a53b1a933e4239f520b7b2fc1ce2fb713">hasOutput</a> (double pidOutput) override</td></tr>
-<tr class="memdesc:a53b1a933e4239f520b7b2fc1ce2fb713"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classPID.html" title="PID controller class.">PID</a> controller callback implementation, passing the <a class="el" href="classPID.html" title="PID controller class.">PID</a> output to the provided <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object.  <a href="classPID__Position.html#a53b1a933e4239f520b7b2fc1ce2fb713">More...</a><br /></td></tr>
+<tr class="memdesc:a53b1a933e4239f520b7b2fc1ce2fb713"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classPID.html" title="PID controller class.">PID</a> controller callback implementation, passing the <a class="el" href="classPID.html" title="PID controller class.">PID</a> output to the provided motor driver object.  <a href="classPID__Position.html#a53b1a933e4239f520b7b2fc1ce2fb713">More...</a><br /></td></tr>
 <tr class="separator:a53b1a933e4239f520b7b2fc1ce2fb713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Implementation of the <a class="el" href="classPID__Interface.html" title="PID controller callback interface.">PID_Interface</a> for the outer <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller, controlling position via torque outputs that are sent to the inner <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller. </p>
+<p>Implementation of the <a class="el" href="classPID__Interface.html" title="PID controller callback interface.">PID_Interface</a> for the outer (in this case only) <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller, controlling position via duty cycle changes that are sent to the motor driver control code. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8580f1a7fb0150201fc82dc29d8c3ea4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8580f1a7fb0150201fc82dc29d8c3ea4">&#9670;&nbsp;</a></span>PID_Position() <span class="overload">[1/2]</span></h2>
@@ -167,10 +168,10 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor taking and assigning a <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object reference. </p>
+<p>Constructor taking and assigning a motor driver object reference. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">_pidController</td><td>The <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object. </td></tr>
+    <tr><td class="paramname">_motorDriver</td><td>The motor driver object. </td></tr>
   </table>
   </dd>
 </dl>
@@ -238,7 +239,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="classPID.html" title="PID controller class.">PID</a> controller callback implementation, passing the <a class="el" href="classPID.html" title="PID controller class.">PID</a> output to the provided <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller object. </p>
+<p><a class="el" href="classPID.html" title="PID controller class.">PID</a> controller callback implementation, passing the <a class="el" href="classPID.html" title="PID controller class.">PID</a> output to the provided motor driver object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pidOutput</td><td>Output of the <a class="el" href="classPID.html" title="PID controller class.">PID</a> controller passed to the callback. </td></tr>
