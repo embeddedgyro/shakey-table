@@ -20,11 +20,13 @@ SensorConst ALERT_LIM = 0x07;
 SensorConst MAN_ID = 0xfe;
 SensorConst DIE_ID = 0xff;
 }; // namespace Sensor_Regs
+
 namespace ReadingBases {
 ReadingBasesConst CURRENT = 0.00125;
 ReadingBasesConst VOLTAGE = 0.00125;
 ReadingBasesConst POWER = 0.01;
 }; // namespace ReadingBases
+
 enum class Alert_Conf {
   OCL = 0b10000000,
   UCL = 0b01000000,
@@ -33,6 +35,7 @@ enum class Alert_Conf {
   POL = 0b00001000,
   CNVR = 0b00000100
 };
+
 enum class Ave_Mode {
   AV1 = 0,
   AV4 = 1,
@@ -65,10 +68,22 @@ enum class Op_Mode {
   VOLCONT = 6,
   CURVOLCONT = 7
 };
+
+/**
+ * @brief Sample from the INA260.
+ */
 struct INA260Sample {
+  /**
+   * @brief Measured current.
+   */
   float current = 0;
+
+  /**
+   * @brief Measured voltage.
+   */
   float voltage = 0;
 };
+
 /**
  * @brief  Callback Interface where the callback needs to be
  * implemented by the host application.
@@ -80,15 +95,19 @@ public:
    */
   virtual void hasSample(INA260Sample &sample) = 0;
 };
+
+/**
+ * @brief INA260 driver class.
+ */
 class INA260 {
 public:
   /**
    * @brief  Class constructor. In order to make the class communicate with
    * sensor user should pass a valid I2C_Interface class instance! Also pass a
-   * valid MPU6050Interface class instance to work on aquired data.
+   * valid INA260Interface class instance to work on aquired data.
    * @param  comInterface I2C interface pointer
    * @param  inaInterface INA260 listener interface pointer.
-   * @param  gpioPin GPIO pin that will listen for interrupts from the INA.
+   * @param  _gpioPin GPIO pin that will listen for interrupts from the INA.
    * @retval none
    */
   INA260(I2C_Interface *comInterface, INA260Interface *inaInterface,
@@ -158,14 +177,14 @@ public:
   /**
    * @brief  This method configures the operating mode. Can be continuous or
    * triggered and can depend on voltage or current.
-   * @param  Operating mode.
+   * @param operate_mode Operating mode.
    * @retval i2c_status_t
    */
   i2c_status_t OperatingMode(Op_Mode operate_mode = Op_Mode::PDTRIG);
 
   /**
    * @brief This method configures the interupt pin mode.
-   * @param  Interupt pin mode.
+   * @param  alert_mode Interupt pin mode.
    * @retval i2c_status_t
    */
   i2c_status_t AlertSet(Alert_Conf alert_mode = Alert_Conf::CNVR);
