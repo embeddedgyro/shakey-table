@@ -38,7 +38,7 @@
 #ifndef SMBUS_I2C_IF_H
 #define SMBUS_I2C_IF_H
 
-/* I2C interface for kernel SMBus support. */
+/** I2C interface for kernel SMBus support. */
 class SMBUS_I2C_IF : public I2C_Interface
 {
 public:
@@ -144,7 +144,7 @@ public:
 
 private:
 /**
-  * @brief  File descriptor for /dev/i2c-0, used to send data over I2C.
+  * @brief  File descriptor for /dev/i2c-x, used to send data over I2C.
   */
   int fd;
 };

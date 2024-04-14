@@ -72,6 +72,9 @@ public:
   void setDutyCycleDelta(double DCdelta);
     
   protected:
+    /**
+     * @brief Output file stream for logging motor driver control.
+     */
     std::ofstream log_file{"MD20_log", std::ios::trunc};
     /**
     * @brief DIR output pin
@@ -86,15 +89,15 @@ public:
     */
     std::basic_ofstream<char> PWM2_Unexport;
     /**
-    * @brief Output file stream object
+    * @brief PWM period file stream object
     */
     std::basic_ofstream<char> PeriodOutputFile;
     /**
-    * @brief Duty Cycle file stream object
+    * @brief PWM Duty Cycle file stream object
     */
     std::basic_ofstream<char> DutyCycleOutputFile;
     /**
-    * @brief Enable file stream object
+    * @brief PWM Enable file stream object
     */
     std::basic_ofstream<char> EnableOutputFile;
     /**

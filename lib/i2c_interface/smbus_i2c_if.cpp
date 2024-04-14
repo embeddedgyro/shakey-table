@@ -112,7 +112,7 @@ uint8_t SMBUS_I2C_IF::ReadRegister(uint8_t slaveAddress, uint8_t regAddress, i2c
 uint16_t SMBUS_I2C_IF::ReadRegisterWordLittleEndian(uint8_t slaveAddress, uint8_t regAddress, i2c_status_t *status) {
 	int32_t data; // Data returned from i2c_smbus_read_word_data() is a signed 32 bit integer.
 	              // Negative for error, else positive with 16 bit value for byte data (i.e. 0-65535).
-	data = i2c_smbus_read_word_data(fd, regAddress); // Read a byte
+	data = i2c_smbus_read_word_data(fd, regAddress); // Read a word
 	if (data < 0) { // Catch errors
 		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::ReadRegisterWord(): Could not read a word at register address "
 			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << data << std::endl;
@@ -144,7 +144,7 @@ uint16_t SMBUS_I2C_IF::ReadRegisterWordBigEndian(uint8_t slaveAddress, uint8_t r
 }
 
 /**
-  * @brief  This method will be used for writing gven data to the given register of the slave device 
+  * @brief  This method will be used for writing given data to the given register of the slave device 
   * with the given address.
   * @param  slaveAddress Slave chip I2C bus address (not used in this RTEP5 implementation, but not removed to avoid needing a large rewrite of the library)
   * @param  regAddress Register address that the data to be written
@@ -180,7 +180,7 @@ i2c_status_t SMBUS_I2C_IF::WriteRegister(uint8_t slaveAddress, uint8_t regAddres
 i2c_status_t SMBUS_I2C_IF::WriteRegisterWordLittleEndian(uint8_t slaveAddress, uint8_t regAddress, uint16_t data) {
 	int32_t errno; // Returned value from i2c_smbus_write_word_data() is a signed 32 bit integer.
 	               // Negative for error, else zero.
-	errno = i2c_smbus_write_word_data(fd, regAddress, data); // Write a byte
+	errno = i2c_smbus_write_word_data(fd, regAddress, data); // Write a word
 	if (errno < 0) { // Catch errors
 		std::cout << "ERROR: smbus_i2c_if.cpp: SMBUS_I2C_IF::WriteRegisterWord(): Could not write a word to register address "
 			  << unsigned(regAddress) << " of device at address " << unsigned(slaveAddress) << ". Error code " << errno << std::endl;

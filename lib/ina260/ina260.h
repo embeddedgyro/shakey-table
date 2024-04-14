@@ -85,10 +85,10 @@ public:
   /**
    * @brief  Class constructor. In order to make the class communicate with
    * sensor user should pass a valid I2C_Interface class instance! Also pass a
-   * valid MPU6050Interface class instance to work on aquired data.
+   * valid INA260Interface class instance to work on aquired data.
    * @param  comInterface I2C interface pointer
    * @param  inaInterface INA260 listener interface pointer.
-   * @param  gpioPin GPIO pin that will listen for interrupts from the INA.
+   * @param  _gpioPin GPIO pin that will listen for interrupts from the INA.
    * @retval none
    */
   INA260(I2C_Interface *comInterface, INA260Interface *inaInterface,
@@ -158,14 +158,14 @@ public:
   /**
    * @brief  This method configures the operating mode. Can be continuous or
    * triggered and can depend on voltage or current.
-   * @param  Operating mode.
+   * @param operate_mode Operating mode.
    * @retval i2c_status_t
    */
   i2c_status_t OperatingMode(Op_Mode operate_mode = Op_Mode::PDTRIG);
 
   /**
    * @brief This method configures the interupt pin mode.
-   * @param  Interupt pin mode.
+   * @param  alert_mode Interupt pin mode.
    * @retval i2c_status_t
    */
   i2c_status_t AlertSet(Alert_Conf alert_mode = Alert_Conf::CNVR);

@@ -39,7 +39,7 @@ namespace MPU6050_Driver {
  * user should pass a valid I2C_Interface class instance!
  * @param  comInterface I2C interface pointer
  * @param  mpuInterface MPU6050 interface pointer
- * @param  gpioPin GPIO pin that will listen for interrupts from the MPU.
+ * @param  _gpioPin GPIO pin that will listen for interrupts from the MPU.
  * @retval none
  */
 MPU6050::MPU6050(I2C_Interface *comInterface, MPU6050Interface *mpuInterface,
@@ -83,39 +83,43 @@ i2c_status_t MPU6050::InitializeSensor(
   gyroFSRange = gyroScale;
 
   i2c_status_t result = WakeUpSensor();
-  std::cout << "Woken" << std::endl;
+  //std::cout << "Woken" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetGyroFullScale(gyroScale);
 
-  std::cout << "full gyro" << std::endl;
+  //std::cout << "full gyro" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetAccelFullScale(accelScale);
 
-  std::cout << "full accel" << std::endl;
+  //std::cout << "full accel" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetSensor_DLPF_Config(DLPFconf);
 
-  std::cout << "dlpf conf" << std::endl;
+  //std::cout << "dlpf conf" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetSensor_InterruptPinConfig(INTconf);
 
-  std::cout << "SRdiv set" << std::endl;
+  //std::cout << "SRdiv set" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetGyro_SampleRateDivider(SRdiv);
 
-  std::cout << "int conf" << std::endl;
+  //std::cout << "int conf" << std::endl;
   if (result == I2C_STATUS_SUCCESS)
     result = SetSensor_InterruptEnable(INTenable);
 
-  std::cout << "int en" << std::endl;
+  /* The below calibration methods did not work correctly for us, and we found the factory calibration
+   * to be sufficiently accurate, so we have not used them.
+   */
+  
+  //std::cout << "int en" << std::endl;
   //    if(result == I2C_STATUS_SUCCESS)
   // result = Calibrate_Accel_Registers(accelCalX, accelCalY, accelCalZ);
 
-  std::cout << "cal accel" << std::endl;
+  //std::cout << "cal accel" << std::endl;
   //    if(result == I2C_STATUS_SUCCESS)
   // result = Calibrate_Gyro_Registers(gyroCalX, gyroCalY, gyroCalZ);
 
-  std::cout << "cal gyro" << std::endl;
+  //std::cout << "cal gyro" << std::endl;
   return result;
 }
 
@@ -1176,7 +1180,6 @@ void MPU6050::dataAquisition(void) {
   const std::filesystem::path chip_path("/dev/gpiochip4");
 
   // Set up edge event that will block until a rising edge is detected
-  // (or maybe falling edge, will need to check datasheet).
   auto request =
       gpiod::chip(chip_path)
           .prepare_request()
@@ -1203,7 +1206,7 @@ void MPU6050::dataAquisition(void) {
     // Read raw data from MPU6050
     ReadAllRawData();
 
-    // Store data in smaple struct, in float format with proper units.
+    // Store data in sample struct, in float format with proper units.
     sample.ax = rawData[0] * GetAccel_MG_Constant(accelFSRange);
     sample.ay = rawData[1] * GetAccel_MG_Constant(accelFSRange);
     sample.az = rawData[2] * GetAccel_MG_Constant(accelFSRange);

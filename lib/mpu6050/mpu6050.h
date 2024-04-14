@@ -197,17 +197,17 @@ namespace MPU6050_Driver {
    */
   struct MPU6050Sample {
     /**
-     * @brief  X Acceleration in m/s^2
+     * @brief  X Acceleration in g
      */
     float ax = 0;
 
     /**
-     * @brief  Y Acceleration in m/s^2
+     * @brief  Y Acceleration in g
      */
     float ay = 0;
 
     /**
-     * @brief  Z Acceleration in m/s^2
+     * @brief  Z Acceleration in g
      */
     float az = 0;
 
@@ -254,7 +254,7 @@ namespace MPU6050_Driver {
     * Also pass a valid MPU6050Interface class instance to work on aquired data.
     * @param  comInterface I2C interface pointer
     * @param  mpuInterface MPU6050 listener interface pointer.
-    * @param  gpioPin GPIO pin that will listen for interrupts from the MPU.
+    * @param  _gpioPin GPIO pin that will listen for interrupts from the MPU.
     * @retval none
     */
     MPU6050(I2C_Interface* comInterface, MPU6050Interface* mpuInterface, gpiod::line::offset _gpioPin);
@@ -317,7 +317,7 @@ namespace MPU6050_Driver {
     void end(void);
 
     /**
-     * @brief  Class destructor. Simple calls end() to stop data aquisition
+     * @brief  Class destructor. Simply calls end() to stop data aquisition
      */
     ~MPU6050() { end(); }
 

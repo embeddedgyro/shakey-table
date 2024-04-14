@@ -29,7 +29,6 @@
 #include <gpiodcxx/line-request.hpp>
 #include <iostream>
 #include <fstream>
-#include <iostream>
 #include <cmath>
 #include "MotorDriver.h"
 
@@ -45,7 +44,7 @@ request_DIR(::gpiod::chip(chip_path)
 			       .do_request())
 
 {
-      std::cout << "MotorDriver constructor entered." << std::endl;
+      //std::cout << "MotorDriver constructor entered." << std::endl;
 
       // Presetting DIR pin to low
       request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
@@ -76,7 +75,7 @@ request_DIR(::gpiod::chip(chip_path)
 
       /* For some reason the "period" file cannot be opened immediately after writing "2" to the "export" file.
        * The "period" file does exist immediately after the "export" write, which can be confirmed using
-       * std::filesystem::exists(), but is not openable. Maybe the kernel is still accessing them?
+       * std::filesystem::exists(), but is not openable. Maybe the kernel is still accessing it?
        * So, we loop round trying to open the file until it can be opened.
        */
       while (!PeriodOutputFile.is_open())
@@ -118,13 +117,13 @@ request_DIR(::gpiod::chip(chip_path)
 void MotorDriver::setDutyCycle(double DutyCycle)
 {
       // Make sure the DutyCycle is within the limit.
-      if (DutyCycle > 0.5)
+      if (DutyCycle > 1)
       {
-            DutyCycle = 0.5;
+            DutyCycle = 1;
       }
-      else if (DutyCycle < -0.5)
+      else if (DutyCycle < -1)
       {
-            DutyCycle = -0.5;
+            DutyCycle = -1;
       }
 
       // Record current duty cycle
@@ -138,12 +137,12 @@ void MotorDriver::setDutyCycle(double DutyCycle)
       {
             //forward motion
 	    request_DIR.set_value(_pin_DIR, ::gpiod::line::value::ACTIVE);
-	    std::cout << "Dir pin should be HIGH." << std::endl;
+	    //std::cout << "Dir pin should be HIGH." << std::endl;
       
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile <<  Duty_nanosec << std::endl;
-		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'forward' direction." << std::endl;
+		  //std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'forward' direction." << std::endl;
 		  log_file << Duty_nanosec << std::endl;
             }
             else 
@@ -156,12 +155,12 @@ void MotorDriver::setDutyCycle(double DutyCycle)
       {
             //backwards motion
 	    request_DIR.set_value(_pin_DIR, ::gpiod::line::value::INACTIVE);
-	    std::cout << "Dir pin should be LOW." << std::endl;
+	    //std::cout << "Dir pin should be LOW." << std::endl;
             
             if (DutyCycleOutputFile.is_open())
             {
                   DutyCycleOutputFile << Duty_nanosec << std::endl;
-		  std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'backward' direction." << std::endl;
+		  //std::cout << "Set duty cycle to " << Duty_nanosec << " in the 'backward' direction." << std::endl;
 		  log_file << Duty_nanosec << std::endl;
             }
             else 
