@@ -148,10 +148,11 @@ Uses a 12V external DC power supply connected to VA+ and VB- for delivering powe
 
 The  white motor wire should be connected to the Vin- terminal on the INA260, and red motor wire should be connected to the junction between the capacitros and inductors inside the LC filter.
 
-* Low-Pass Filter - LC filter with a cut-off at about 1200Hz to eliminate high-frequency noise coming from the motor driver and Pi PWM signal.
+* Low-Pass Filter (optional element) - LC filter with a cut-off at about 1200Hz to eliminate high-frequency noise coming from the motor driver and Pi PWM signal.
 
 Uses two 560uH choke inductors(`MCAP115018077A-561LU`) after MA terminal on the motor driver in series with the motor (connect to red motor wire) and the current sensor. Seven 2.2uF polyester film capacitors(`7212-707`) are connected after inductors in parallel around the current sensor and motor driver. At high frequencies, the inductor becomes very resistive and blocks high-frequency signals from passing into the circuit. The capacitor becomes a short circuit for high-frequency signals. High frequencies flow through it, avoiding the current sensor and the motor. Inductors with a high current rating above 10A and capacitors with a high voltage rating above 20V should be used in this project to prevent damage and burning of the filter. Polarised capacitors cannot be used, as current can flow in both directions in this circuit.
 
+WARNING! If there is not a lot of noise that disrupts current sensor readings, we reccommend not to use this compoenent as it might cause I2C communication issues and damage sensors due to high current and voltage spikes during the switching of the direction and duty cycle of motor rotation.
 
 ## Hardware Assembly
 
