@@ -42,7 +42,7 @@ public:
    * @param pidOutput Output of the PID controller passed to the callback.
    */
   virtual void hasOutput(double pidOutput) override {
-    motorDriver.setDutyCycleDelta(pidOutput);
+    motorDriver.setDutyCycleDelta(-pidOutput); // Negative here to get the correct direction with the motor's current wiring.
     log_file << pidOutput << std::endl;
   }
 
@@ -152,8 +152,8 @@ int main() {
   // MPU6050 settings:
   MPU6050_Driver::Gyro_FS_t MPU_GyroScale = MPU6050_Driver::Gyro_FS_t::FS_250_DPS;
   MPU6050_Driver::Accel_FS_t MPU_AccelScale = MPU6050_Driver::Accel_FS_t::FS_2G;
-  MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_94Hz;
-  uint8_t MPU_SRdiv = 9;
+  MPU6050_Driver::DLPF_t MPU_DLPFconf = MPU6050_Driver::DLPF_t::BW_21Hz;
+  uint8_t MPU_SRdiv = 3;
   uint8_t MPU_INTconf = MPU6050_Driver::Regbits_INT_PIN_CFG::BIT_INT_RD_CLEAR;
   uint8_t MPU_INTenable = MPU6050_Driver::Regbits_INT_ENABLE::BIT_DATA_RDY_EN;
 
@@ -168,7 +168,7 @@ int main() {
   float radius = 0.15;
 
   // I2C device files and addresses for MPU:
-  std::string MPU_i2cFile = "/dev/i2c-0";
+  std::string MPU_i2cFile = "/dev/i2c-1";
   uint8_t MPU_Address = MPU6050_ADDRESS;
 
   // Gpiod device file path and pins used for interrupts from MPU:
@@ -179,9 +179,9 @@ int main() {
   gpiod::line::offset MD_DirPin = 23;
 
   // Set PID constants
-  double outer_Kp = 1;
+  double outer_Kp = 0.35;
   double outer_Kd = 0;
-  double outer_Ki = 0;
+  double outer_Ki = 0.005;
 
   std::cout << "Set up variables." << std::endl;
 
@@ -193,7 +193,7 @@ int main() {
   // Initialise outer PID controller with callback using the inner PID controller.
   // Initially with the PID output being the required corrective torque, so set no limits on min and max (for a double value).
   PID_Position outerPIDCallback(MD20);
-  PID outerPID(&outerPIDCallback, 0, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), outer_Kp, outer_Kd, outer_Ki);
+  PID outerPID(&outerPIDCallback, -0.07, MPU_SamplePeriod, std::numeric_limits<double>::max(), std::numeric_limits<double>::lowest(), outer_Kp, outer_Kd, outer_Ki);
 
   // Initialise MPU6050 object with callback using the outer PID controller, and I2C callback for communication.
   MPU6050_Feedback MPU6050Callback(outerPID, radius, MPU_SamplePeriod);
