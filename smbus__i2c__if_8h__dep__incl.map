@@ -1,0 +1,19 @@
+<map id="lib/i2c_interface/smbus_i2c_if.h" name="lib/i2c_interface/smbus_i2c_if.h">
+<area shape="rect" id="node1" title="This file constains the definition I2C interface using the kernel SMBus interface...." alt="" coords="1296,5,1469,47"/>
+<area shape="rect" id="node2" href="$smbus__i2c__if_8cpp.html" title="This file constains the imlementation I2C interface using the kernel SMBus interface...." alt="" coords="5,102,179,143"/>
+<area shape="rect" id="node3" href="$ina__testing_8cpp.html" title="This file constains a program for testing I2C comms with the INA260." alt="" coords="203,109,347,136"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="This file constains the main program that controls the anti&#45;quake cup holder." alt="" coords="371,109,477,136"/>
+<area shape="rect" id="node5" href="$main__no__INA_8cpp.html" title="This file constains the main program that controls the anti&#45;quake cup holder. this version drops the ..." alt="" coords="501,109,659,136"/>
+<area shape="rect" id="node6" href="$mpu__testing_8cpp.html" title="This file constains a program for testing I2C comms with the MPU6050." alt="" coords="683,109,837,136"/>
+<area shape="rect" id="node7" href="$ina260__ReadCurrent__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of reading ..." alt="" coords="861,102,1019,143"/>
+<area shape="rect" id="node8" href="$ina260__ReadPower__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of reading ..." alt="" coords="1043,102,1192,143"/>
+<area shape="rect" id="node9" href="$ina260__ReadVoltage__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of reading ..." alt="" coords="1217,102,1375,143"/>
+<area shape="rect" id="node10" href="$ina260__Wakeup__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of sensor w..." alt="" coords="1399,102,1542,143"/>
+<area shape="rect" id="node11" href="$mpu6050__AccelOffset__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of setting ..." alt="" coords="1566,102,1743,143"/>
+<area shape="rect" id="node12" href="$mpu6050__AccelRaw__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of getting ..." alt="" coords="1767,102,1945,143"/>
+<area shape="rect" id="node13" href="$mpu6050__GyroOffset__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of setting ..." alt="" coords="1969,102,2146,143"/>
+<area shape="rect" id="node14" href="$mpu6050__GyroRaw__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of getting ..." alt="" coords="2170,102,2347,143"/>
+<area shape="rect" id="node15" href="$mpu6050__GyroSampleRateDivider__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of setting ..." alt="" coords="2372,95,2559,151"/>
+<area shape="rect" id="node16" href="$mpu6050__SensorFIFOConfig__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of setting ..." alt="" coords="2583,102,2774,143"/>
+<area shape="rect" id="node17" href="$mpu6050__Wakeup__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of sensor w..." alt="" coords="2798,102,2975,143"/>
+</map>

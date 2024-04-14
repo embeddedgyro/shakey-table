@@ -1,0 +1,14 @@
+<map id="lib/MotorDriver/MotorDriver.h" name="lib/MotorDriver/MotorDriver.h">
+<area shape="rect" id="node1" title="This file constains the Motor Driver control implementation." alt="" coords="986,5,1199,32"/>
+<area shape="rect" id="node2" href="$MotorDriver_8cpp.html" title="This file constains the Motor Driver control implementation." alt="" coords="5,95,233,121"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="This file constains the main program that controls the anti&#45;quake cup holder." alt="" coords="257,95,363,121"/>
+<area shape="rect" id="node4" href="$main__no__INA_8cpp.html" title="This file constains the main program that controls the anti&#45;quake cup holder. this version drops the ..." alt="" coords="387,95,545,121"/>
+<area shape="rect" id="node5" href="$Motordriver__DutyCycle__ut_8cpp.html" title="This file constains the unit testing program that does offline validation of Motor driver class Copyr..." alt="" coords="570,87,778,129"/>
+<area shape="rect" id="node6" href="$mpu6050__AccelOffset__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of setting ..." alt="" coords="803,87,980,129"/>
+<area shape="rect" id="node7" href="$mpu6050__AccelRaw__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of getting ..." alt="" coords="1004,87,1181,129"/>
+<area shape="rect" id="node8" href="$mpu6050__GyroOffset__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of setting ..." alt="" coords="1205,87,1383,129"/>
+<area shape="rect" id="node9" href="$mpu6050__GyroRaw__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of getting ..." alt="" coords="1407,87,1584,129"/>
+<area shape="rect" id="node10" href="$mpu6050__GyroSampleRateDivider__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of setting ..." alt="" coords="1609,80,1795,136"/>
+<area shape="rect" id="node11" href="$mpu6050__SensorFIFOConfig__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of setting ..." alt="" coords="1820,87,2011,129"/>
+<area shape="rect" id="node12" href="$mpu6050__Wakeup__ut_8cpp.html" title="This file constains the unit testing program that does online testing of i2c communcation of sensor w..." alt="" coords="2035,87,2212,129"/>
+</map>

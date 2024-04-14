@@ -1,0 +1,4 @@
+<map id="INA260_Driver::INA260Interface" name="INA260_Driver::INA260Interface">
+<area shape="rect" id="node1" title="Callback Interface where the callback needs to be implemented by the host application." alt="" coords="5,5,235,32"/>
+<area shape="rect" id="node2" href="$classINA260__Feedback.html" title="Implementation of the INA260Interface for feedback of current (torque) and simply printing the value." alt="" coords="51,80,189,107"/>
+</map>

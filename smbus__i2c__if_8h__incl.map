@@ -1,0 +1,7 @@
+<map id="lib/i2c_interface/smbus_i2c_if.h" name="lib/i2c_interface/smbus_i2c_if.h">
+<area shape="rect" id="node1" title="This file constains the definition I2C interface using the kernel SMBus interface...." alt="" coords="39,5,212,47"/>
+<area shape="rect" id="node2" href="$i2c__interface_8h.html" title="This file constains I2C Interface class definition." alt="" coords="66,95,185,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,169,72,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="96,169,155,196"/>
+<area shape="rect" id="node5" title=" " alt="" coords="179,169,250,196"/>
+</map>

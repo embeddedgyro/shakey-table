@@ -1,0 +1,4 @@
+<map id="MPU6050_Driver::MPU6050Interface" name="MPU6050_Driver::MPU6050Interface">
+<area shape="rect" id="node1" title="Callback interface where the callback needs to be implemented by the host application." alt="" coords="5,5,264,32"/>
+<area shape="rect" id="node2" href="$classMPU6050__Feedback.html" title="Implementation of the MPU6050Interface. This is where the magic happens for calculating the cup holde..." alt="" coords="58,80,211,107"/>
+</map>

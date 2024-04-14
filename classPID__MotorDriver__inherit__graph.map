@@ -1,0 +1,4 @@
+<map id="PID_MotorDriver" name="PID_MotorDriver">
+<area shape="rect" id="node1" title="Implementation of the PID_Interface for the inner PID controller, driving the motor driver." alt="" coords="5,80,135,107"/>
+<area shape="rect" id="node2" href="$classPID__Interface.html" title="PID controller callback interface." alt="" coords="15,5,125,32"/>
+</map>
