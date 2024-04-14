@@ -174,6 +174,7 @@ This image shows the correct position of the gyro-accelerometer on the shakey ta
 
 For the cad design a [OpenSCAD](https://openscad.org/) was used. OpenSCAD is an open source parametric CAD program. It has a programming language that it uses for defining the 3d design of objects. It is good for customisable designs. In the cad directory you can see the design file for the shakey table including the wheel lid and frame.
 
+
 # Social Media 
 
 Our project was advertised via Instagram [https://www.instagram.com/antiquakegu/](https://www.instagram.com/antiquakegu/) and Twitter [https://twitter.com/shakey_table](https://twitter.com/shakey_table).
