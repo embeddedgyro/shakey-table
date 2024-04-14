@@ -20,11 +20,13 @@ SensorConst ALERT_LIM = 0x07;
 SensorConst MAN_ID = 0xfe;
 SensorConst DIE_ID = 0xff;
 }; // namespace Sensor_Regs
+
 namespace ReadingBases {
 ReadingBasesConst CURRENT = 0.00125;
 ReadingBasesConst VOLTAGE = 0.00125;
 ReadingBasesConst POWER = 0.01;
 }; // namespace ReadingBases
+
 enum class Alert_Conf {
   OCL = 0b10000000,
   UCL = 0b01000000,
@@ -33,6 +35,7 @@ enum class Alert_Conf {
   POL = 0b00001000,
   CNVR = 0b00000100
 };
+
 enum class Ave_Mode {
   AV1 = 0,
   AV4 = 1,
@@ -65,10 +68,22 @@ enum class Op_Mode {
   VOLCONT = 6,
   CURVOLCONT = 7
 };
+
+/**
+ * @brief Sample from the INA260.
+ */
 struct INA260Sample {
+  /**
+   * @brief Measured current.
+   */
   float current = 0;
+
+  /**
+   * @brief Measured voltage.
+   */
   float voltage = 0;
 };
+
 /**
  * @brief  Callback Interface where the callback needs to be
  * implemented by the host application.
@@ -80,6 +95,10 @@ public:
    */
   virtual void hasSample(INA260Sample &sample) = 0;
 };
+
+/**
+ * @brief INA260 driver class.
+ */
 class INA260 {
 public:
   /**

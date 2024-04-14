@@ -244,6 +244,9 @@ namespace MPU6050_Driver {
     virtual void hasSample(MPU6050Sample& sample) = 0;
   };
 
+  /**
+   * @brief MPU6050 driver class.
+   */
   class MPU6050 
   {
   public:
@@ -253,32 +256,35 @@ namespace MPU6050_Driver {
     * user should pass a valid I2C_Interface class instance!
     * Also pass a valid MPU6050Interface class instance to work on aquired data.
     * @param  comInterface I2C interface pointer
-    * @param  mpuInterface MPU6050 listener interface pointer.
+    * @param  mpuInterface MPU6050 interface pointer
     * @param  _gpioPin GPIO pin that will listen for interrupts from the MPU.
     * @retval none
     */
     MPU6050(I2C_Interface* comInterface, MPU6050Interface* mpuInterface, gpiod::line::offset _gpioPin);
 
     /**
-    * @brief  This method wakes up the sensor and configures the accelerometer and
-    * gyroscope full scale renges with given parameters. It also configures the
-    * DLPF, sample rate divider, interrput configuration, and also calibrates
-    * the accelerometers and gyros.
-    * It returns the result of the process.
-    * @param  gyroScale Gyroscope scale value to be set
-    * @param  accelScale Accelerometer scale value to be set
-    * @param  DLPFconf Digital Low Pass Filter configuration
-    * @param  SRdiv Sample rate divider
-    * @param  INTconf Interrupt configuration
-    * @param  INTenable Interrput types enabled
-    * @param  accelCalX Target acceleration in the X axis for calibration (units g)
-    * @param  accelCalY Target acceleration in the Y axis for calibration (units g)
-    * @param  accelCalZ Target acceleration in the Z axis for calibration (units g)
-    * @param  accelCalX Target angular velocity in the X axis for calibration (units deg/s)
-    * @param  accelCalY Target angular velocity in the Y axis for calibration (units deg/s)
-    * @param  accelCalZ Target angular velocity in the Z axis for calibration (units deg/s)
-    * @retval i2c_status_t Success status
-    */
+     * @brief  This method wakes up the sensor and configures the accelerometer and
+     * gyroscop0e full scale renges with given parameters. It also configures the
+     * DLPF, sample rate divider, interrput configuration, and also calibrates
+     * the accelerometers and gyros.
+     * It returns the result of the process.
+     * @param  gyroScale Gyroscope scale value to be set
+     * @param  accelScale Accelerometer scale value to be set
+     * @param  DLPFconf Digital Low Pass Filter configuration
+     * @param  SRdiv Sample rate divider
+     * @param  INTconf Interrupt configuration
+     * @param  INTenable Interrput types enabled
+     * @param  accelCalX Target acceleration in the X axis for calibration (units g)
+     * @param  accelCalY Target acceleration in the Y axis for calibration (units g)
+     * @param  accelCalZ Target acceleration in the Z axis for calibration (units g)
+     * @param  gyroCalX Target angular velocity in the X axis for calibration
+     * (units deg/s)
+     * @param  gyroCalY Target angular velocity in the Y axis for calibration
+     * (units deg/s)
+     * @param  gyroCalZ Target angular velocity in the Z axis for calibration
+     * (units deg/s)
+     * @retval i2c_status_t Success status
+     */
     i2c_status_t InitializeSensor(
         Gyro_FS_t gyroScale = Gyro_FS_t::FS_250_DPS,
         Accel_FS_t accelScale = Accel_FS_t::FS_2G,
@@ -550,12 +556,18 @@ namespace MPU6050_Driver {
     int16_t GetAccel_Z_Offset(i2c_status_t* error);
 
     /**
-    * @brief  This method used for calibrating the accelerometer registers to given target values.
-    * @param targetX target value for accelerometer X axis register in MG so 1.0f means 1G
-    * @param targetY target value for accelerometer Y axis register in MG
-    * @param targetZ target value for accelerometer Z axis register in MG
-    * @retval i2c_status_t
-    */
+     * @brief  This method used for calibrating the accelerometer registers to given
+     * target values. Even if the official calibration method in the invensense
+     * application notes are tried, it didnt work as expected. So there is another
+     * method implemented to calibrate accelerometer registers automatically. It
+     * works with the similar concept of binary search algorithm (setting a range
+     * and narrowing on each step).
+     * @param targetX_MG target value for accelerometer X axis register in MG so 1.0f
+     * means 1G
+     * @param targetY_MG target value for accelerometer Y axis register in MG
+     * @param targetZ_MG target value for accelerometer Z axis register in MG
+     * @retval i2c_status_t
+     */
     i2c_status_t Calibrate_Accel_Registers(float targetX_MG = 0.0f, float targetY_MG = 0.0f, float targetZ_MG = 1.0f);
 
     /**

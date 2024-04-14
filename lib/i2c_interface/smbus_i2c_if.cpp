@@ -46,7 +46,8 @@ extern "C" {
 
 /**
   * @brief  I2C peripheral initialization method.
-  * @param  slaveAddress adress of the device that will be communicated
+  * @param  slaveAddress Address of the device that will be communicated
+  * @param  i2cFile Device file of I2C controller.
   * @retval i2c_status_t
   */
 i2c_status_t SMBUS_I2C_IF::Init_I2C(uint8_t slaveAddress, std::string i2cFile)

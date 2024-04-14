@@ -45,7 +45,7 @@ public:
    * Creates a directory for PWM, opens files for PWM control and enables it
    * Sets DIR pi
    * @param chip_path File path of the gpiochip device file to be used
-   * @param _pin_DIR Pi GPIO pin for direction control
+   * @param pin_DIR Pi GPIO pin for direction control
    * @param period_ns PWM period in nanoseconds
    */
   MotorDriver(const std::filesystem::path chip_path,
