@@ -131,7 +131,7 @@ Documentation for it can be found here [https://www.raspberrypi.com/documentatio
 
 Datasheet can be found here [https://www.ti.com/lit/ds/symlink/ina260.pdf](https://www.ti.com/lit/ds/symlink/ina260.pdf).
 
-Should be connected in series with the motor. Vin- terminal is connected to the white wire on the motor and Vin+ is connected to the MB terminal of the motor driver. Powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C1 pins (SDA->gpio27, SCL->gpio28) which don't have internal pull-up resistors, but there are pull-up resistors inside the current sensor, so that should not be a problem. The Alert pin is connected to gpio5 on the Pi.
+Should be connected in series with the motor. Vin- terminal is connected to the white wire on the motor and Vin+ is connected to the MB terminal of the motor driver. Powered by a 3V3 supply from the Pi. Communicates with the Pi through I2C1 pins (SDA->gpio0, SCL->gpio1) which don't have internal pull-up resistors, but there are pull-up resistors inside the current sensor, so that should not be a problem. The Alert pin is connected to gpio5 on the Pi.
 
 * Gyro-Acelerometer Sensor - MPU6050. Measures the acceleration of the table in a 2D plane and subtracts the centripetal acceleration from it to get the acceleration due to gravity. Measurements are used for PID motor control. Uses I2C communication protocol for interfacing with Pi.
 
@@ -186,4 +186,10 @@ Instagram was our main target. We got 120 followers, out of which 50 were consta
 
 We were posting stories of our work on the prototype every 2-3 days (you can see some of them in the highlights section called "project dev"), and tried to guide our audience through different development stages of the protype, share our wins, failiures and soltions to problems we faced on our path. We were also releasing 2 posts a week that summerised our main achievements and familiarised people with what we were actually doing. We tried to make it as non-technical as possible not to bore people with unnessessary details, but we were always happy to answer any questions in the comments.
 
-The Instagram "Reel" with prelimenary functionality of our table recieved more than 3k views in the first 24 hours after release.
+The Instagram "Reel" with prelimenary functionality of our table recieved more than 15k views in the first 24 hours after release.
+
+Our Instagram page:
+![plot](./readme_materials/instagram_page.png)
+
+Reels on Instagram:
+![plot](./readme_materials/reels_instagram.png)
